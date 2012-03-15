@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120315182830) do
+ActiveRecord::Schema.define(:version => 20120315183543) do
+
+  create_table "folders", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "user_files", :force => true do |t|
     t.string   "attachment_file_name"
