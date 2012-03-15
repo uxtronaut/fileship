@@ -9,6 +9,7 @@ gem 'sqlite3'
 
 gem 'json'
 
+gem 'haml'
 gem 'simple_form'
 gem 'bootstrap-sass'
 
