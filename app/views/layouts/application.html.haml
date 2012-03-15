@@ -8,14 +8,22 @@
     = stylesheet_link_tag 'application'
   %body
     .wrapper
+
       = render 'tophat'
+
       .container
-        - unless controller_name == 'pages'
+        - unless action_name == 'welcome'
           %header
-            %h1 FileShip
+            %h1= link_to 'FileShip', root_path
+            %nav.tabbable
+              %ul.nav.nav-tabs.pull-right
+                %li.active= link_to 'Files', '#'
+                %li= link_to 'Help', '#'
+                %li= link_to 'Feedback', '#'
 
         %section
           = yield
+
       .footer-push
 
     = render 'footer'
