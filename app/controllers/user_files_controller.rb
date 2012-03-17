@@ -8,7 +8,8 @@ class UserFilesController < ApplicationController
   before_filter :get_upload, :only => :create
 
   def show
-    send_file @user_file.attachment.path, :filename => @user_file.attachment_file_name
+    @user_file = UserFile.find(params[:id])
+    send_file @user_file.attachment.file.path, :filename => @user_file.attachment.file.filename
   end
 
   # @target_folder is set in require_existing_target_folder
