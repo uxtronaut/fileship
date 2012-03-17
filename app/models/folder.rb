@@ -1,7 +1,7 @@
 class Folder < ActiveRecord::Base
   acts_as_tree :order => 'name'
 
-  has_many :user_files, :dependent => :destroy
+  has_many :user_files, :dependent => :destroy, :order => 'attachment COLLATE NOCASE'
 
   attr_accessible :name, :user_id
 

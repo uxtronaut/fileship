@@ -8,11 +8,11 @@
   %tbody
     - @folder.children.each do |folder|
       %tr
-        %td.file-icon= image_tag 'icons/folder.png'
-        %td.file-name= folder.name
+        %td.file-icon= image_tag 'fileicons/folder.png'
+        %td.file-name= link_to folder.name, folder
         %td
         %td
-    - @folder.user_files.order(:attachment).each do |file|
+    - @folder.user_files.each do |file|
       %tr
         %td.file-icon= image_tag(file_icon(file.extension))
         %td.file-name= link_to file.attachment.file.filename, file
