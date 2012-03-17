@@ -1,0 +1,9 @@
+.btn-group.folder-options
+  = upload_button @folder
+
+  = link_to "#{content_tag :i, '', :class => 'icon-pencil icon-large'} Rename Folder".html_safe, '#', :class => 'btn'
+
+#uploads-list
+
+#folder-wrapper
+  = render @folder
