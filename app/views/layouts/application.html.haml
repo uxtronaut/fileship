@@ -6,20 +6,21 @@
     %meta{:'http-equiv' => 'X-UA-Compatible', :content => 'IE=edge'}
     = javascript_include_tag 'application'
     = stylesheet_link_tag 'application'
-  %body
+    = csrf_meta_tag
+  %body{:class => action_name}
     .wrapper
 
       = render 'tophat'
 
       .container
-        - unless action_name == 'welcome'
-          %header
+        %header
+          - unless action_name == 'welcome'
             %h1= link_to 'FileShip', root_path
             %nav.tabbable
               %ul.nav.nav-tabs.pull-right
-                %li.active= link_to 'Files', '#'
-                %li= link_to 'Help', '#'
-                %li= link_to 'Feedback', '#'
+                %li.active= link_to "#{content_tag :i, '', :class => 'icon-file icon-large'} Files".html_safe, '#'
+                %li= link_to "#{content_tag :i, '', :class => 'icon-question-sign icon-large'} Help".html_safe, '#'
+                %li= link_to "#{content_tag :i, '', :class => 'icon-comment icon-large'} Feedback".html_safe, '#'
 
         %section
           = yield

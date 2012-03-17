@@ -15,6 +15,11 @@ gem 'bootstrap-sass'
 
 gem 'carrierwave'
 
+gem 'rubycas-client', '~> 2.2.1'
+gem 'rubycas-client-rails', :git => 'git@gitlab.cws.oregonstate.edu:rubycas-client-rails-osu.git'
+gem 'osu-ldap', :git => 'git@gitlab.cws.oregonstate.edu:osu-ldap.git'
+
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -28,6 +33,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+gem 'acts_as_tree'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

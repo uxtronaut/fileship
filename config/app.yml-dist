@@ -1,0 +1,20 @@
+development:
+  cas: &cas_settings
+    cas_base_url: ''
+
+  osu_ldap: &ldap_settings
+    host: ''
+    base: ''
+    port: ''
+    bind_dn: ''
+    password: ''
+
+test:
+  cas: *cas_settings
+
+  osu_ldap: *ldap_settings
+
+production:
+  cas: *cas_settings
+
+  osu_ldap: *ldap_settings

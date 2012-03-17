@@ -1,0 +1,20 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th File
+      %th
+      %th Modified
+      %th
+  %tbody
+    - @folder.children.each do |folder|
+      %tr
+        %td.file-icon= image_tag 'icons/folder.png'
+        %td.file-name= folder.name
+        %td
+        %td
+    - @folder.user_files.order(:attachment).each do |file|
+      %tr
+        %td.file-icon= image_tag(file_icon(file.extension))
+        %td.file-name= link_to file.attachment.file.filename, file
+        %td= l(file.updated_at)
+        %td

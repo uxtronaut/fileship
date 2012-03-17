@@ -56,11 +56,26 @@ module Fileship
     # parameters by using an attr_accessible or attr_protected declaration.
     # config.active_record.whitelist_attributes = true
 
+    config.time_zone = 'Pacific Time (US & Canada)'
+
     # Enable the asset pipeline
     config.assets.enabled = true
     config.sass.preferred_syntax = :sass
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Load app.yml application configs
+    config.fileship_config = YAML.load_file("#{Rails.root}/config/app.yml")[Rails.env]
+
+    # Configure OSU LDAP
+    config.osu_ldap = config.fileship_config['osu_ldap']
+
+    # Configure CAS
+    config.rubycas.cas_base_url = config.fileship_config['cas']['cas_base_url']
+    config.rubycas.logger = Rails.logger
+    #config.rubycas.use_gatewaying = true
+
   end
 end

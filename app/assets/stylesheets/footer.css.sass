@@ -1,17 +1,32 @@
+$footerHeight: 188px
+
 .wrapper
   min-height: 100%
   height: auto !important
   height: 100%
-  margin: 0 auto -75px
+  margin: 0 auto ($footerHeight * -1)
 
 .footer-push
-  height: 75px
+  height: $footerHeight + 50
 
 #footer
-  height: 75px
+  height: $footerHeight
   width: 100%
   text-align: right
   margin: 0
+  background-image: image-url('mountain-footer.jpg')
+  background-position:  center bottom
+  background-repeat: repeat-x
+
+  .footer-robot
+    float: right
+    position: relative
+    bottom: 180px
+    right: 330px
 
   p
-    margin-top: 1.5em
+    color: #fff
+    margin-top: 7em
+  a
+    color: #fff
+    text-decoration: underline

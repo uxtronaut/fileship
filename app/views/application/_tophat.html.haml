@@ -2,3 +2,13 @@
   .navbar-inner
     .container
       = tophat_tag
+
+      -if signed_in? && action_name != 'welcome'
+        %ul.nav.pull-right
+          %li
+            = link_to "Welcome back #{@current_user.name}", '#'
+          %li
+            = link_to 'Account', @current_user
+          %li
+            = link_to 'Sign Out', signout_path
+          
