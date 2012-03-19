@@ -1,10 +1,13 @@
 module FoldersHelper
 
-  def breadcrumbs(folder, crumbs='')
+  def breadcrumbs(folder, crumbs='', current_folder=true)
     if folder.parent && (@current_user.is_admin? || folder.parent != Folder.root)
-      crumbs = breadcrumbs(folder.parent, crumbs) + crumbs + ' / '
+      crumbs = breadcrumbs(folder.parent, crumbs, false) + crumbs + (content_tag :span, '/', :class => 'divider')
     end
-    crumbs += "#{link_to folder.name, folder}"
+
+    crumb_text = link_to_unless current_folder, folder.name, folder
+    crumb = current_folder ? (content_tag :li, crumb_text, :class => 'active') : (content_tag :li, crumb_text)
+    crumbs += crumb
   end
 
   def file_icon(extension)
@@ -26,4 +29,17 @@ module FoldersHelper
     }
   end
 
+  def new_folder_button
+    link_to "#{content_tag :i, '', :class => 'icon-plus icon-large'} New Folder".html_safe, '#new-folder-modal', {
+      :class => 'btn',
+      :data => {:toggle => 'modal'}
+    }
+  end
+
+  def rename_folder_button
+    link_to "#{content_tag :i, '', :class => 'icon-pencil icon-large'} Rename Folder".html_safe, '#rename-folder-modal', {
+      :class => 'btn',
+      :data => {:toggle => 'modal'}
+    }
+  end
 end

@@ -1,0 +1,10 @@
+#new-folder-modal.modal.fade
+  .modal-header
+    = link_to '&#215;'.html_safe, '#', :data => {:dismiss => 'modal'}, :class => 'close'
+    %h3 New Folder
+  .modal-body
+    = render 'new_form', :folder => folder.children.build
+  .modal-footer
+    = image_tag 'loading.gif', :alt => 'Working...', :class => 'progress-wheel pull-left'
+    = link_to 'Cancel', '#', :class => 'btn', :data => {:dismiss => 'modal'}
+    = link_to 'Create Folder', '#', :class => 'btn btn-primary', :id => 'create-folder-button'

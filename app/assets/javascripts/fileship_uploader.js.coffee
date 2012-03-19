@@ -9,6 +9,7 @@ class window.FileShipUploader
     ajax_uploader = new qq.FileUploader
       element: $('#file-uploader')[0]
       listElement: $('#uploads-list')[0]
+      dropZone: $('#upload-drop-zone')[0]
       action: $('#file-uploader').data('upload-action')
       maxConnections: 1
       template: self.template()
@@ -43,7 +44,7 @@ class window.FileShipUploader
 
     # Update file div with success class and message, set fadeout
     $(file_div).find('.progress-text').hide()
-    $(file_div).removeClass('info').addClass('success')
+    $(file_div).removeClass('alert-info').addClass('alert-success')
     $(file_div).append('<p class="upload-status">Upload complete</p>')
     $(file_div).delay(3000).fadeOut('slow')
 
@@ -53,7 +54,7 @@ class window.FileShipUploader
 
     # Update the file div with error class and message
     $(file_div).find('.progress-text').hide()
-    $(file_div).removeClass('info').addClass('error')
+    $(file_div).removeClass('alert-info').addClass('alert-error')
     $(file_div).append('<p class="upload-status">'+error_message+'</p>')
 
   self.parseErrors = (errors) ->
@@ -67,11 +68,8 @@ class window.FileShipUploader
       '<div class="uploader">' +
         '<div class="upload-button">' +
           '<a href="#" class="btn">' +
-            '<i class="icon-upload icon-large"></i> Upload File(s)' +
+            '<i class="icon-upload-alt icon-large"></i> Upload File(s)' +
           '</a>' +
-        '</div>' +
-        '<div id="upload-drop-zone" class="upload-drop-area alert">' +
-          '<span>Drop your file(s) here to upload</span>' +
         '</div>' +
       '</div>'
 

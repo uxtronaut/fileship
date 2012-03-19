@@ -549,7 +549,7 @@ qq.extend(qq.FileUploader.prototype, {
     },
     _setupDragDrop: function(){
         var self = this,
-            dropArea = this._find(this._element, 'drop');                        
+            dropArea = this._options.dropZone;
 
         var dz = new qq.UploadDropZone({
             element: dropArea,
@@ -575,9 +575,7 @@ qq.extend(qq.FileUploader.prototype, {
         qq.attach(document, 'dragenter', function(e){     
             if (!dz._isValidFileDrag(e)) return; 
             
-            //dropArea.style.display = 'block';
-            dropArea.style.display = 'inline'; // because the drop area needs to be within the uploader div (line 552)
-                                               // we need the drop area inline to keep alignment right
+            dropArea.style.display = 'block';
         });                 
         qq.attach(document, 'dragleave', function(e){
             if (!dz._isValidFileDrag(e)) return;            
