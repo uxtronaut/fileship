@@ -1,0 +1,5 @@
+= simple_form_for [folder], :html => {:class => 'form-horizontal'} do |form|
+
+  = form.error_notification
+
+  = form.input :name, :input_html => {:class => 'span3'}, :hint => t('simple_form.hints.folder.edit.name'), :label => t('simple_form.labels.folder.edit.name')

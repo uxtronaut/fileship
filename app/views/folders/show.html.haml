@@ -1,14 +1,19 @@
 %ul.breadcrumb
+  %li= content_tag :i, '', :class => 'icon-home icon-large'
   = breadcrumbs(@folder).html_safe
 
 .btn-group.folder-options
   = upload_button @folder
+  = new_folder_button
+  = rename_folder_button unless @folder == @current_user.home_folder
 
-  = link_to "#{content_tag :i, '', :class => 'icon-plus-sign icon-large'} New Folder".html_safe, '#', :class => 'btn'
-
-  = link_to "#{content_tag :i, '', :class => 'icon-pencil icon-large'} Rename Folder".html_safe, '#', :class => 'btn'
+#upload-drop-zone.upload-drop-area.alert
+  %span Drop your file(s) here to upload
 
 #uploads-list
 
 #folder-wrapper
   = render @folder
+
+= render 'new_modal', :folder => @folder
+= render 'rename_modal', :folder => @folder

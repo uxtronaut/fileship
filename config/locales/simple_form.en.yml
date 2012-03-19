@@ -1,0 +1,38 @@
+en:
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: >
+        <h4>Danger! Danger!</h4>
+        <span>Some problems were detected with your transmission, please try again...</span>
+
+    labels:
+      folder:
+        edit:
+          name: New Name
+
+    hints:
+      folder:
+        name: Enter the name for the new folder.
+        edit:
+          name: Enter the new name for this folder.
+
+    # Labels and hints examples
+    # labels:
+    #   password: 'Password'
+    #   user:
+    #     new:
+    #       email: 'E-mail para efetuar o sign in.'
+    #     edit:
+    #       email: 'E-mail.'
+    # hints:
+    #   username: 'User name to sign in.'
+    #   password: 'No special characters, please.'
+

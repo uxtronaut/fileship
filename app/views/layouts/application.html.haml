@@ -12,16 +12,21 @@
 
       = render 'tophat'
 
-      .container
-        %header
-          - unless action_name == 'welcome'
-            %h1= link_to 'FileShip', root_path
-            %nav.tabbable
-              %ul.nav.nav-tabs.pull-right
-                %li.active= link_to "#{content_tag :i, '', :class => 'icon-file icon-large'} Files".html_safe, '#'
-                %li= link_to "#{content_tag :i, '', :class => 'icon-question-sign icon-large'} Help".html_safe, '#'
-                %li= link_to "#{content_tag :i, '', :class => 'icon-comment icon-large'} Feedback".html_safe, '#'
+      .header-wrapper
+        .container
+          %header
+            - unless action_name == 'welcome'
+              %h1= link_to 'FileShip', root_path
+              %nav.tabbable
+                %ul.nav.nav-tabs.pull-right
+                  %li{:class => (controller_name == 'folders' ? 'active' : nil)}
+                    = link_to "#{content_tag :i, '', :class => 'icon-file icon-large'} Files".html_safe, folders_path
+                  %li{:class => (action_name == 'help' ? 'active' : nil)}
+                    = link_to "#{content_tag :i, '', :class => 'icon-question-sign icon-large'} Help".html_safe, help_path
+                  %li{:class => (controller_name == 'feedback' ? 'active' : nil)}
+                    = link_to "#{content_tag :i, '', :class => 'icon-comment icon-large'} Feedback".html_safe, new_feedback_path
 
+      .container
         %section
           = yield
 
