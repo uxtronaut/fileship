@@ -10,7 +10,7 @@
   %body{:class => action_name}
     .wrapper
 
-      = render 'tophat'
+      = render 'tophat', :show_links => true
 
       .header-wrapper
         .container
@@ -19,7 +19,7 @@
               %h1= link_to 'FileShip', root_path
               %nav.tabbable
                 %ul.nav.nav-tabs.pull-right
-                  %li{:class => (controller_name == 'folders' ? 'active' : nil)}
+                  %li{:class => (['folders', 'user_files'].include?(controller_name) ? 'active' : nil)}
                     = link_to "#{content_tag :i, '', :class => 'icon-file icon-large'} Files".html_safe, folders_path
                   %li{:class => (action_name == 'help' ? 'active' : nil)}
                     = link_to "#{content_tag :i, '', :class => 'icon-question-sign icon-large'} Help".html_safe, help_path

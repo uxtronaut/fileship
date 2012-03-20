@@ -4,8 +4,8 @@
 
 .btn-group.folder-options
   = upload_button @folder
-  = new_folder_button
-  = rename_folder_button unless @folder == @current_user.home_folder
+  = new_folder_button @folder
+  = (rename_folder_button @folder) unless @folder == @current_user.home_folder
 
 #upload-drop-zone.upload-drop-area.alert
   %span Drop your file(s) here to upload

@@ -1,6 +1,10 @@
 $ ->
   rename_folder_modal = new RenameFolderModal
 
+  $('#rename-folder-button').click ->
+    $('#rename-folder-modal').modal 'show'
+    false
+
   $('#rename-folder-modal').on 'hidden', ->
     rename_folder_modal.clean_form()
 
@@ -11,7 +15,7 @@ $ ->
     rename_folder_modal.rename_folder()
     false
 
-  $('#rename-folder-button').click ->
+  $('#rename-folder-submit').click ->
     rename_folder_modal.rename_folder()
     false
 
@@ -39,3 +43,4 @@ class RenameFolderModal
 
   clean_form: ->
     $('#rename-folder-modal form').replaceWith(@empty_form)
+    $('#rename-folder-modal').find('#folder_name').val($('.breadcrumb li.active').text())

@@ -1,0 +1,6 @@
+%h2 Upload file
+= simple_form_for [@folder, @user_file], :html => {:class => 'form-horizontal'} do |form|
+  = form.input :attachment
+
+  .form-actions
+    = form.submit 'Upload', :class => 'btn btn-primary'

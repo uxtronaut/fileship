@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
     if home_folder.nil?
       folder = Folder.new(:name => uid)
       folder.parent = Folder.root
+      folder.user = self
       folder.save!
     end
   end
@@ -35,11 +36,6 @@ class User < ActiveRecord::Base
 
   def home_folder
     return Folder.where(:name => uid, :parent_id => Folder.root.id).first
-  end
-
-  def refresh_remember_token
-    self.remember_token = SecureRandom.base64(32)
-    save(:validate => false)
   end
 
   def name

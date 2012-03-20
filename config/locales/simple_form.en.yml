@@ -17,6 +17,8 @@ en:
       folder:
         edit:
           name: New Name
+      user_file:
+        attachment: File
 
     hints:
       folder:

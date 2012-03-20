@@ -19,7 +19,14 @@ module FoldersHelper
   end
 
   def upload_button(folder)
-    content_tag :div, '', {
+    noscript_button = "#{content_tag :i, '', :class => 'icon-upload-alt icon-large'} Upload File"
+    noscript_button = link_to noscript_button.html_safe, new_folder_user_file_path(folder), {
+      :class => 'btn',
+      :id => 'noscript-file-upload'
+    }
+    noscript_button = content_tag :noscript, noscript_button
+
+    content_tag :div, noscript_button, {
       :data => {
         :'upload-action' => folder_user_files_path(folder, :format => :json),
         :'folder-html-action' => folder_path(folder, :format => :json),
@@ -29,15 +36,17 @@ module FoldersHelper
     }
   end
 
-  def new_folder_button
-    link_to "#{content_tag :i, '', :class => 'icon-plus icon-large'} New Folder".html_safe, '#new-folder-modal', {
+  def new_folder_button(folder)
+    link_to "#{content_tag :i, '', :class => 'icon-plus icon-large'} New Folder".html_safe, new_folder_folder_path(folder), {
+      :id => 'new-folder-button',
       :class => 'btn',
       :data => {:toggle => 'modal'}
     }
   end
 
-  def rename_folder_button
-    link_to "#{content_tag :i, '', :class => 'icon-pencil icon-large'} Rename Folder".html_safe, '#rename-folder-modal', {
+  def rename_folder_button(folder)
+    link_to "#{content_tag :i, '', :class => 'icon-pencil icon-large'} Rename Folder".html_safe, edit_folder_path(folder), {
+      :id => 'rename-folder-button',
       :class => 'btn',
       :data => {:toggle => 'modal'}
     }

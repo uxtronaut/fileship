@@ -1,6 +1,10 @@
 $ ->
   new_folder_modal = new NewFolderModal
 
+  $('#new-folder-button').click ->
+    $('#new-folder-modal').modal 'show'
+    false
+
   $('#new-folder-modal').on 'hidden', ->
     new_folder_modal.clean_form()
 
@@ -11,7 +15,7 @@ $ ->
     new_folder_modal.create_folder()
     false
 
-  $('#create-folder-button').click ->
+  $('#new-folder-submit').click ->
     new_folder_modal.create_folder()
     false
 
