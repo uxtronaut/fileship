@@ -17,17 +17,22 @@ class ApplicationController < ActionController::Base
         Rails.logger.error "Valid CAS session, but no LDAP record for " + uid
         # Destroy old session
         session[:cas_user] = nil
-        redirect_to RubyCAS::Filter.client.login_url
+        redirect_to RubyCAS::Filter.login_url(self)
         return
       end
     end
   end
 
   def signout
-     RubyCAS::Filter.logout(self, welcome_url)
+    RubyCAS::Filter.logout(self, welcome_url)
   end
 
-  protected
+  def render_403
+    respond_to do |format|
+      format.html { render :file => Rails.root.join('public', '403.html'), :status => :forbidden, :layout => 'dark' }
+      format.json { render :json => {:error => 'Error 403, forbidden...'}, :status => :forbidden }
+    end
+  end
 
   def current_user
     return @current_user

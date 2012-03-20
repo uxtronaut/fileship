@@ -13,12 +13,19 @@ gem 'haml'
 gem 'simple_form'
 gem 'bootstrap-sass'
 
-gem 'carrierwave'
+gem 'carrierwave', :git => 'https://github.com/jnicklas/carrierwave.git'
 
 gem 'rubycas-client', '~> 2.2.1'
 gem 'rubycas-client-rails', :git => 'git@gitlab.cws.oregonstate.edu:rubycas-client-rails-osu.git'
 gem 'osu-ldap', :git => 'git@gitlab.cws.oregonstate.edu:osu-ldap.git'
 
+gem 'jquery-rails'
+gem 'acts_as_tree'
+
+gem 'rspec-rails'
+gem 'mocha'
+gem 'factory_girl_rails'
+gem 'faker'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -31,10 +38,6 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'jquery-rails'
-
-gem 'acts_as_tree'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

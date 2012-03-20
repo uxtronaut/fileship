@@ -1,1 +1,1 @@
-Folder.create(:name => 'Root folder')
+Folder.create(:name => Folder::ROOT_NAME)

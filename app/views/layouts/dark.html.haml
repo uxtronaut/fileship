@@ -1,0 +1,25 @@
+!!! 5
+%html
+  %head
+    %title FileShip
+    %meta{:charset => 'utf-8'}
+    %meta{:'http-equiv' => 'X-UA-Compatible', :content => 'IE=edge'}
+    = javascript_include_tag 'application'
+    = stylesheet_link_tag 'application'
+  %body.dark{:class => action_name}
+    .wrapper
+
+      = render 'tophat', :show_links => false
+
+      - unless action_name == 'welcome'
+        .container
+          %header
+            %h1= link_to 'FileShip', root_path
+
+      .container
+        %section
+          = yield
+
+      .footer-push
+
+    = render 'footer'

@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(:version => 20120315214316) do
   create_table "users", :force => true do |t|
     t.string   "email"
     t.boolean  "is_admin"
-    t.string   "remember_token"
     t.string   "uid"
     t.string   "first_name"
     t.string   "last_name"

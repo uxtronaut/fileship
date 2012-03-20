@@ -3,7 +3,11 @@ class PagesController < ApplicationController
   prepend_before_filter RubyCAS::GatewayFilter
 
   def welcome
-    redirect_to folders_path if signed_in?
+    if signed_in?
+      redirect_to folders_path
+      return
+    end
+    render :layout => 'dark'
   end
 
   def help

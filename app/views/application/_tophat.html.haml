@@ -3,7 +3,7 @@
     .container
       = tophat_tag
 
-      -if signed_in? && action_name != 'welcome'
+      -if signed_in? && show_links
         %ul.nav.pull-right
           %li
             %span Welcome back #{@current_user.name}!

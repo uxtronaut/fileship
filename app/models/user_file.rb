@@ -5,7 +5,6 @@ class UserFile < ActiveRecord::Base
 
   validates_presence_of :attachment
   validates_presence_of :folder_id
-  #validates_format_of :attachment_file_name, :with => /^[^\/\\\?\*:|"<>]+$/, :message => I18n.t(:invalid_characters, :scope => [:activerecord, :errors, :messages])
 
   def extension
     File.extname(attachment.file.filename  )[1..-1]
