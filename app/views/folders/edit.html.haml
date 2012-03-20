@@ -1,0 +1,6 @@
+%h2 Rename Folder '#{@folder.name}'
+= simple_form_for @folder, :html => {:class => 'form-horizontal'} do |form|
+  = form.input :name
+
+  .form-actions
+    = form.submit 'Rename Folder', :class => 'btn btn-primary'

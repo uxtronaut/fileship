@@ -29,7 +29,7 @@ module FoldersHelper
     content_tag :div, noscript_button, {
       :data => {
         :'upload-action' => folder_user_files_path(folder, :format => :json),
-        :'folder-html-action' => folder_path(folder, :format => :json),
+        :'folder-html-action' => folder_path(folder),
         :'ie-progress-image-src' => image_path('loading.gif')
       }, 
       :id => 'file-uploader'

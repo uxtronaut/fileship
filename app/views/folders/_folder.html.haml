@@ -10,7 +10,7 @@
       %tr
         %td.file-icon= image_tag 'fileicons/folder.png'
         %td.file-name= link_to child_folder.name, child_folder
-        %td
+        %td= l(folder.updated_at)
         %td
     - folder.user_files.each do |file|
       %tr
