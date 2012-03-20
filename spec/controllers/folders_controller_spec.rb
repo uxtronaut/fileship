@@ -140,7 +140,7 @@ describe FoldersController do
             post :create, {
               :folder_id => @user.home_folder.id,
               :folder => {:name => 'testo'},
-              :format => :json
+              :format => :js
             }
           end
 
