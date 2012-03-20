@@ -2,8 +2,6 @@ class UserFilesController < ApplicationController
 
   prepend_before_filter RubyCAS::Filter
 
-  respond_to :html, :json
-
   before_filter :get_folder, :except => :show
   before_filter :get_upload, :only => :create
 
@@ -12,18 +10,16 @@ class UserFilesController < ApplicationController
     send_file @user_file.attachment.file.path, :filename => @user_file.attachment.file.filename
   end
 
-  # @target_folder is set in require_existing_target_folder
   def new
     @user_file = @folder.user_files.build
   end
 
-  # @target_folder is set in require_existing_target_folder
   def create
     respond_to do |format|
       format.html do
         @user_file = @folder.user_files.build(params[:user_file])
         if @user_file.save
-          redirect_to folder_url(@folder), :notice => "Uploaded #{@user_file.attachment_file_name}"
+          redirect_to folder_url(@folder), :notice => "Uploaded #{@user_file.attachment.file.filename}"
           return
         else
           render :action => 'new'
@@ -38,10 +34,10 @@ class UserFilesController < ApplicationController
         @new_file.close
 
         if @user_file.save
-          render :text => {:success => true}.to_json, :content_type => 'text/plain; charset=utf-8'
+          render :json => {:success => true}
           return
         else
-          render :text => {:success => false, :errors => @user_file.errors}.to_json, :content_type => 'text/plain; charset=utf-8'
+          render :json => {:success => false, :errors => @user_file.errors}
           return
         end
       end

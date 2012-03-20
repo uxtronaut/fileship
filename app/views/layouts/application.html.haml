@@ -7,7 +7,12 @@
     = javascript_include_tag 'application'
     = stylesheet_link_tag 'application'
     = csrf_meta_tag
-  %body{:class => action_name}
+
+    <!--[if lt IE 9]>
+    = javascript_include_tag '//html5shiv.googlecode.com/svn/trunk/html5.js'
+    <![endif]-->
+
+  %body{:class => [action_name, controller_name]}
     .wrapper
 
       = render 'tophat', :show_links => true
@@ -28,6 +33,7 @@
 
       .container
         %section
+          = flash_messages
           = yield
 
       .footer-push

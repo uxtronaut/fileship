@@ -7,8 +7,6 @@ class FoldersController < ApplicationController
   before_filter :check_permission, :except => :index
   before_filter :can_not_rename_home_folder, :only => :update
 
-  respond_to :html, :json
-
   def index
     redirect_to @current_user.is_admin? ? Folder.root : @current_user.home_folder
   end
@@ -16,10 +14,14 @@ class FoldersController < ApplicationController
   def show
     respond_to do |format|
       format.html
-      format.json do
+      format.js do
         render @folder, :formats => [:html]
       end
     end
+  end
+
+  def new
+    @folder = @parent_folder.children.build
   end
 
   def create
@@ -27,19 +29,14 @@ class FoldersController < ApplicationController
     @folder.user = @current_user
 
     if @folder.save
-
       respond_to do |format|
-        format.html do
-          render @parent_folder
-        end
+        format.html { redirect_to @parent_folder, :notice => 'Folder created' }
 
         format.js do
           render :partial => 'folder', :object => @parent_folder, :formats => [:html]
         end
       end
-
     else
-
       respond_to do |format|
         format.html { render :new }
 
@@ -52,20 +49,30 @@ class FoldersController < ApplicationController
           )
         end
       end
-
     end
+  end
+
+  def edit
   end
 
   def update
     if @allowed_rename && @folder.update_attributes(params[:folder])
-      render @folder, :formats => [:html]
+      respond_to do |format|
+        format.html { redirect_to @folder, :notice => 'Folder renamed' }
+        format.js { render @folder, :formats => [:html] }
+      end
     else
-      render({
-        :partial => 'rename_form',
-        :locals => {:folder => @folder},
-        :formats => [:html],
-        :status => :bad_request
-      })
+      respond_to do |format|
+        format.html { render :edit }
+        format.js do
+          render({
+            :partial => 'rename_form',
+            :locals => {:folder => @folder},
+            :formats => [:html],
+            :status => :bad_request
+          })
+        end
+      end
     end
   end
 

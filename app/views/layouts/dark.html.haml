@@ -6,6 +6,11 @@
     %meta{:'http-equiv' => 'X-UA-Compatible', :content => 'IE=edge'}
     = javascript_include_tag 'application'
     = stylesheet_link_tag 'application'
+
+    <!--[if lt IE 9]>
+    = javascript_include_tag '//html5shiv.googlecode.com/svn/trunk/html5.js'
+    <![endif]-->
+
   %body.dark{:class => action_name}
     .wrapper
 

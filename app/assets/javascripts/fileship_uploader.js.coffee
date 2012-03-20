@@ -38,9 +38,12 @@ class window.FileShipUploader
 
 
   self.uploadSuccess = (file_div) ->
-    $.get $('#file-uploader').data('folder-html-action'), (data) ->
-      $('#folder-wrapper').html(data)
-    , 'html'
+    $.ajax
+      url: $('#file-uploader').data('folder-html-action')
+      dataType: 'html'
+      type: 'GET'
+      success: (data)->
+        $('#folder-wrapper').html(data)
 
     # Update file div with success class and message, set fadeout
     $(file_div).find('.progress-text').hide()
@@ -59,8 +62,8 @@ class window.FileShipUploader
 
   self.parseErrors = (errors) ->
     message = 'Upload failed'
-    unless errors.attachment_file_name == undefined
-      message += ': File ' + errors.attachment_file_name
+    unless errors.attachment == undefined
+      message += ': File ' + errors.attachment
     return message
 
   self.template = () ->
