@@ -18,7 +18,7 @@ module ApplicationHelper
       notice_message << link_to('&times;'.html_safe, nil, :class => 'close', :data => {:dismiss => 'alert'})
       notice_message << content_tag(:h4, flash[:notice], :class => 'alert-heading')
       messages << content_tag(:div, notice_message.html_safe, {
-        :class => 'alert alert-info',
+        :class => 'alert alert-success',
         :id => 'notice',
         :"data-alert" => 'alert'
       })
