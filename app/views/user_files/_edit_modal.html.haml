@@ -1,0 +1,8 @@
+.modal.fade{:id => "edit-file-modal-#{file.id}"}
+  .modal-header
+    = link_to '&#215;'.html_safe, '#', :data => {:dismiss => 'modal'}, :class => 'close'
+    %h3 Edit #{file.attachment.file.filename}
+  .modal-body
+    body
+  .modal-footer
+    footer
