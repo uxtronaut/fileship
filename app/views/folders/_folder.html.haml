@@ -1,9 +1,10 @@
-%table.table.table-striped
+%table.table.table-striped.folder
   %thead
     %tr
       %th File
       %th
       %th Modified
+      %th Size
       %th
   %tbody
     - folder.children.each do |child_folder|
@@ -12,12 +13,24 @@
         %td.file-name= link_to child_folder.name, child_folder
         %td= l(folder.updated_at)
         %td
+        %td
     - folder.user_files.each do |file|
       %tr
         %td.file-icon= image_tag(file_icon(file.extension))
         %td.file-name= link_to file.attachment.file.filename, file
         %td= l(file.updated_at)
-        %td
+        %td= number_to_human_size(file.attachment.file.size)
+        %td.file-actions
+          .btn-group
+            = content_tag :button, ((content_tag :span, '', :class => 'caret')), :class => 'btn dropdown-toggle', :data => {:toggle => 'dropdown'}
+            %ul.dropdown-menu
+              %li= sharing_button file
+              %li= password_button file
+              %li= edit_file_button file
+          = render 'user_files/sharing_modal', :file => file
+          = render 'user_files/password_modal', :file => file
+          = render 'user_files/edit_modal', :file => file
+              
     - if folder.children.empty? && folder.user_files.empty?
       %tr
         %td.empty-folder{:colspan => 4}
