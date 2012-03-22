@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require jquery.notify.min
 //= require_tree .
 
 $.ajaxSettings.accepts.html = $.ajaxSettings.accepts.script;

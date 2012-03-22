@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(:version => 20120315214316) do
   create_table "user_files", :force => true do |t|
     t.string   "attachment"
     t.string   "name"
+    t.string   "link_token"
+    t.string   "password"
     t.integer  "folder_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

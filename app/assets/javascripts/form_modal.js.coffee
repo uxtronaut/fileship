@@ -16,7 +16,7 @@ $.extend $.fn.form_modal,
       $.fn.form_modal.clean_form(modal, opts)
 
     $(modal).on 'shown', ->
-      $(modal).find('input').focus()
+      $(modal).find('.controls').first().find('input').focus()
 
     $(modal).find('form').on 'submit', ->
       $.fn.form_modal.submit_form(modal, opts)
@@ -37,7 +37,8 @@ $.extend $.fn.form_modal,
       success: (data)->
         $(modal).modal('hide')
         $('#folder-wrapper').html(data)
-        window.folder.initialize_modals()
+        window.folder = new Folder
+        window.folder.alert opts.success_message, 'success'
       error: (response)->
         form.replaceWith(response.responseText)
         $(modal).find('form').on 'submit', ->

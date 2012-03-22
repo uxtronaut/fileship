@@ -1,7 +1,7 @@
-.modal.fade.hide.form-modal{:id => "new-folder-modal"}
+= form_modal_tag :id => "new-folder-modal", :success_message => 'Folder Created' do 
   .modal-header
     = link_to '&#215;'.html_safe, '#', :data => {:dismiss => 'modal'}, :class => 'close'
-    %h3 New Folder
+    %h2 New Folder
   .modal-body
     = render 'folders/new_form', :folder => folder.children.build
   .modal-footer

@@ -26,7 +26,8 @@ $.extend $.fn.confirmation_modal,
       success: (data)->
         $(modal).modal('hide')
         $('#folder-wrapper').html(data)
-        window.folder.initialize_modals()
+        window.folder = new Folder
+        window.folder.alert $(modal).data('success-message'), 'success'
       error: (response)->
         form.replaceWith(response.responseText)
       complete: ->

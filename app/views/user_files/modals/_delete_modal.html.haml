@@ -1,7 +1,8 @@
-.modal.fade.hide.confirmation-modal{:id => "delete-file-modal-#{user_file.id}", :data => {:action => user_file_path(user_file)}}
+= confirmation_modal_tag :id => "delete-file-modal-#{user_file.id}", :action => user_file_path(user_file), :success_message => 'File Deleted' do
   .modal-header
     = link_to '&#215;'.html_safe, '#', :data => {:dismiss => 'modal'}, :class => 'close'
-    %h3 Delete File '#{user_file.name}'
+    %h2 Delete File 
+    %h3= user_file.name
   .modal-body
     %p Are you sure you want to delete this file?
   .modal-footer

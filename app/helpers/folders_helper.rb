@@ -5,8 +5,9 @@ module FoldersHelper
       crumbs = breadcrumbs(folder.parent, crumbs, false) + crumbs + (content_tag :span, '/', :class => 'divider')
     end
 
-    crumb_text = link_to_unless current_folder, folder.name, folder
-    crumb = current_folder ? (content_tag :li, crumb_text, :class => 'active') : (content_tag :li, crumb_text)
+    crumb_text = folder == @current_user.home_folder ? 'Home' : folder.name
+    crumb_link = link_to_unless current_folder, crumb_text, folder
+    crumb = current_folder ? (content_tag :li, crumb_link, :class => 'active') : (content_tag :li, crumb_link)
     crumbs += crumb
   end
 
@@ -21,7 +22,7 @@ module FoldersHelper
   def upload_button(folder)
     noscript_button = "#{content_tag :i, '', :class => 'icon-upload-alt icon-large'} Upload File"
     noscript_button = link_to noscript_button.html_safe, new_folder_user_file_path(folder), {
-      :class => 'btn',
+      :class => 'btn btn-large',
       :id => 'noscript-file-upload'
     }
     noscript_button = content_tag :noscript, noscript_button
@@ -39,7 +40,7 @@ module FoldersHelper
   def new_folder_button(folder)
     link_to "#{content_tag :i, '', :class => 'icon-folder-open icon-large'} New Folder".html_safe, new_folder_folder_path(folder), {
       :id => 'new-folder-button',
-      :class => 'btn',
+      :class => 'btn btn-large',
       :data => {:toggle => 'modal'}
     }
   end

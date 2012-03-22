@@ -1,12 +1,13 @@
 class UserFilesController < ApplicationController
 
-  prepend_before_filter RubyCAS::Filter
+  prepend_before_filter RubyCAS::Filter, :except => :show
+  prepend_before_filter RubyCAS::GatewayFilter, :only => :show
 
-  before_filter :get_folder, :except => [:show, :update, :destroy]
+  before_filter :get_folder, :except => [:show, :update, :destroy, :share]
   before_filter :get_upload, :only => :create
 
   def show
-    @user_file = UserFile.find(params[:id])
+    @user_file = UserFile.find_by_link_token(params[:link_token]) || UserFile.find(params[:id])
     send_file @user_file.attachment.file.path, :filename => @user_file.name
   end
 
@@ -57,8 +58,9 @@ class UserFilesController < ApplicationController
     else
       respond_to do |format|
         format.js do
+          partial = params[:user_file][:password] ? 'user_files/password_form' : 'user_files/rename_form'
           render({
-            :partial => 'user_files/rename_form',
+            :partial => partial,
             :locals => {:user_file => @user_file},
             :formats => [:html],
             :status => :bad_request
@@ -76,6 +78,14 @@ class UserFilesController < ApplicationController
       respond_to do |format|
         format.js { render folder, :formats => [:html] }
       end
+    end
+  end
+
+  def share
+    @user_file = UserFile.find(params[:id])
+
+    respond_to do |format|
+      format.js { render @user_file.folder, :formats => [:html] }
     end
   end
 
