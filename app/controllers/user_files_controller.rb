@@ -2,12 +2,12 @@ class UserFilesController < ApplicationController
 
   prepend_before_filter RubyCAS::Filter
 
-  before_filter :get_folder, :except => :show
+  before_filter :get_folder, :except => [:show, :update, :destroy]
   before_filter :get_upload, :only => :create
 
   def show
     @user_file = UserFile.find(params[:id])
-    send_file @user_file.attachment.file.path, :filename => @user_file.attachment.file.filename
+    send_file @user_file.attachment.file.path, :filename => @user_file.name
   end
 
   def new
@@ -19,7 +19,7 @@ class UserFilesController < ApplicationController
       format.html do
         @user_file = @folder.user_files.build(params[:user_file])
         if @user_file.save
-          redirect_to folder_url(@folder), :notice => "Uploaded #{@user_file.attachment.file.filename}"
+          redirect_to folder_url(@folder), :notice => "Uploaded #{@user_file.name}"
           return
         else
           render :action => 'new'
@@ -40,6 +40,41 @@ class UserFilesController < ApplicationController
           render :json => {:success => false, :errors => @user_file.errors}
           return
         end
+      end
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    @user_file = UserFile.find(params[:id])
+
+    if @user_file.update_attributes(params[:user_file])
+      respond_to do |format|
+        format.js { render @user_file.folder, :formats => [:html] }
+      end
+    else
+      respond_to do |format|
+        format.js do
+          render({
+            :partial => 'user_files/rename_form',
+            :locals => {:user_file => @user_file},
+            :formats => [:html],
+            :status => :bad_request
+          })
+        end
+      end
+    end
+  end
+
+  def destroy
+    @user_file = UserFile.find(params[:id])
+    folder = @user_file.folder
+
+    if @user_file.destroy
+      respond_to do |format|
+        format.js { render folder, :formats => [:html] }
       end
     end
   end

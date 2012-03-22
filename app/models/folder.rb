@@ -13,6 +13,12 @@ class Folder < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :parent_id, :unless => lambda { Folder.all.empty? }
 
+  def size
+    size = 0
+    user_files.collect {|file| size += file.attachment.file.size}
+    size
+  end
+
   def is_root?
     parent.nil? && !new_record?
   end

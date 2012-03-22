@@ -5,8 +5,16 @@ class UserFile < ActiveRecord::Base
 
   validates_presence_of :attachment
   validates_presence_of :folder_id
+  validates_presence_of :name, :on => :update
+
+  after_create :set_name
 
   def extension
-    File.extname(attachment.file.filename  )[1..-1]
+    File.extname(name)[1..-1]
   end
+
+  def set_name
+    update_attribute(:name, attachment.file.filename)
+  end
+
 end

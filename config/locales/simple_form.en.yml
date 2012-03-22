@@ -19,12 +19,15 @@ en:
           name: New Name
       user_file:
         attachment: File
+        name: New Name
 
     hints:
       folder:
         name: Enter the name for the new folder.
         edit:
           name: Enter the new name for this folder.
+      user_file:
+        name: Enter the new name for this file
 
     # Labels and hints examples
     # labels:

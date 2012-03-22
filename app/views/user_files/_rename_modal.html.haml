@@ -1,10 +1,10 @@
-.modal.fade.hide.form-modal{:id => "rename-folder-modal-#{folder.id}"}
+.modal.fade.hide.form-modal{:id => "rename-file-modal-#{user_file.id}"}
   .modal-header
     = link_to '&#215;'.html_safe, '#', :data => {:dismiss => 'modal'}, :class => 'close'
-    %h3 Rename Folder '#{folder.name}'
+    %h3 Rename File '#{user_file.name}'
   .modal-body
-    = render 'folders/rename_form', :folder => folder
+    = render 'user_files/rename_form', :user_file => user_file
   .modal-footer
     = image_tag 'loading.gif', :alt => 'Working...', :class => ['progress-wheel', 'pull-left']
-    = link_to 'Rename Folder', '#', :class => ['btn', 'btn-primary', 'submit']
+    = link_to 'Rename File', '#', :class => ['btn', 'btn-primary', 'submit']
     = link_to 'Cancel', '#', :class => 'btn', :data => {:dismiss => 'modal'}

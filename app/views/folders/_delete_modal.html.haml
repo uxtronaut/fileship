@@ -1,10 +1,10 @@
-.modal.fade.hide.form-modal{:id => "new-folder-modal"}
+.modal.fade.hide.confirmation-modal{:id => "delete-folder-modal-#{folder.id}", :data => {:action => folder_path(folder)}}
   .modal-header
     = link_to '&#215;'.html_safe, '#', :data => {:dismiss => 'modal'}, :class => 'close'
-    %h3 New Folder
+    %h3 Delete Folder '#{folder.name}'
   .modal-body
-    = render 'folders/new_form', :folder => folder.children.build
+    %p Are you sure you want to delete this folder?
   .modal-footer
     = image_tag 'loading.gif', :alt => 'Working...', :class => 'progress-wheel pull-left'
-    = link_to 'Create Folder', '#', :class => ['btn', 'btn-primary', 'submit']
+    = link_to 'Delete Folder', '#', :class => ['btn', 'btn-primary', 'submit']
     = link_to 'Cancel', '#', :class => 'btn', :data => {:dismiss => 'modal'}
