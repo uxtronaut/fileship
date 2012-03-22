@@ -44,6 +44,7 @@ class window.FileShipUploader
       type: 'GET'
       success: (data)->
         $('#folder-wrapper').html(data)
+        window.folder.initialize_modals()
 
     # Update file div with success class and message, set fadeout
     $(file_div).find('.progress-text').hide()

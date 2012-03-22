@@ -58,8 +58,8 @@ class FoldersController < ApplicationController
   def update
     if @allowed_rename && @folder.update_attributes(params[:folder])
       respond_to do |format|
-        format.html { redirect_to @folder, :notice => 'Folder renamed' }
-        format.js { render @folder, :formats => [:html] }
+        format.html { redirect_to @folder.parent, :notice => 'Folder renamed' }
+        format.js { render @folder.parent, :formats => [:html] }
       end
     else
       respond_to do |format|
@@ -72,6 +72,16 @@ class FoldersController < ApplicationController
             :status => :bad_request
           })
         end
+      end
+    end
+  end
+
+  def destroy
+    parent_folder = @folder.parent
+
+    if @folder.destroy
+      respond_to do |format|
+        format.js { render parent_folder, :formats => [:html]}
       end
     end
   end
