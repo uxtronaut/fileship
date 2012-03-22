@@ -1,0 +1,16 @@
+= simple_form_for user_file, :url => share_user_file_path(user_file) do |form|
+  .copy
+    %h3 Copy Link
+    %p.muted
+      Copy and paste the URL below to share this file.
+    = form.input :link_token, :wrapper => :prepend, :label => false, :hint => false do
+      = content_tag :span, 'Share URL', :class => 'add-on'
+      = form.input_field :link_token, :class => 'span5', :value => link_url(user_file)
+
+  .form-horizontal
+    %h3 Email Link
+    %p.muted
+      Enter a comma separated list of email addresses you would like to send this link to.
+
+    = form.input :share_emails, :as => :text, :input_html => {:rows => 3, :class => 'span4'}
+    = form.input :share_message, :as => :text, :input_html => {:rows => 3, :class => 'span4'}

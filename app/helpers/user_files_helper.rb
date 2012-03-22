@@ -1,8 +1,8 @@
 module UserFilesHelper
 
-  def sharing_menu_item(file)
-    button_text = "#{content_tag :i, '', :class => 'icon-share icon-large'} Sharing"
-    link_to button_text.html_safe, "#sharing-modal-#{file.id}", :data => {:toggle => 'modal'}
+  def share_menu_item(file)
+    button_text = "#{content_tag :i, '', :class => 'icon-share icon-large'} Share"
+    link_to button_text.html_safe, "#share-file-modal-#{file.id}", :data => {:toggle => 'modal'}
   end
 
   def password_menu_item(file)
@@ -24,5 +24,10 @@ module UserFilesHelper
     button_text = "#{content_tag :i, '', :class => 'icon-trash icon-large'} Delete"
     link_to button_text.html_safe, "#delete-file-modal-#{file.id}", :data => {:toggle => 'modal'}
   end
+
+  def link_url(file)
+    "#{request.host}:#{request.port}/#{file.link_token}"
+  end
+    
 
 end

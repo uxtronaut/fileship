@@ -20,14 +20,21 @@ en:
       user_file:
         attachment: File
         name: New Name
+        link_token: Share URL
+        share_emails: Email Addresses
+        share_message: Message
+        password: Password
+        password_confirmation: Confirm
 
     hints:
       folder:
-        name: Enter the name for the new folder.
+        name: Enter the name for the new folder
         edit:
-          name: Enter the new name for this folder.
+          name: Enter the new name for this folder
       user_file:
         name: Enter the new name for this file
+        link_token: Copy and paste this link to share
+        share_emails: 'ex: buzz@oregonstate.edu, hansolo@oregonstate.edu'
 
     # Labels and hints examples
     # labels:

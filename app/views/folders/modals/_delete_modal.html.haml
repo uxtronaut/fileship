@@ -1,7 +1,8 @@
-.modal.fade.hide.confirmation-modal{:id => "delete-folder-modal-#{folder.id}", :data => {:action => folder_path(folder)}}
+= confirmation_modal_tag :id => "delete-folder-modal-#{folder.id}", :action => folder_path(folder), :success_message => 'Folder Deleted' do
   .modal-header
     = link_to '&#215;'.html_safe, '#', :data => {:dismiss => 'modal'}, :class => 'close'
-    %h3 Delete Folder '#{folder.name}'
+    %h2 Delete Folder
+    %h3= folder.name
   .modal-body
     %p Are you sure you want to delete this folder?
   .modal-footer

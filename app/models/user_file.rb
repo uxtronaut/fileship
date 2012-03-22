@@ -3,11 +3,17 @@ class UserFile < ActiveRecord::Base
 
   belongs_to :folder
 
+  attr_accessible :name, :attachment, :folder_id, :password, :password_confirmation
+
+  attr_accessor :share_emails, :share_message
+  attr_accessor :password_confirmation
+
   validates_presence_of :attachment
   validates_presence_of :folder_id
   validates_presence_of :name, :on => :update
+  validates_confirmation_of :password, :allow_blank => true
 
-  after_create :set_name
+  after_create :set_name, :set_token
 
   def extension
     File.extname(name)[1..-1]
@@ -15,6 +21,10 @@ class UserFile < ActiveRecord::Base
 
   def set_name
     update_attribute(:name, attachment.file.filename)
+  end
+
+  def set_token
+    update_attribute(:link_token, SecureRandom.hex(6))
   end
 
 end

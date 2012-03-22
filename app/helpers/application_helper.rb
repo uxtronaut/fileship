@@ -34,7 +34,43 @@ module ApplicationHelper
       })
     end
 
-    return messages.html_safe
+    return content_tag :div, messages, :id => 'alerts'
+  end
+
+  def form_modal_tag(options = {}, &block)
+    opts = {
+      :id => nil,
+      :success_message => 'Success',
+      :class => []
+    }.merge(options)
+
+    if opts[:class].is_a? String
+      opts[:class] = opts[:class].split(' ')
+    end
+
+    content_tag :div, capture(&block), {
+      :class => (['modal', 'hide', 'form-modal'] << opts[:class]),
+      :id => opts[:id],
+      :data => {:success_message => opts[:success_message]}
+    }
+  end
+
+  def confirmation_modal_tag(options = {}, &block)
+    opts = {
+      :id => nil,
+      :class => [],
+      :success_message => 'Success',
+      :action => '/'
+    }.merge(options)
+
+    content_tag :div, capture(&block), {
+      :class => (['modal', 'hide', 'confirmation-modal'] << opts[:class]) ,
+      :id => opts[:id],
+      :data => {
+        :success_message => opts[:success_message],
+        :action => opts[:action]
+      }
+    }
   end
 
 end

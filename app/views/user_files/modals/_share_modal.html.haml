@@ -1,0 +1,11 @@
+= form_modal_tag :id => "share-file-modal-#{user_file.id}", :class => 'share-file-modal', :success_message => 'Link Emailed' do
+  .modal-header
+    = link_to '&#215;'.html_safe, '#', :data => {:dismiss => 'modal'}, :class => 'close'
+    %h2 Share File
+    %h3= user_file.name
+  .modal-body
+    = render 'user_files/share_form', :user_file => user_file
+  .modal-footer
+    = image_tag 'loading.gif', :alt => 'Working...', :class => ['progress-wheel', 'pull-left']
+    = link_to 'Email Link', '#', :class => ['btn', 'btn-primary', 'submit']
+    = link_to 'Cancel', '#', :class => 'btn', :data => {:dismiss => 'modal'}

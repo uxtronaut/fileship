@@ -8,7 +8,7 @@ class window.FileShipUploader
 
     ajax_uploader = new qq.FileUploader
       element: $('#file-uploader')[0]
-      listElement: $('#uploads-list')[0]
+      listElement: $('#alerts')[0]
       dropZone: $('#upload-drop-zone')[0]
       action: $('#file-uploader').data('upload-action')
       maxConnections: 1
@@ -44,7 +44,7 @@ class window.FileShipUploader
       type: 'GET'
       success: (data)->
         $('#folder-wrapper').html(data)
-        window.folder.initialize_modals()
+        window.folder = new Folder
 
     # Update file div with success class and message, set fadeout
     $(file_div).find('.progress-text').hide()
@@ -71,7 +71,7 @@ class window.FileShipUploader
     return '' +
       '<div class="uploader">' +
         '<div class="upload-button">' +
-          '<a href="#" class="btn">' +
+          '<a href="#" class="btn btn-large btn-">' +
             '<i class="icon-upload-alt icon-large"></i> Upload File(s)' +
           '</a>' +
         '</div>' +
