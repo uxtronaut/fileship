@@ -17,7 +17,6 @@ class window.Folder
       $(modal).confirmation_modal()
 
   alert: (message, type) ->
-    close_button = '<div class="close" data-dismiss="alert">&times;</div>'
-    alert = '<div class="alert alert-block alert-'+type+'">'+close_button+message+'</div>'
-    $('#alerts').html(alert).fadeIn('fast').delay(2000).fadeOut('fast')
+    window.alerts.notify('create', 'success-template', {text: message})
+
     

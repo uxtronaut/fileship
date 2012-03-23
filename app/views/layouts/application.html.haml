@@ -33,7 +33,8 @@
 
       .container
         %section
-          = flash_messages
+          = render 'alerts'
+              
           = yield
 
       .footer-push

@@ -34,7 +34,7 @@ module ApplicationHelper
       })
     end
 
-    return content_tag :div, messages, :id => 'alerts'
+    messages
   end
 
   def form_modal_tag(options = {}, &block)

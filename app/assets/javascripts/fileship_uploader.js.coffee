@@ -29,7 +29,6 @@ class window.FileShipUploader
         # Remove the progress bar and add the close X to the file div
         file_div = ajax_uploader._getItemByFileId(id)
         $(file_div).find('.progress-wrapper').remove()
-        $(file_div).prepend('<a class="close" title="close" data-dismiss="alert" href="#">&times;</a>')
 
         if responseJSON.success
           self.uploadSuccess(file_div)
@@ -80,12 +79,10 @@ class window.FileShipUploader
   self.fileDivTemplate = () ->
     return '' +
       '<div data-alert="alert" class="file-status alert alert-info">' +
-        '<a class="upload-cancel btn small" href="#">Cancel</a>' +
-        '<p>' +
-          '<span class="upload-file"><!-- file --></span>' +
-          '<span class="upload-size"><!-- size --></span>' +
-        '</p>' +
-        '<div class="progress-text"><img src="'+$('#file-uploader').data('ie-progress-image-src')+'"> Uploading...</div>' +
+        '<a class="close upload-cancel" href="#">&times;</a>' +
+          '<div class="upload-file"><!-- file --></div>' +
+          '<div class="upload-size"><!-- size --></div>' +
+        '<div class="progress-text"><img src="'+$('#file-uploader').data('ie-progress-image-src')+'" /> Uploading...</div>' +
         '<div class="progress-wrapper">' +
           '<div class="progress-bar"></div>' +
         '</div>' +
