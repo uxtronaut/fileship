@@ -1,4 +1,12 @@
+$footerHeight: 30px
 body.dark
+
+  .wrapper
+    margin: 0 auto ($footerHeight * -1)
+
+  .footer-push
+    height: $footerHeight + 50
+
   background-image: image-url('bg-pattern.gif')
   background-repeat: repeat
   background-position: auto
@@ -14,10 +22,12 @@ body.dark
     font-weight: normal
 
   #footer
-    background: none
+    height: $footerHeight
 
-    .footer-robot
-      display: none
+    p
+      margin-top: 0
+
+    background: none
 
   header
     h1 a

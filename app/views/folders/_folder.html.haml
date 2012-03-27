@@ -6,6 +6,7 @@
       %th Size
       %th Modified
       %th
+      %th
   %tbody
     - folder.children.each do |child_folder|
       %tr
@@ -13,6 +14,7 @@
         %td.file-name= link_to child_folder.name, child_folder
         %td.muted= number_to_human_size(child_folder.size).to_s.downcase
         %td.muted= l(folder.updated_at)
+        %td
         %td.file-actions
           .btn-group
             = dropdown_menu_toggle
@@ -27,6 +29,7 @@
         %td.file-name= link_to file.name, file
         %td.muted= number_to_human_size(file.attachment.file.size).to_s.downcase
         %td.muted= l(file.updated_at)
+        %td.muted= content_tag :i, '', :class => 'icon-lock' if file.password
         %td.file-actions
           .btn-group
             = dropdown_menu_toggle
