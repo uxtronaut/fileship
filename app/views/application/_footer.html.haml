@@ -1,6 +1,3 @@
 #footer
   .container
     %p &#0169; #{Date.today.year} Oregon State University | #{link_to 'Acceptable Use Policy', policy_path}
-
-  - unless action_name == 'welcome'
-    = image_tag 'small-robot.png', :alt => 'Small Robot', :class => 'footer-robot'

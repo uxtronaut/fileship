@@ -8,6 +8,8 @@ Fileship::Application.routes.draw do
   resources :user_files do
     member do
       put :share
+      get :enter_password
+      put :check_password
     end
   end
 

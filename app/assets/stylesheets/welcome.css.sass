@@ -29,6 +29,7 @@ body.welcome
     background-image: image-url('astronaut.png'), image-url('stars.png')
     background-repeat: no-repeat
     background-position: 40% bottom, center 30px
+    z-index: 1
 
   .header-wrapper
     background-image: none
@@ -36,3 +37,8 @@ body.welcome
 
   #footer
     background: none
+    z-index: 2
+    
+    p
+      position: relative
+      z-index: 3

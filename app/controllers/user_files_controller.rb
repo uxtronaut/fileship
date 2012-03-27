@@ -1,18 +1,37 @@
 class UserFilesController < ApplicationController
 
-  prepend_before_filter RubyCAS::Filter, :except => :show
-  prepend_before_filter RubyCAS::GatewayFilter, :only => :show
+  prepend_before_filter RubyCAS::Filter, :except => [:show, :enter_password, :check_password]
+  #prepend_before_filter RubyCAS::GatewayFilter, :only => [:show, :enter_password, :check_password]
 
-  before_filter :get_folder, :except => [:show, :update, :destroy, :share]
+  before_filter :get_user_file, :except => [:show, :create]
+  before_filter :get_folder, :except => :show
+
   before_filter :get_upload, :only => :create
 
   def show
     @user_file = UserFile.find_by_link_token(params[:link_token]) || UserFile.find(params[:id])
-    send_file @user_file.attachment.file.path, :filename => @user_file.name
+
+    if @user_file.password && (@user_file.folder.user != @current_user)
+      redirect_to enter_password_user_file_path(@user_file), :notice => "Enter the password for #{@user_file.name}"
+      return
+    end
+
+    send_user_file
+  end
+
+  def enter_password
+  end
+
+  def check_password
+    if params[:user_file][:password] == @user_file.password
+      send_user_file
+      return
+    end
+    @user_file.errors.add :password, "Password didn't match"
+    render :enter_password, :alert => 'Password did not match...'
   end
 
   def new
-    @user_file = @folder.user_files.build
   end
 
   def create
@@ -49,11 +68,9 @@ class UserFilesController < ApplicationController
   end
 
   def update
-    @user_file = UserFile.find(params[:id])
-
     if @user_file.update_attributes(params[:user_file])
       respond_to do |format|
-        format.js { render @user_file.folder, :formats => [:html] }
+        format.js { render @folder, :formats => [:html] }
       end
     else
       respond_to do |format|
@@ -71,28 +88,31 @@ class UserFilesController < ApplicationController
   end
 
   def destroy
-    @user_file = UserFile.find(params[:id])
-    folder = @user_file.folder
-
     if @user_file.destroy
       respond_to do |format|
-        format.js { render folder, :formats => [:html] }
+        format.js { render @folder, :formats => [:html] }
       end
     end
   end
 
   def share
-    @user_file = UserFile.find(params[:id])
-
     respond_to do |format|
-      format.js { render @user_file.folder, :formats => [:html] }
+      format.js { render @folder, :formats => [:html] }
     end
   end
 
   private
 
+    def get_user_file
+      @user_file = UserFile.find(params[:id])
+    end
+
     def get_folder
-      @folder = Folder.find(params[:folder_id])
+      if params[:folder_id]
+        @folder = Folder.find(params[:folder_id])
+      else
+        @folder = @user_file.folder
+      end
     end
 
     def get_upload
@@ -101,6 +121,10 @@ class UserFilesController < ApplicationController
         @new_file = File.open(Rails.root.join('tmp', file_name), "wb+")
         @new_file.write request.body.read
       end
+    end
+
+    def send_user_file
+      send_file @user_file.attachment.file.path, :filename => @user_file.name
     end
 
 end

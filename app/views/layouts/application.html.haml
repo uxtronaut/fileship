@@ -32,7 +32,7 @@
                     = link_to "#{content_tag :i, '', :class => 'icon-comment icon-large'} Feedback".html_safe, new_feedback_path
 
       .container
-        %section
+        %section#main
           = render 'alerts'
               
           = yield

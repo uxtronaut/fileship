@@ -14,6 +14,7 @@ class UserFile < ActiveRecord::Base
   validates_confirmation_of :password, :allow_blank => true
 
   after_create :set_name, :set_token
+  before_save :remove_empty_password
 
   def extension
     File.extname(name)[1..-1]
@@ -25,6 +26,12 @@ class UserFile < ActiveRecord::Base
 
   def set_token
     update_attribute(:link_token, SecureRandom.hex(6))
+  end
+
+  def remove_empty_password
+    if password.blank?
+      self.password = nil
+    end
   end
 
 end
