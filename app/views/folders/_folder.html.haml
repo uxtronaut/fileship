@@ -34,15 +34,15 @@
           .btn-group
             = dropdown_menu_toggle
             %ul.dropdown-menu
-              %li= share_menu_item file
-              %li= password_menu_item file
-              %li= rename_file_menu_item file
-              -#%li= replace_file_menu_item file
-              %li= delete_file_menu_item file
+              %li= file_menu_item 'Share', 'icon-share', file.id
+              %li= file_menu_item 'Email', 'icon-envelope', file.id
+              %li= file_menu_item 'Password', 'icon-lock', file.id
+              %li= file_menu_item 'Rename', 'icon-edit', file.id
+              %li= file_menu_item 'Delete', 'icon-trash', file.id
           = render 'user_files/modals/share_modal', :user_file => file
+          = render 'user_files/modals/email_modal', :user_file => file
           = render 'user_files/modals/password_modal', :user_file => file
           = render 'user_files/modals/rename_modal', :user_file => file
-          =# render 'user_files/replace_modal', :user_file => file
           = render 'user_files/modals/delete_modal', :user_file => file
               
     - if folder.children.empty? && folder.user_files.empty?
