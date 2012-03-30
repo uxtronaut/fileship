@@ -95,7 +95,7 @@ class UserFilesController < ApplicationController
     end
   end
 
-  def share
+  def email
     respond_to do |format|
       format.js { render @folder, :formats => [:html] }
     end

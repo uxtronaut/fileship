@@ -1,11 +1,11 @@
-= form_modal_tag :id => "password-file-modal-#{user_file.id}", :success_message => 'Password Updated' do
+= form_modal_tag :id => "email-file-modal-#{user_file.id}", :class => 'email-file-modal' do
   .modal-header
     = link_to '&#215;'.html_safe, '#', :data => {:dismiss => 'modal'}, :class => 'close'
-    %h2 Password Protect
+    %h2 Email File
     %h3= user_file.name
   .modal-body
-    = render 'user_files/password_form', :user_file => user_file
+    = render 'user_files/email_form', :user_file => user_file
   .modal-footer
     = image_tag 'loading.gif', :alt => 'Working...', :class => ['progress-wheel', 'pull-left']
-    = link_to 'Update Password', '#', :class => ['btn', 'btn-primary', 'submit']
+    = link_to 'Email File', '#', :class => ['btn', 'btn-primary', 'submit']
     = link_to 'Cancel', '#', :class => 'btn', :data => {:dismiss => 'modal'}

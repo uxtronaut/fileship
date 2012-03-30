@@ -1,0 +1,9 @@
+= simple_form_for user_file, :url => email_user_file_path(user_file), :html => {:class => 'form-horizontal'} do |form|
+  %p.muted
+    Enter a comma separated list of email addresses.
+
+  = form.input :share_emails, :as => :text, :input_html => {:rows => 3, :class => 'span4'}
+  = form.input :share_message, :as => :text, :input_html => {:rows => 3, :class => 'span4'}
+
+  .form-actions
+    = form.submit 'Send Email', :class => 'btn btn-primary'
