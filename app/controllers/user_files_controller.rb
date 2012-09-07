@@ -101,6 +101,9 @@ class UserFilesController < ApplicationController
     end
   end
 
+  def share
+  end
+
   private
 
     def get_user_file

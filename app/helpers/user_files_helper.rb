@@ -6,7 +6,7 @@ module UserFilesHelper
   end
 
   def link_url(file)
-    "#{request.host}:#{request.port}/#{file.link_token}"
+    "#{request.protocol}#{request.host}:#{request.port}/#{file.link_token}"
   end
 
 end
