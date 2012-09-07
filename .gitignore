@@ -15,4 +15,5 @@
 /tmp
 
 config/app.yml
+config/database.yml
 public/uploads
