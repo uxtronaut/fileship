@@ -4,7 +4,7 @@ class Folder < ActiveRecord::Base
 
   acts_as_tree :order => 'name'
 
-  has_many :user_files, :dependent => :destroy, :order => 'name COLLATE NOCASE'
+  has_many :user_files, :dependent => :destroy, :order => 'lower(name)'
   belongs_to :user
 
   attr_accessible :name, :user_id
