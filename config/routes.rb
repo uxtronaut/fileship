@@ -10,6 +10,7 @@ Fileship::Application.routes.draw do
       put :email
       get :enter_password
       put :check_password
+      post :share
     end
   end
 
