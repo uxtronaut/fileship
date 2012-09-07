@@ -13,7 +13,7 @@ gem 'haml'
 gem 'simple_form'
 gem 'bootstrap-sass'
 
-gem 'carrierwave', :git => 'https://github.com/jnicklas/carrierwave.git'
+gem 'carrierwave', '~> 0.5.8'
 
 gem 'rubycas-client', '~> 2.2.1'
 gem 'rubycas-client-rails', :git => 'git@gitlab.cws.oregonstate.edu:rubycas-client-rails-osu.git'
@@ -24,8 +24,9 @@ gem 'acts_as_tree'
 
 gem 'rspec-rails'
 gem 'mocha'
-gem 'factory_girl_rails'
+gem 'factory_girl_rails', '~> 1.4.0'
 gem 'faker'
+gem 'mysql'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -34,7 +35,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer'
+  gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
 end
