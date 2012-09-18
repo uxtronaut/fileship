@@ -6,6 +6,7 @@ gem 'rails', '3.2.2'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'mysql'
 
 gem 'json'
 
@@ -24,7 +25,7 @@ gem 'acts_as_tree'
 
 gem 'rspec-rails'
 gem 'mocha'
-gem 'factory_girl_rails'
+gem 'factory_girl_rails', '~> 1.4.0'
 gem 'faker'
 
 # Gems used only for assets and not required
