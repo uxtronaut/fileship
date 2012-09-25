@@ -54,10 +54,10 @@ class UserFilesController < ApplicationController
         @new_file.close
 
         if @user_file.save
-          render :json => {:success => true}
+          render :json => {:success => true}, :content_type => 'text/plain'
           return
         else
-          render :json => {:success => false, :errors => @user_file.errors}
+          render :json => {:success => false, :errors => @user_file.errors}, :content_type => 'text/plain'
           return
         end
       end
