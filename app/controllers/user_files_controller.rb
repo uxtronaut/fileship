@@ -3,7 +3,7 @@ class UserFilesController < ApplicationController
   prepend_before_filter RubyCAS::Filter, :except => [:show, :enter_password, :check_password]
   #prepend_before_filter RubyCAS::GatewayFilter, :only => [:show, :enter_password, :check_password]
 
-  before_filter :get_user_file, :except => [:show, :create]
+  before_filter :get_user_file, :except => [:show, :create, :new]
   before_filter :get_folder, :except => :show
 
   before_filter :get_upload, :only => :create
@@ -32,6 +32,7 @@ class UserFilesController < ApplicationController
   end
 
   def new
+    @user_file = UserFile.new
   end
 
   def create
