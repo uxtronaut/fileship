@@ -1,6 +1,6 @@
 class window.FileShipUploader
   constructor: () ->
-    if self.disableIE7()
+    if self.disableIE8()
       return
     @bindUploader()
 
@@ -102,8 +102,8 @@ class window.FileShipUploader
     }
 
   # Show upload link for IE users
-  self.disableIE7 = () ->
-    if $.browser.msie && $.browser.version < 8.0
+  self.disableIE8 = () ->
+    if $.browser.msie && $.browser.version < 9.0
       $('#file-uploader').hide()
       $('#ie-uploads-button').css('display', 'inline-block')
       return true
