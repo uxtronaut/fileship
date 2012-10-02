@@ -9,12 +9,18 @@ development:
     bind_dn: ''
     password: ''
 
+  force_ssl: false
+
 test:
   cas: *cas_settings
 
   osu_ldap: *ldap_settings
 
+  force_ssl: false
+
 production:
   cas: *cas_settings
 
   osu_ldap: *ldap_settings
+
+  force_ssl: true

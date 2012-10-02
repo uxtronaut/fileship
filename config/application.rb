@@ -77,5 +77,9 @@ module Fileship
     config.rubycas.logger = Rails.logger
     #config.rubycas.use_gatewaying = true
 
+    if config.fileship_config['force_ssl'].equal?(true) || config.fileship_config['force_ssl'].equal?(false)
+      config.force_ssl = config.fileship_config['force_ssl']
+    end
+
   end
 end
