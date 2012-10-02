@@ -37,6 +37,15 @@ module FoldersHelper
     }
   end
 
+  def ie_upload_button(folder)
+    upload_button = "#{content_tag :i, '', :class => 'icon-upload-alt icon-large'} Upload File"
+    upload_button = link_to upload_button.html_safe, new_folder_user_file_path(folder), {
+      :class => 'btn btn-large'
+    }
+
+    content_tag :div, upload_button, { :id => 'ie-uploads-button' }
+  end
+
   def new_folder_button(folder)
     link_to "#{content_tag :i, '', :class => 'icon-folder-open icon-large'} New Folder".html_safe, new_folder_folder_path(folder), {
       :id => 'new-folder-button',

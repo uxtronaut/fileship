@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   def render_403
     respond_to do |format|
       format.html { render :file => Rails.root.join('public', '403.html'), :status => :forbidden, :layout => 'dark' }
-      format.json { render :json => {:error => 'Error 403, forbidden...'}, :status => :forbidden }
+      format.json { render :json => {:error => 'Error 403, forbidden...'}, :status => :forbidden, :content_type => 'text/plain' }
     end
   end
 
