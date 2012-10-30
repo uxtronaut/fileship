@@ -34,4 +34,13 @@ class UserFile < ActiveRecord::Base
     end
   end
 
+  def self.purge_old_files
+    days_until_purge = 7
+    UserFile.all.each do |user_file|
+      if user_file.created_at.to_date + days_until_purge < Date.today
+        user_file.destroy
+        #DO STUFF TO GET RID OF FOLDER IF IT IS EMPTY OR SOMETHING 
+      end
+    end
+  end
 end
