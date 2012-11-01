@@ -11,6 +11,8 @@ development:
 
   force_ssl: false
 
+  days_until_purge:
+
 test:
   cas: *cas_settings
 
@@ -18,9 +20,13 @@ test:
 
   force_ssl: false
 
+  days_until_purge:
+
 production:
   cas: *cas_settings
 
   osu_ldap: *ldap_settings
 
   force_ssl: true
+
+  days_until_purge:

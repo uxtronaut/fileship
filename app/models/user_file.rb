@@ -15,6 +15,8 @@ class UserFile < ActiveRecord::Base
 
   after_create :set_name, :set_token
   before_save :remove_empty_password
+  
+  after_destroy :remove_id_directory
 
   def extension
     File.extname(name)[1..-1]
@@ -34,12 +36,20 @@ class UserFile < ActiveRecord::Base
     end
   end
 
+
+  # Removes the useless directory left behind when a user_file is deleted
+  def remove_id_directory
+    FileUtils.remove_dir("#{Rails.root}/public/uploads/user_file/attachment/#{self.id}", 
+                          :force => true)
+  end
+
+
+  # Purges all files that are older than the number of days set in app.yml.
   def self.purge_old_files
-    days_until_purge = 7
+    days_until_purge = Fileship::Application.config.fileship_config['days_until_purge']
     UserFile.all.each do |user_file|
       if user_file.created_at.to_date + days_until_purge < Date.today
         user_file.destroy
-        #DO STUFF TO GET RID OF FOLDER IF IT IS EMPTY OR SOMETHING 
       end
     end
   end
