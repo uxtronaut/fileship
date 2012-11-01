@@ -36,21 +36,30 @@ class UserFile < ActiveRecord::Base
     end
   end
 
-
   # Removes the useless directory left behind when a user_file is deleted
   def remove_id_directory
     FileUtils.remove_dir("#{Rails.root}/public/uploads/user_file/attachment/#{self.id}", 
                           :force => true)
   end
 
-
   # Purges all files that are older than the number of days set in app.yml.
   def self.purge_old_files
-    days_until_purge = Fileship::Application.config.fileship_config['days_until_purge']
-    UserFile.all.each do |user_file|
-      if user_file.created_at.to_date + days_until_purge < Date.today
-        user_file.destroy
-      end
+    UserFile.where("created_at < ?", UserFile.purge_date).each do |user_file|
+      user_file.destroy
     end
   end
+  
+  
+  private
+    # Returns the days_until_purge set in application settings
+    def self.days_until_purge
+      return Fileship::Application.config.fileship_config['days_until_purge']
+    end
+    
+    # Returns the date that all UserFiles created before will be destroyed. 
+    # Does this by converting the current date into time_in_current_zone format and subtracting
+    # the number of seconds in a day (86400) * the days_until_purge application setting
+    def self.purge_date
+      return Date.today.to_time_in_current_zone - 86400 * UserFile.days_until_purge
+    end
 end
