@@ -50,7 +50,7 @@ class UserFile < ActiveRecord::Base
   end
   
   
-  private
+ 
     # Returns the days_until_purge set in application settings
     def self.days_until_purge
       return Fileship::Application.config.fileship_config['days_until_purge']
