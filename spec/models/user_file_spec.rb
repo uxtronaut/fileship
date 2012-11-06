@@ -47,4 +47,12 @@ describe UserFile do
       UserFile.all.include?(user_file_2).should eq true
     end
   end
+  
+  
+  describe "#purge_date" do
+    it "should return a predefined number of days before today" do
+      Fileship::Application.config.fileship_config['days_until_purge'] = 1
+      UserFile.purge_date.should eq Date.today.to_time_in_current_zone - 1.days
+    end
+  end
 end
