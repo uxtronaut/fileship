@@ -57,9 +57,7 @@ class UserFile < ActiveRecord::Base
     end
     
     # Returns the date that all UserFiles created before will be destroyed. 
-    # Does this by converting the current date into time_in_current_zone format and subtracting
-    # the number of seconds in a day (86400) * the days_until_purge application setting
     def self.purge_date
-      return Date.today.to_time_in_current_zone - 86400 * UserFile.days_until_purge
+      return Date.today.to_time_in_current_zone - UserFile.days_until_purge.days
     end
 end
