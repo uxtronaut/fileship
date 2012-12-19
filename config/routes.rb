@@ -14,7 +14,11 @@ Fileship::Application.routes.draw do
     end
   end
 
-  resources :feedback, :only => [:new, :create]
+  resources :feedback do
+    collection do
+      get :thanks
+    end
+  end
 
   match 'signout', :controller => :application, :action => :signout, :via => :get
 
