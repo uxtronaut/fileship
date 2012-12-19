@@ -13,7 +13,7 @@ class UserFile < ActiveRecord::Base
   validates_presence_of :name, :on => :update
   validates_confirmation_of :password, :allow_blank => true
 
-  after_create :set_name, :set_token
+  after_create :set_name, :set_token, :create_log
   before_save :remove_empty_password
   
   after_destroy :remove_id_directory
@@ -28,6 +28,10 @@ class UserFile < ActiveRecord::Base
 
   def set_token
     update_attribute(:link_token, SecureRandom.hex(6))
+  end
+  
+  def create_log
+    FileLog.create_log(self)
   end
 
   def remove_empty_password
