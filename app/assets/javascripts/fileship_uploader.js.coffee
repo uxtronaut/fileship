@@ -15,6 +15,8 @@ class window.FileShipUploader
       template: self.template()
       fileTemplate: self.fileDivTemplate()
       classes: self.templateClasses()
+      # Maximum file size is 100MB (in bytes)
+      sizeLimit: (1024 * 1024 * 100)
       params:
         'authenticity_token': $('meta[name="csrf-token"]').attr('content')
 
