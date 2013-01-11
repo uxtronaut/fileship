@@ -6,6 +6,14 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
 
+  def move_to_cache
+    true
+  end
+  
+  def move_to_store
+    true
+  end
+
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
