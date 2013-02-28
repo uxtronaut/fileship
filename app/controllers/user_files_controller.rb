@@ -123,7 +123,7 @@ class UserFilesController < ApplicationController
       if params[:qqfile]
         file_name = params[:qqfile].respond_to?(:original_filename) ? params[:qqfile].original_filename : params[:qqfile]
         @new_file = File.open(Rails.root.join('tmp', file_name), "wb+")
-        @new_file.write request.body.read
+        @new_file.write request.raw_post
       end
     end
 
