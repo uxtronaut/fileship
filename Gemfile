@@ -1,23 +1,23 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'mysql'
+gem 'mysql2'
 
-gem 'json'
+gem 'json', '1.7.6'
 
 gem 'haml'
 gem 'simple_form'
 gem 'bootstrap-sass'
 
-gem 'carrierwave', :git => 'https://github.com/jnicklas/carrierwave.git'
+gem 'carrierwave'
 
 gem 'rubycas-client', '~> 2.2.1'
-gem 'rubycas-client-rails', :git => 'git@gitlab.cws.oregonstate.edu:rubycas-client-rails-osu.git'
+gem 'rubycas-client-rails'
 gem 'osu-ldap', :git => 'git@gitlab.cws.oregonstate.edu:osu-ldap.git'
 
 gem 'jquery-rails'
