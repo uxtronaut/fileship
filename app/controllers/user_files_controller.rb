@@ -19,8 +19,12 @@ class UserFilesController < ApplicationController
     send_user_file
   end
 
+
+
   def enter_password
   end
+
+
 
   def check_password
     if params[:user_file][:password] == @user_file.password
@@ -31,9 +35,13 @@ class UserFilesController < ApplicationController
     render :enter_password, :alert => 'Password did not match...'
   end
 
+
+
   def new
     @user_file = UserFile.new
   end
+
+
 
   def create
     respond_to do |format|
@@ -65,8 +73,12 @@ class UserFilesController < ApplicationController
     end
   end
 
+
+
   def edit
   end
+
+
 
   def update
     if @user_file.update_attributes(params[:user_file])
@@ -88,6 +100,8 @@ class UserFilesController < ApplicationController
     end
   end
 
+
+
   def destroy
     if @user_file.destroy
       respond_to do |format|
@@ -96,20 +110,29 @@ class UserFilesController < ApplicationController
     end
   end
 
+
+
   def email
     respond_to do |format|
       format.js { render @folder, :formats => [:html] }
     end
   end
 
+
+
   def share
   end
 
-  private
 
+
+
+  private
+  
     def get_user_file
       @user_file = UserFile.find(params[:id])
     end
+
+
 
     def get_folder
       if params[:folder_id]
@@ -119,6 +142,8 @@ class UserFilesController < ApplicationController
       end
     end
 
+
+
     def get_upload
       if params[:qqfile]
         file_name = params[:qqfile].respond_to?(:original_filename) ? params[:qqfile].original_filename : params[:qqfile]
@@ -126,6 +151,8 @@ class UserFilesController < ApplicationController
         @new_file.write request.raw_post
       end
     end
+
+
 
     def send_user_file
       send_file @user_file.attachment.file.path, :filename => @user_file.name

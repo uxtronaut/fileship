@@ -27,7 +27,6 @@ class User < ActiveRecord::Base
       :first_name => [:givenname],
       :last_name => [:sn],
       :email => [:mail],
-      :osu_id => [:osuid],
       :ldap_identifier  => [:osuuid, :uidnumber],
       :department => [:osudepartment],
       :title => [:title]
