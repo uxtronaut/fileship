@@ -57,10 +57,10 @@ class UserFilesController < ApplicationController
       end
 
       format.json do
-        @new_file.close
-        @user_file = @folder.user_files.build({
+        @user_file = @folder.user_files.create({
           :attachment => @new_file
         })
+        @new_file.close
 
         if @user_file.save
           render :json => {:success => true}, :content_type => 'text/plain'
