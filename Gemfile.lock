@@ -1,10 +1,3 @@
-GIT
-  remote: git@gitlab.cws.oregonstate.edu:osu-ldap.git
-  revision: 4e760619fac8d6886304b126c85af8085e1a6de7
-  specs:
-    osu-ldap (1.2.5)
-      net-ldap
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -38,7 +31,7 @@ GEM
     acts_as_tree (1.3.0)
       activerecord (>= 3.0.0)
     arel (3.0.2)
-    bootstrap-sass (2.3.1.3)
+    bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
     builder (3.0.4)
     carrierwave (0.8.0)
@@ -167,7 +160,7 @@ DEPENDENCIES
   json (= 1.7.6)
   mocha
   mysql2
-  osu-ldap!
+  net-ldap
   rails (= 3.2.13)
   rspec-rails
   rubycas-client (~> 2.2.1)

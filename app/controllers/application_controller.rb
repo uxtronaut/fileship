@@ -15,9 +15,7 @@ class ApplicationController < ActionController::Base
       # available, the app is unusable, so we need to let them try to log in again
       unless @current_user
         Rails.logger.error "Valid CAS session, but no LDAP record for " + uid
-        # Destroy old session
-        session[:cas_user] = nil
-        redirect_to RubyCAS::Filter.login_url(self)
+        RubyCAS::Filter.logout(self, welcome_url)
         return
       end
     end
