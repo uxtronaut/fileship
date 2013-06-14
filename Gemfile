@@ -18,7 +18,8 @@ gem 'carrierwave'
 
 gem 'rubycas-client', '~> 2.2.1'
 gem 'rubycas-client-rails'
-gem 'osu-ldap', :git => 'git@gitlab.cws.oregonstate.edu:osu-ldap.git'
+
+gem 'net-ldap'
 
 gem 'jquery-rails'
 gem 'acts_as_tree'

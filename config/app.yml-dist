@@ -1,32 +1,27 @@
-development:
-  cas: &cas_settings
-    cas_base_url: ''
+cas: &cas_settings
+  cas_base_url: 'https://login.oregonstate.edu/cas'
 
-  osu_ldap: &ldap_settings
-    host: ''
-    base: ''
-    port: ''
-    bind_dn: ''
-    password: ''
+ldap: &ldap_settings
+  host: 'client-ldap.onid.orst.edu'
+  base: 'ou=people,o=orst.edu'
+  port: 636
+  # If your ldap stores names in the format "First Middle Last" then set first_name_position to 0
+  # and last_name_position to 2. If it stores "Last, First Middle" set first_name_position to 1 and
+  # last_name_position to 0, and so on.
+  first_name_position: 1
+  last_name_position: 0
+  
+  ldap_identifier: 'osuuid'
+  # Keep as :simple_tls unless your ldap requires another encryption method.
+  encryption: :simple_tls
 
-  force_ssl: false
 
-  days_until_purge:
 
-test:
-  cas: *cas_settings
+force_ssl: false
 
-  osu_ldap: *ldap_settings
 
-  force_ssl: false
+# The number of days before files are deleted automatically by cron. Should be an integer.
+days_until_purge: 1
 
-  days_until_purge:
-
-production:
-  cas: *cas_settings
-
-  osu_ldap: *ldap_settings
-
-  force_ssl: true
-
-  days_until_purge:
+# The number of hours until temporary files are deleted automatically. Should be an integer.
+hours_until_temp_purge: 0.2
