@@ -24,10 +24,14 @@ gem 'net-ldap'
 gem 'jquery-rails'
 gem 'acts_as_tree'
 
-gem 'rspec-rails'
-gem 'mocha'
-gem 'factory_girl_rails', '~> 1.4.0'
-gem 'faker'
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'mocha', :require => nil
+  gem 'factory_girl_rails', '~> 1.4.0'
+  gem 'faker'
+end 
+
 
 # Gems used only for assets and not required
 # in production environments by default.

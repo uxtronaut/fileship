@@ -69,8 +69,11 @@ module Fileship
     # Load app.yml application configs
     config.fileship_config = YAML.load_file("#{Rails.root}/config/app.yml")
 
-    # Configure OSU LDAP
+    # Configure LDAP
     config.ldap = config.fileship_config['ldap']
+
+    # Configure LDAP
+    config.feedback = config.fileship_config['feedback']
 
     # Configure CAS
     config.rubycas.cas_base_url = config.fileship_config['cas']['cas_base_url']

@@ -4,28 +4,30 @@ class FeedbackController < ApplicationController
     @feedback = Feedback.new
   end
 
-  def create
 
-    # Create an issue and inject our project id and our tracker id
-    @feedback = Feedback.new(params[:feedback])
-    
+  def create
+    # Load feedback configurations
+    feedback_config = Fileship::Application.config.feedback
+            
     # Add our project id and tracker id
-    @feedback.project_id = Feedback::PROJECT_ID
-    @feedback.tracker_id = Feedback::TRACKER_ID
+    @feedback = Feedback.new(params[:feedback])
+    @feedback.project_id = feedback_config["project_id"]
+    @feedback.tracker_id = feedback_config["tracker_id"]
     
-    # Add's current user's uid to the description at the end
-    user = User.find_by_uid(session[:cas_user])
-    @feedback.description = @feedback.description + "\r\n\nSubmitted by: #{user.first_name} #{user.last_name}, #{user.email}"
+    unless @feedback.subject.blank? || @feedback.description.blank?
+      # Prepends subject line 
+      @feedback.subject = feedback_config['prepend_subject'] + @feedback.subject unless feedback_config['prepend_subject'].blank?
+      
+      # Add's current user's uid to the description at the end
+      @feedback.description = @feedback.description + "\r\n\nSubmitted by: #{@current_user.name},  #{@current_user.email}"
+    end
     
-    # Dont bother conditionally determining response...
-    # no matter what we show them the form again with 
-    # proper message
+    # Thanks user for feedback unless they forgot a field
     if @feedback.save_with_validation
       redirect_to thanks_feedback_index_path
     else
       render :action => 'new'
     end
-
   end
 
 end
