@@ -59,6 +59,6 @@ def app_set_required_environment_vars():
 
     env.project_type = 'rails'
 
-    env.run_seed_fu_task = True
+#    env.run_seed_fu_task = True
 
     return
