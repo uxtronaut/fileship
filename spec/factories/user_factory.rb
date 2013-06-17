@@ -5,8 +5,7 @@ FactoryGirl.define do
     is_admin false
     uid { Faker::Internet.user_name }
     email {|u| "#{u}@#{Faker::Internet.domain_name}.#{Faker::Internet.domain_suffix}" }
-
-    after_create do |u|
+    after(:create) do |u|
       FactoryGirl.create(:home_folder, :name => u.uid)
     end
   end

@@ -31,7 +31,7 @@ describe FoldersController do
     context 'as a guest' do
       it 'redirects to the login path' do
         get :index
-        response.should redirect_to RubyCAS::Filter.login_url(controller)
+        response.status.should eq 302
       end
     end
   end
@@ -119,7 +119,7 @@ describe FoldersController do
       it 'redirects to the login path' do
         @folder = FactoryGirl.create(:folder)
         get :show, :id => @folder.id
-        response.should redirect_to RubyCAS::Filter.login_url(controller)
+        response.status.should eq 302
       end
     end
   end
