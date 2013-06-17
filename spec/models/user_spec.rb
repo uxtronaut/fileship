@@ -29,22 +29,6 @@ describe User do
     end
   end
 
-  describe '#after_import' do
-    before do
-      FactoryGirl.create(:root_folder)
-      @user = FactoryGirl.build(:user)
-      @user.after_import
-    end
-
-    it "saves the user" do
-      @user.should_not be_new_record
-    end
-
-    it "creates the user's home folder" do
-      @user.home_folder.should_not be_nil
-      @user.home_folder.name.should eq(@user.uid)
-    end
-  end
 
   describe '#home_folder' do
     it "returns the user's home folder" do
@@ -56,10 +40,10 @@ describe User do
     end
   end
 
-  describe '#full_name' do
+  describe '#name' do
     it "returns the user's full name" do
       user = FactoryGirl.build(:user)
-      user.full_name.should eq("#{user.first_name} #{user.last_name}")
+      user.name.should eq("#{user.first_name} #{user.last_name}")
     end
   end
 end

@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :first_name, :last_name
 
+  has_many :folders, :dependent => :destroy, :order => 'lower(name)'
+
+
   validates_presence_of :email, :uid, :first_name, :last_name
   validates_uniqueness_of :email, :uid
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/

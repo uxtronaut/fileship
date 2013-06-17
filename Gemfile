@@ -28,7 +28,7 @@ gem 'acts_as_tree'
 group :development, :test do
   gem 'rspec-rails'
   gem 'mocha', :require => nil
-  gem 'factory_girl_rails', '~> 1.4.0'
+  gem 'factory_girl_rails', '~> 4.2.1'
   gem 'faker'
 end 
 
