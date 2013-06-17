@@ -1,1 +1,0 @@
-Folder.create(:name => Folder::ROOT_NAME)
