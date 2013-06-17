@@ -24,6 +24,8 @@ gem 'net-ldap'
 gem 'jquery-rails'
 gem 'acts_as_tree'
 
+gem 'seed-fu', '~> 2.2.0'
+
 
 group :development, :test do
   gem 'rspec-rails'
