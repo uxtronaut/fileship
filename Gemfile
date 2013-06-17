@@ -30,6 +30,8 @@ group :development, :test do
   gem 'mocha', :require => nil
   gem 'factory_girl_rails', '~> 4.2.1'
   gem 'faker'
+  gem "simplecov"
+  gem "simplecov-rcov"
 end 
 
 
