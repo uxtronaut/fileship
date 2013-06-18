@@ -1,7 +1,7 @@
 
 
 .header-wrapper {
-    background-image: url("/assets/banner-bg-0c20cec77e370f255af359144ea6aacf.gif");
+    background-image: url("banner-bg-0c20cec77e370f255af359144ea6aacf.gif");
     border-bottom: 1px solid #DDDDDD;
     margin-bottom: 1em;
 }
@@ -203,7 +203,7 @@ a:hover {
 
 .form-alert-error {
     background-color: #EEEEEE;
-    background-image: url("/assets/error-robot-a5ada71b7a7ec9071b4cfddc674d4b66.png");
+    background-image: url("error-robot-a5ada71b7a7ec9071b4cfddc674d4b66.png");
     background-repeat: no-repeat;
     border-color: #999999 -moz-use-text-color;
     border-left: medium none;
@@ -219,7 +219,7 @@ a:hover {
 }
 
 body.dark {
-    background-image: url("/assets/bg-pattern-7881c1fef78ebb32c024025b574b2235.gif");
+    background-image: url("bg-pattern-7881c1fef78ebb32c024025b574b2235.gif");
     background-repeat: repeat;
     color: #FFFFFF;
 }
@@ -229,7 +229,11 @@ body.dark header h1 a {
 }
 
 body.dark .error-bot {
-    margin-top: 3em;
+    margin-top: 2em;
+    background-image: url("404-bot.gif");
+    background-repeat: no-repeat;
+    height: 630px;
+    vertical-align: top;
 }
 
 body.dark .error-message {
