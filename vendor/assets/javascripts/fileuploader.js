@@ -519,17 +519,20 @@ qq.FileUploader = function(o){
     });
     // overwrite options with user supplied    
     qq.extend(this._options, o);       
-
-    this._element = this._options.element;
-    this._element.innerHTML = this._options.template;        
-    this._listElement = this._options.listElement || this._find(this._element, 'list');
     
-    this._classes = this._options.classes;
+      this._element = this._options.element;
+    if(this._element != undefined) {
+      
+      this._element.innerHTML = this._options.template;        
+      this._listElement = this._options.listElement || this._find(this._element, 'list');
+    
+      this._classes = this._options.classes;
         
-    this._button = this._createUploadButton(this._find(this._element, 'button'));        
+      this._button = this._createUploadButton(this._find(this._element, 'button'));        
     
-    this._bindCancelEvent();
-    this._setupDragDrop();
+      this._bindCancelEvent();
+      this._setupDragDrop();
+    }
 };
 
 // inherit from Basic Uploader
