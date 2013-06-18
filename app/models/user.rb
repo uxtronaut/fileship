@@ -46,14 +46,6 @@ class User < ActiveRecord::Base
     new_user.ldap_identifier = user_information[ldap_config['ldap_identifier']][0] unless user_information[ldap_config['ldap_identifier']].blank?
     new_user.email = user_information[:mail][0] unless user_information[:mail].blank?
     new_user.save!
-    
-    # Creates user's file folder if they don't have one already
-    if new_user.home_folder.blank?
-      folder = Folder.new(:name => uid)
-      folder.parent = Folder.root
-      folder.user = new_user
-      folder.save!
-    end
     return new_user
   end
 
@@ -76,7 +68,14 @@ class User < ActiveRecord::Base
 
   # Returns the user's home folder
   def home_folder
-    return Folder.where(:name => uid, :parent_id => Folder.root.id).first
+    folder = Folder.where(:name => uid, :parent_id => Folder.root.id).first
+    if folder.blank?
+      folder = Folder.new(:name => uid)
+      folder.parent = Folder.root
+      folder.user = self
+      folder.save!
+    end
+    return folder
   end
 
 
