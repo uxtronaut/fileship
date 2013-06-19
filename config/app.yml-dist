@@ -51,9 +51,6 @@ subdirectory: ''
 # The number of days before files are deleted automatically by cron. Should be an integer.
 days_until_purge: 
 
-# The number of hours until temporary files are deleted automatically. Should be a small integer.
-hours_until_temp_purge: 
-
 # If you have a 'terms of use' policy, put the url here
 policy_path: ''
 
