@@ -58,9 +58,11 @@ class UserFile < ActiveRecord::Base
 
   # Generates link for sharing files, accomodating for the application running out of a subdirectory
   def self.share_url(url)
+    subdirectory = Fileship::Application.config.fileship_config['subdirectory']
+    return url if subdirectory.blank?
     url = url.split("/")
     url[url.length] = url.last
-    url[url.length - 2] = Fileship::Application.config.fileship_config['subdirectory']
+    url[url.length - 2] = subdirectory
     return url.join("/")
   end
   
