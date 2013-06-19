@@ -1,3 +1,8 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 module UserFilesHelper
 
   def file_menu_item(text, icon, file_id)

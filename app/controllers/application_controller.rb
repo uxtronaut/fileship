@@ -1,3 +1,8 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
 

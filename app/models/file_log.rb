@@ -1,3 +1,8 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 class FileLog < ActiveRecord::Base
 
   def self.create_log(user_file)

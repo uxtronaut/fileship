@@ -1,3 +1,8 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 class PagesController < ApplicationController
 
   prepend_before_filter RubyCAS::Filter::GatewayFilter
