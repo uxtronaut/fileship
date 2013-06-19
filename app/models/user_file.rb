@@ -40,11 +40,13 @@ class UserFile < ActiveRecord::Base
     end
   end
 
+
   # Removes the useless directory left behind when a user_file is deleted
   def remove_id_directory
     FileUtils.remove_dir("#{Rails.root}/public/uploads/user_file/attachment/#{self.id}", 
                           :force => true)
   end
+
 
   # Purges all files that are older than the number of days set in app.yml.
   def self.purge_old_files
@@ -53,15 +55,24 @@ class UserFile < ActiveRecord::Base
     end
   end
   
+
+  # Generates link for sharing files, accomodating for the application running out of a subdirectory
+  def self.share_url(url)
+    url = url.split("/")
+    url[url.length] = url.last
+    url[url.length - 2] = Fileship::Application.config.fileship_config['subdirectory']
+    return url.join("/")
+  end
   
- 
-    # Returns the days_until_purge set in application settings
-    def self.days_until_purge
-      return Fileship::Application.config.fileship_config['days_until_purge']
-    end
-    
-    # Returns the date that all UserFiles created before will be destroyed. 
-    def self.purge_date
-      return Date.today.to_time_in_current_zone - UserFile.days_until_purge.days
-    end
+  
+  # Returns the days_until_purge set in application settings
+  def self.days_until_purge
+    return Fileship::Application.config.fileship_config['days_until_purge']
+  end
+  
+  
+  # Returns the date that all UserFiles created before will be destroyed. 
+  def self.purge_date
+    return Date.today.to_time_in_current_zone - UserFile.days_until_purge.days
+  end
 end
