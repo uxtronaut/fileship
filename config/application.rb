@@ -72,7 +72,7 @@ module Fileship
     # Configure LDAP
     config.ldap = config.fileship_config['ldap']
 
-    # Configure LDAP
+    # Configure Feedback
     config.feedback = config.fileship_config['feedback']
 
     # Configure CAS
