@@ -49,6 +49,20 @@ days_until_purge:
 # The number of hours until temporary files are deleted automatically. Should be a small integer.
 hours_until_temp_purge: 
 
+# If you have a 'terms of use' policy, put the url here
+policy_path: ''
+
+# If you would like a logo to appear in the application's top hat, put the url to the image here
+logo_image_path: ''
+
+# If you want the aforementioned image to link to somewhere, provide the link here
+logo_url: ''
+
+# If you want to add custom CSS to Fileship, put the link to the stylesheet here. 
+# See EXAMPLE_STYLESHEET.css for a list of attributes that can be changed
+stylesheet_path: ''
+
+
 
 
 force_ssl: false
