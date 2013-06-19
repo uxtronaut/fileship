@@ -2,17 +2,18 @@
   %li= content_tag :i, '', :class => 'icon-home icon-large'
   = breadcrumbs(@folder).html_safe
 
-.btn-group.folder-options
-  = upload_button @folder
-  = ie_upload_button @folder
-  = new_folder_button @folder
-
-#upload-drop-zone.upload-drop-area.alert
-  %span Drop your file(s) here to upload
-
-#uploads-list
-
+-if @current_user == @folder.user || @folder.user.blank?
+  .btn-group.folder-options
+    = upload_button @folder
+    = ie_upload_button @folder
+    = new_folder_button @folder
+  
+  #upload-drop-zone.upload-drop-area.alert
+    %span Drop your file(s) here to upload
+  
+  #uploads-list
+  
 #folder-wrapper
   = render @folder
-
+  
 = render 'folders/modals/new_modal', :folder => @folder
