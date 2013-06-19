@@ -24,8 +24,8 @@ ldap: &ldap_settings
 
 
 feedback: &feedback_settings
-  # Both integers and strings work. /projects/fileship <--- 'fileship' as string 
-  # /projects/3 <--- or 3 as integer. Choose whichever is appropriate for your project.
+  # Both integers and strings work. "/projects/fileship" <--- 'fileship' as string 
+  # "/projects/3" <--- or 3 as integer. Choose whichever is appropriate for your project.
   project_id: 
   
   # Integer which determines what feedback will be filed as (task, defect, custom field, etc.)
