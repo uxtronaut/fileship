@@ -1,3 +1,8 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 class Folder < ActiveRecord::Base
 
   ROOT_NAME = 'Root folder'

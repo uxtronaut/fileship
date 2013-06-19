@@ -1,3 +1,8 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 class UserFilesController < ApplicationController
 
   prepend_before_filter RubyCAS::Filter, :except => [:show, :enter_password, :check_password]

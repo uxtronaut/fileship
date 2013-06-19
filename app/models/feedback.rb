@@ -1,3 +1,8 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 class Feedback < ActiveResource::Base
     
   # Get ahold of AM validations for client side validation

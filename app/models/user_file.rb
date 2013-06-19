@@ -1,3 +1,8 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 class UserFile < ActiveRecord::Base
   mount_uploader :attachment, AttachmentUploader
 

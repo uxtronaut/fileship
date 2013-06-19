@@ -1,3 +1,8 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 class User < ActiveRecord::Base
 
   attr_accessible :email, :first_name, :last_name

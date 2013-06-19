@@ -45,12 +45,14 @@ Fileship's configurations are in 'config' -> 'app.yml'.
 
 * Want to change Fileship's look? You can give Fileship a custom logo, and even load a custom stylesheet! See EXAMPLE_STYLESHEET.css for a list of css attributes that you can change. 
 
+SET UP CRON JOB!!!!!!!!!!!!!!!!!!!
 
 
 <br/>
 ## Technical details ##
 * Ruby 1.9.3
 * Rails 3.2.13
+* Uploaded files are stored in 'public' -> 'uploads'
 * Works best on javascript enabled
 
 

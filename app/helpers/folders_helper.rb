@@ -1,3 +1,8 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 module FoldersHelper
 
   def breadcrumbs(folder, crumbs='', current_folder=true)

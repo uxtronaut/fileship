@@ -1,3 +1,8 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 module ApplicationHelper
 
   def tophat_tag(image, url)
