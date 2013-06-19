@@ -24,7 +24,6 @@ Fileship::Application.routes.draw do
 
   match 'welcome', :controller => :pages, :action => :welcome, :via => :get
   match 'help', :controller => :pages, :action => :help, :via => :get
-  match 'policy', :controller => :pages, :action => :policy, :via => :get
 
   match ':link_token', :controller => :user_files, :action => :show, :via => :get
 

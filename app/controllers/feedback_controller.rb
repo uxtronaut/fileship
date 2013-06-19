@@ -1,5 +1,8 @@
 class FeedbackController < ApplicationController
 
+  prepend_before_filter RubyCAS::Filter
+  
+
   def new
     @feedback = Feedback.new
   end
