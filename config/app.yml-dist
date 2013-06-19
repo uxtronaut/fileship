@@ -43,6 +43,11 @@ feedback: &feedback_settings
 
 
 
+# If Fileship is running from one or more subdirectories on your server, put their names here.
+# For example, if fileship was running at "example.com:80/awesomeapps/fileship" then below you would
+# put 'awesomeapps/fileship'
+subdirectory: ''
+
 # The number of days before files are deleted automatically by cron. Should be an integer.
 days_until_purge: 
 
