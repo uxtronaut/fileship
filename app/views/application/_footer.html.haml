@@ -1,3 +1,6 @@
 #footer
   .container
-    %p &#0169; #{Date.today.year} Oregon State University | #{link_to 'Acceptable Use Policy', policy_path}
+    %p 
+      %span &#0169; #{Date.today.year} Oregon State University 
+      -unless @policy_path.blank?
+        | #{link_to 'Acceptable Use Policy', @policy_path}
