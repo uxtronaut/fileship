@@ -53,11 +53,29 @@ class ApplicationController < ActionController::Base
   end
 
 
-  # Renders permission denied page
+  # Renders not found page
   def render_404
     respond_to do |format|
       format.html { render :file => Rails.root.join('public', '404.html'), :status => :not_found, :layout => 'dark' }
       format.json { render :json => {:error => 'Error 404, not found...'}, :status => :not_found, :content_type => 'text/plain' }
+    end
+  end
+
+
+  # Renders rejected page
+  def render_422
+    respond_to do |format|
+      format.html { render :file => Rails.root.join('public', '422.html'), :status => :rejected, :layout => 'dark' }
+      format.json { render :json => {:error => 'Error 422, rejected...'}, :status => :rejected, :content_type => 'text/plain' }
+    end
+  end
+  
+  
+  # Renders internal server error page
+  def render_500
+    respond_to do |format|
+      format.html { render :file => Rails.root.join('public', '500.html'), :status => :error, :layout => 'dark' }
+      format.json { render :json => {:error => 'Error 500, internal server error...'}, :status => :error, :content_type => 'text/plain' }
     end
   end
 
