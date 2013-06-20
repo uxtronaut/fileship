@@ -8,8 +8,8 @@ class UserFilesController < ApplicationController
   prepend_before_filter RubyCAS::Filter, :except => [:show, :enter_password, :check_password]
   #prepend_before_filter RubyCAS::GatewayFilter, :only => [:show, :enter_password, :check_password]
 
-  before_filter :get_user_file, :except => [:show, :create, :new]
-  before_filter :get_folder, :except => :show
+  before_filter :get_user_file, :except => [:show, :create, :new, :purge_test_uploads]
+  before_filter :get_folder, :except => [:show, :purge_test_uploads]
 
   before_filter :get_upload, :only => :create
 
@@ -129,6 +129,14 @@ class UserFilesController < ApplicationController
   end
 
 
+
+  # Removes uploads left behind by FactoryGirl during testing
+  def purge_test_uploads
+    FileUtils.rm_rf('public/uploads/tmp')
+    FileUtils.mkdir('public/uploads/tmp')
+    redirect_to welcome_path
+  end
+  
 
 
   private

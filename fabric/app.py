@@ -54,9 +54,10 @@ def app_set_required_environment_vars():
 # symlinking to, the second element is the path in the release directory where the symlink will
 # be.  If the second element is omitted the path is assumed to be the same in both locations.
     env.custom_symlinks = [
-        ["config/app.yml"]
+        ["config/app.yml"],
+        ["system", "public/uploads"]
     ]
-
+    
     env.project_type = 'rails'
 
     env.run_seed_fu_task = True
