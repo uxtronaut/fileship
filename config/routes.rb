@@ -6,6 +6,9 @@ Fileship::Application.routes.draw do
   end
 
   resources :user_files do
+    collection do
+      get :purge_test_uploads
+    end
     member do
       put :email
       get :enter_password
