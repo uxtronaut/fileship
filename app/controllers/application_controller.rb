@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
 
 
 
+
+
   
   # Loads settings specified in app.yml
   def load_settings
