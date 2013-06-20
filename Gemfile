@@ -12,7 +12,6 @@ gem 'json', '1.7.6'
 
 gem 'haml'
 gem 'simple_form'
-gem 'bootstrap-sass'
 
 gem 'carrierwave'
 
