@@ -53,6 +53,15 @@ class ApplicationController < ActionController::Base
   end
 
 
+  # Renders permission denied page
+  def render_404
+    respond_to do |format|
+      format.html { render :file => Rails.root.join('public', '404.html'), :status => :not_found, :layout => 'dark' }
+      format.json { render :json => {:error => 'Error 404, not found...'}, :status => :not_found, :content_type => 'text/plain' }
+    end
+  end
+
+
   # Returns current user
   def current_user
     return @current_user
