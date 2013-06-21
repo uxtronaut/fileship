@@ -1,9 +1,17 @@
 Fileship::Application.routes.draw do
 
+  resources :settings do
+    collection do
+      post :update_settings
+    end
+  end
+
+
   resources :folders do
     resources :folders
     resources :user_files
   end
+
 
   resources :user_files do
     collection do
@@ -16,6 +24,7 @@ Fileship::Application.routes.draw do
       post :share
     end
   end
+
 
   resources :feedback do
     collection do
