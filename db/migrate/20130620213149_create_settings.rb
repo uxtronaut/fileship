@@ -3,6 +3,7 @@ class CreateSettings < ActiveRecord::Migration
     create_table :settings do |t|
       t.string :name
       t.string :value
+      t.text :description
       t.timestamps
     end
   end

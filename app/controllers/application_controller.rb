@@ -12,18 +12,18 @@ class ApplicationController < ActionController::Base
 
 
 
-
-
-  
   # Loads settings specified in app.yml
   def load_settings
-    settings = Fileship::Application.config.fileship_config
-    @policy_path = settings['policy_path']
-    @stylesheet_path = settings['stylesheet_path']
-    @logo_image_path = settings['logo_image_path']
-    @logo_url = settings['logo_url']
+    @logo_image_path =  Setting.find_by_name("Logo image path")
+    @logo_image_path =  @logo_image_path.value  unless @logo_image_path.blank?
+    @logo_url =         Setting.find_by_name("Logo URL")
+    @logo_url =         @logo_url.value         unless @logo_url.blank?
+    @policy_path =      Setting.find_by_name("Policy path")
+    @policy_path =      @policy_path.value      unless @policy_path.blank?
+    @stylesheet_path =  Setting.find_by_name("Stylesheet path")
+    @stylesheet_path =  @stylesheet_path.value  unless @stylesheet_path.blank?
   end
-  
+
 
   # Retrieves current user if they are in the application, or attempts to add them using information
   # from ldap. 
@@ -77,8 +77,8 @@ class ApplicationController < ActionController::Base
       format.json { render :json => {:error => 'Error 500, error...'}, :status => :rejected, :content_type => 'text/plain' }
     end
   end
-
-
+ 
+ 
   # Rescues from invalid record with 404
   rescue_from ActiveRecord::RecordNotFound do |exception|
     respond_to do |format|
@@ -95,8 +95,8 @@ class ApplicationController < ActionController::Base
       format.json { render :json => {:error => 'Error 404, not found...'}, :status => :not_found, :content_type => 'text/plain' }
     end
   end
-
-
+ 
+ 
   # Renders permission denied page
   def render_403
     respond_to do |format|
@@ -104,8 +104,8 @@ class ApplicationController < ActionController::Base
       format.json { render :json => {:error => 'Error 403, forbidden...'}, :status => :forbidden, :content_type => 'text/plain' }
     end
   end
-
-
+ 
+ 
   # Rescues unprocessible entity with 422
   rescue_from ActiveResource::ClientError do |exception|
     respond_to do |format|

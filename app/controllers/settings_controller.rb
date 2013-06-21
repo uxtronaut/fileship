@@ -7,19 +7,26 @@ class SettingsController < ApplicationController
   
   prepend_before_filter RubyCAS::Filter::GatewayFilter
   before_filter :check_permission
-  before_filter :load_settings
+  skip_before_filter :load_settings
 
 
   #
   def index
+    @settings = Setting.order(:name)
   end
+
 
 
   # Updates the application's settings based off selections made on "index" view. 
   def update_settings
-    @settings.each do |setting|
-      unless Setting.save_setting(setting, params[:setting][setting.name])
-        @error = true
+    unless params[:settings].blank?
+      @settings = []
+      params[:settings].each do |setting|
+        updated_setting = Setting.find(setting.last["id"])
+        @error = true unless updated_setting.update_attributes(setting.last)
+        @settings << updated_setting
+      end
+      if @error
         render :index
         return
       end
@@ -35,14 +42,5 @@ class SettingsController < ApplicationController
         render_403
       end
     end
-
-
-    def load_settings
-      @days_until_purge_setting = Setting.find_by_name("days_until_purge")
-      @logo_image_path_setting =  Setting.find_by_name("logo_image_path")
-      @logo_url_setting =         Setting.find_by_name("logo_url")
-      @policy_path_setting =      Setting.find_by_name("policy_path")
-      @stylesheet_path_setting =  Setting.find_by_name("stylesheet_path")
-      @settings = [@days_until_purge_setting, @logo_image_path_setting, @logo_url_setting, @policy_path_setting, @stylesheet_path_setting]
-    end
+    
 end

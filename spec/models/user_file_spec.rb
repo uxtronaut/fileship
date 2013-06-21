@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe UserFile do
   before do
+    Setting.create(:name => "Days until purge", :value => 1)
     @user = FactoryGirl.create(:user)
     @folder = FactoryGirl.create(:folder, :user => @user)
     User.stubs(:find_or_import).returns(@user)
@@ -35,7 +36,6 @@ describe UserFile do
 
   describe "#purge_old_files" do
     it "should remove all files older than the pre-defined number of days" do
-      Fileship::Application.config.fileship_config['days_until_purge'] = 1
       # creates user_file one day before the purge date. Should be purged
       user_file = FactoryGirl.create(:user_file, :created_at => (Date.today.to_time_in_current_zone - (UserFile.days_until_purge + 1).days), :folder => @folder )
       UserFile.all.should_not be_empty
