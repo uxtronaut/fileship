@@ -53,7 +53,7 @@ class UserFile < ActiveRecord::Base
   end
 
 
-  # Purges all files that are older than the number of days set in app.yml.
+  # Purges all files that are older than the number of days set in application settings.
   def self.purge_old_files
     UserFile.where("created_at < ?", UserFile.purge_date).each do |user_file|
       user_file.destroy
@@ -74,7 +74,8 @@ class UserFile < ActiveRecord::Base
   
   # Returns the days_until_purge set in application settings
   def self.days_until_purge
-    return Fileship::Application.config.fileship_config['days_until_purge']
+    return Setting.find_by_name("Days until purge").value.to_f
+    
   end
   
   

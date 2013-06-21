@@ -5,7 +5,7 @@ class Setting < ActiveRecord::Base
 
   # Validates the current app setting based on its code.
   def validate_all_settings
-    if name == "days_until_purge"
+    if name == "Days until purge"
       unless (value.to_f > 0) && (value.to_f % 1 == 0)
         errors.add(:value, "Not a positive integer")
       end
@@ -16,10 +16,4 @@ class Setting < ActiveRecord::Base
     end
   end
 
-
-  # Sets a new value for the specified app setting if it is valid
-  def self.save_setting(setting, new_value)
-    setting.value = new_value
-    setting.save
-  end
 end
