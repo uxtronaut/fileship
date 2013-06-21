@@ -1,0 +1,94 @@
+<div class="settings">
+  <h2> Settings </h2>
+  <h3> Change how Fileship looks and operates </h3>
+  
+  
+  <%= form_tag update_settings_settings_path, :method => "POST", :class => 'form-horizontal' do %>
+    
+  
+    <% if @error %>
+      <div class="alert form-alert-error">
+        <h4> Danger! Danger! </h4>
+        <span> Some problems were detected with your transmission, please try again... </span>
+      </div>
+    <% end %>
+  
+  
+    <div class="control-group">
+      <span class="control-label">
+        <%= label_tag :setting_days_until_purge, "Days until purge" %>
+      </span>
+      <span class="controls">
+        <%= text_field_tag "setting[days_until_purge]", @days_until_purge_setting.value %>
+      </span>
+      <span class="tooltip">
+        <%= t(:days_until_purge_info) %> 
+      </span>
+    </div>
+
+
+
+    <div class="control-group">
+      <span class="control-label">
+        <%= label_tag :setting_logo_image_path, "Logo image path" %>
+      </span>
+      <span class="controls">
+        <%= text_field_tag "setting[logo_image_path]", @logo_image_path_setting.value %>
+      </span>
+      <span class="tooltip">
+        <%= t(:fiscal_year_info) %> 
+      </span>
+    </div>
+
+
+
+    <div class="control-group">
+      <span class="control-label">
+        <%= label_tag :setting_logo_url, "Logo URL" %>
+      </span>
+      <span class="controls">
+        <%= text_field_tag "setting[logo_url]", @logo_url_setting.value %>
+      </span>
+      <span class="tooltip">
+        <%= t(:days_until_purge_info) %> 
+      </span>
+    </div>
+
+
+
+    <div class="control-group">
+      <span class="control-label">
+        <%= label_tag :setting_policy_path, "Policy path" %>
+      </span>
+      <span class="controls">
+        <%= text_field_tag "setting[policy_path]", @policy_path_setting.value %>
+      </span>
+      <span class="tooltip">
+        <%= t(:logo_info) %> 
+      </span>
+    </div>
+
+
+
+    <div class="control-group">
+      <span class="control-label">
+        <%= label_tag :setting_stylesheet_path, "Stylesheet path" %>
+      </span>
+      <span class="controls">
+        <%= text_field_tag "setting[stylesheet_path]", @stylesheet_path_setting.value %>
+      </span>
+      <span class="tooltip">
+        <%= t(:open_login_info) %> 
+      </span>
+    </div>
+
+
+
+    <div class="control-group">
+      <div class="control-label">
+        <%= submit_tag  "Update Settings", :class => "btn btn-primary" %>
+      </div>
+    </div>
+  
+  <% end %>
+</div>

@@ -35,8 +35,12 @@
 
       .container
         %section#main
+          - unless flash[:notice].blank?
+            #notices.ui-notify
+              .alert.alert-success.ui-notify-message.ui-notify-message-style
+                %strong= flash[:notice]
           = render 'alerts'
-              
+
           = yield
 
       .footer-push

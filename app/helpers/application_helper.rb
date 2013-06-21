@@ -53,6 +53,8 @@ module ApplicationHelper
       :data => {:success_message => opts[:success_message]}
     }
   end
+  
+  
 
   def confirmation_modal_tag(options = {}, &block)
     opts = {
