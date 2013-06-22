@@ -323,12 +323,12 @@ html, body {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e18145', endColorstr='#c9542b',GradientType=0 ); 
 }
 
-.settings .form-actions{
+.settings .form-actions, .admins .form-actions{
   padding-top: 0;
   margin-top: 0;
 }
 
-.help-block {
+.settings .help-block {
   margin-top: 0; 
 }
 
@@ -338,8 +338,24 @@ html, body {
   min-height: 35px;
 }
 
-.settings .icon-info-sign{
-    position: relative;
-    right: 16px;
-    width: 0;
+.settings .icon-info-sign, .admins .icon-info-sign{
+  position: relative;
+  right: 16px;
+  width: 0;
+}
+
+.admins .icon-info-sign{
+  top: 5px
+}
+
+.admins .info {
+  margin-bottom: 5px;
+}
+
+.admins .table {
+  margin-bottom: 30px;
+}
+
+.select {
+  padding-top: 1px;
 }

@@ -3,7 +3,7 @@ Setting.seed_once(:name,
   
   {:name => "Logo image path",  :value => "", :description => "If you would like an image to appear in Fileship's top hat, provide the image's URL here."},
   
-  {:name => "Logo URL",         :value => "", :description => "If you want the aforementioned image to become a clickable link, provide the URL here."},
+  {:name => "Logo url",         :value => "", :description => "If you want the aforementioned image to become a clickable link, provide the URL here."},
   
   {:name => "Policy path",      :value => "", :description => "If you have a 'terms of use' policy, provide its URL here."},
   

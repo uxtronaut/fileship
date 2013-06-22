@@ -6,6 +6,13 @@ Fileship::Application.routes.draw do
     end
   end
 
+  
+  resources :users do
+    collection do
+      post :add_admin
+    end
+  end
+
 
   resources :folders do
     resources :folders

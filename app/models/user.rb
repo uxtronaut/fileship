@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
 
 
   # Imports the user's attributes from ldap using the provided uid, assigns them to a new user, and
-  # gives the new user a file folder. 
+  # gives them administrative privilages if they are the first user
   def self.import(uid) 
     return nil if uid.blank?
     user_information = User.ldap_search(uid)
@@ -50,6 +50,9 @@ class User < ActiveRecord::Base
     new_user.last_name = name[ldap_config['last_name_position']] if new_user.last_name.blank?
     new_user.ldap_identifier = user_information[ldap_config['ldap_identifier']][0] unless user_information[ldap_config['ldap_identifier']].blank?
     new_user.email = user_information[:mail][0] unless user_information[:mail].blank?
+    
+    # If user is first one in application, makes them an administrator
+    new_user.is_admin = true if User.all.blank?
     new_user.save!
     return new_user
   end
