@@ -32,6 +32,9 @@
                     = link_to "#{content_tag :i, '', :class => 'icon-question-sign icon-large'} Help".html_safe, help_path
                   %li{:class => (controller_name == 'feedback' ? 'active' : nil)}
                     = link_to "#{content_tag :i, '', :class => 'icon-comment icon-large'} Feedback".html_safe, new_feedback_path
+                  -if @current_user.is_admin
+                    %li{:class => (controller_name == 'settings' ? 'active' : nil)}
+                      = link_to "#{content_tag :i, '', :class => 'icon-cog icon-large'} Settings".html_safe, settings_path
 
       .container
         %section#main

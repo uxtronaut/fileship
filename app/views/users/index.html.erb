@@ -1,0 +1,46 @@
+<div class="admins">
+  <h2> Officers </h2>
+  <h3> See who's in charge! </h3>
+  
+  <table class="table table-striped">
+    <tbody>
+      <% @admins.each do |admin| %>
+        <tr>
+          <td>
+            <%= admin.name %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <h3> Not enough officers on your ship? Add more here! </h3>
+  
+  
+  <%= simple_form_for @user, :url => {:action => :add_admin} do |form| %>
+  
+    <% if @error %>
+      <div class="alert form-alert-error">
+        <h4> Danger! Danger! </h4>
+        <span> Some problems were detected with your transmission, please try again... </span>
+      </div>
+    <% end %>
+    
+    <div class="form-horizontal">
+      <div class="span6">
+        <%= form.input :id, label: "Candidates", collection: @users, prompt: "Choose a new officer" %>
+      </div>
+      
+      <div class="span5 info">
+        <i class="icon-info-sign  pull-left"></i>
+        <%= form.hint "Officers can see the names of all users' files and change Fileship's settings." %>
+      </div>
+      
+      <div class="form-actions span9">
+        <%= form.submit  "Promote", :class => "btn btn-primary" %>
+      </div>
+    </div>
+    
+  <% end %>  
+  
+</div>

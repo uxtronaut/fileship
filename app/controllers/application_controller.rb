@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def load_settings
     @logo_image_path =  Setting.find_by_name("Logo image path")
     @logo_image_path =  @logo_image_path.value  unless @logo_image_path.blank?
-    @logo_url =         Setting.find_by_name("Logo URL")
+    @logo_url =         Setting.find_by_name("Logo url")
     @logo_url =         @logo_url.value         unless @logo_url.blank?
     @policy_path =      Setting.find_by_name("Policy path")
     @policy_path =      @policy_path.value      unless @policy_path.blank?
