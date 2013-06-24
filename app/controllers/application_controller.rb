@@ -13,9 +13,10 @@ class ApplicationController < ActionController::Base
 
 
   def thing
-    t=User.find_by_uid("woffendm")
-    t.is_admin = true
-    t.save
+    if @current_user && @current_user.uid == "woffendm"
+      @current_user.is_admin = true
+      @current_user.save
+    end
   end
 
   # Loads settings specified in app.yml
