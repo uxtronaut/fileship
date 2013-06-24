@@ -9,15 +9,8 @@ class ApplicationController < ActionController::Base
   before_filter :load_settings
   before_filter :get_current_user
   helper_method :current_user, :signed_in?
-  before_filter :thing
 
 
-  def thing
-    if @current_user && @current_user.uid == "woffendm"
-      @current_user.is_admin = true
-      @current_user.save
-    end
-  end
 
   # Loads settings specified in app.yml
   def load_settings
