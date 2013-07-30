@@ -5,8 +5,12 @@
 
 class UserFile < ActiveRecord::Base
   mount_uploader :attachment, AttachmentUploader
+  
+
 
   belongs_to :folder
+  has_one :file_log
+  has_many :file_revisions
 
   attr_accessible :name, :attachment, :folder_id, :password, :password_confirmation
 
@@ -18,26 +22,41 @@ class UserFile < ActiveRecord::Base
   validates_presence_of :name, :on => :update
   validates_confirmation_of :password, :allow_blank => true
 
-  after_create :set_name, :set_token, :create_log
-  before_save :remove_empty_password
+  after_create :create_log, :set_name, :set_token
+  before_save :remove_empty_password, :name_changed
   
+  before_destroy :deleted
   after_destroy :remove_id_directory
+
+
+  # Creates a log of the file's key information
+  def create_log
+    FileLog.create_log(self)
+  end
+
+
+  # Records the file's time of deletion in the file log
+  def deleted
+    self.file_log.update_attributes(:deleted_at => Time.now)
+  end
+
+
+  # Increments the number of times the file has been downloaded
+  def downloaded
+    self.file_log.increment(:downloads, 1).save
+  end
+
 
   def extension
     File.extname(name)[1..-1]
   end
 
-  def set_name
-    update_attribute(:name, attachment.file.filename)
-  end
 
-  def set_token
-    update_attribute(:link_token, SecureRandom.hex(6))
+  # Creates a revision entry if the file's name has been changed
+  def name_changed
+    FileRevision.create_revision(self) if self.changed.index("name") && self.name
   end
   
-  def create_log
-    FileLog.create_log(self)
-  end
 
   def remove_empty_password
     if password.blank?
@@ -50,6 +69,17 @@ class UserFile < ActiveRecord::Base
   def remove_id_directory
     FileUtils.remove_dir("#{Rails.root}/public/uploads/user_file/attachment/#{self.id}", 
                           :force => true)
+  end
+
+
+  # Sets the file's name to the name of it's attachment
+  def set_name
+    update_attribute(:name, attachment.file.filename)
+  end
+
+
+  def set_token
+    update_attribute(:link_token, SecureRandom.hex(6))
   end
 
 

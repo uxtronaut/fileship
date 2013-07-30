@@ -35,6 +35,8 @@
                   -if @current_user.is_admin
                     %li{:class => (controller_name == 'users' ? 'active' : nil)}
                       = link_to "#{content_tag :i, '', :class => 'icon-user icon-large'} Officers".html_safe, users_path
+                    %li{:class => (controller_name == 'file_logs' ? 'active' : nil)}
+                      = link_to "#{content_tag :i, '', :class => 'icon-book icon-large'} File History".html_safe, file_logs_path
                     %li{:class => (controller_name == 'settings' ? 'active' : nil)}
                       = link_to "#{content_tag :i, '', :class => 'icon-cog icon-large'} Settings".html_safe, settings_path
                     

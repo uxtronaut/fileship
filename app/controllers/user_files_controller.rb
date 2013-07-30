@@ -169,6 +169,7 @@ class UserFilesController < ApplicationController
 
     def send_user_file
       send_file @user_file.attachment.file.path, :filename => @user_file.name
+      @user_file.downloaded
     end
 
 end

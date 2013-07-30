@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   before_filter :check_permission
   
 
-  #
+  # View for seeing existing admins and adding new ones
   def index
     @user = User.new
     @admins = User.where(:is_admin => true).order(:first_name, :last_name)
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
 
 
-  # 
+  # Adds a new admin
   def add_admin
     unless params[:user].blank? || params[:user][:id].blank?
       new_admin = User.find(params[:user][:id])
@@ -32,6 +32,7 @@ class UsersController < ApplicationController
 
 
   private
+  # Ensures that current user is an admin
     def check_permission
       unless @current_user.is_admin? 
         render_403

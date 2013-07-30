@@ -1,0 +1,115 @@
+<div class="admins">
+  <h2> File History </h2>
+  <h3> Lay down the law! </h3>
+  
+  
+  
+  <div class="span12 form-horizontal">
+    <%= form_tag(file_logs_path, :method => "get") do %>
+      <div class="control-group">
+        <div class="control-label">
+          <%= label_tag "File name" %>
+        </div>
+        <div class="controls">
+          <%= text_field_tag "search[name]", @name, :placeholder => "File name" %>
+        </div>
+      </div>
+        
+        
+        
+      <div class="control-group">
+        <div class="control-label">
+          <%= label_tag "Uploaded by" %>
+        </div>
+        <div class="controls">
+          <%= collection_select(:search, :user, @users, :id, :name, 
+              {:include_blank => "Uploaded by", :selected => @user}) %>
+          <div class="span5 info">
+            <i class="icon-info-sign  pull-left"></i>
+            <p class="help-block">
+              hint
+            </p>
+          </div>
+        </div>
+      </div>
+      
+    
+    
+      <div class="form-actions span9">
+        <%= submit_tag "Search", :class => "btn btn-primary" %>
+        <%= link_to "Clear", file_logs_path, :class => "btn" %>
+      </div>
+    <% end %>
+  </div>
+
+  
+  <div class="span12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>
+            File name history
+          </th>
+          <th>
+            FIle name updated at
+          </th>
+          <th>
+            File Size
+          </th>
+          <th>
+            Downloads
+          </th>
+          <th>
+            Uploaded by
+          </th>
+          <th>
+            Created at
+          </th>
+          <th>
+            Deleted at
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @file_logs.each do |file_log| %>
+          <tr>
+            <td>
+              <% file_log.file_revisions.each do |revision| %>
+                <div>
+                  <%= revision.file_name %>
+                  <br/>
+                  <br/>
+                </div>
+              <% end %>
+            </td>
+            <td>
+              <% file_log.file_revisions.each do |revision| %>
+                <div>
+                  <%= l(revision.created_at) %>
+                  <br/>
+                  <br/>
+                </div>
+              <% end %>
+            </td>
+            <td>
+              <%= number_to_human_size(file_log.file_size).to_s.downcase %>
+            </td>
+            <td>
+              <%= file_log.downloads %>
+            </td>
+            <td>
+              <%= file_log.user.name %>
+            </td>
+            <td>
+              <%= l(file_log.created_at) %>
+            </td>
+            <td>
+              <%= l(file_log.deleted_at) unless file_log.deleted_at.blank? %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  
+</div>
