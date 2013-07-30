@@ -10,7 +10,7 @@ class SettingsController < ApplicationController
   skip_before_filter :load_settings
 
 
-  #
+  # View for seeing and updating application settings
   def index
     @settings = Setting.order(:name)
   end
@@ -37,6 +37,7 @@ class SettingsController < ApplicationController
 
 
   private
+    # Ensures that current user is a site admin
     def check_permission
       unless @current_user.is_admin? 
         render_403

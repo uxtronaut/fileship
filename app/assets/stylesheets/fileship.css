@@ -345,7 +345,7 @@ html, body {
 }
 
 .admins .icon-info-sign{
-  top: 5px
+  top: 5px;
 }
 
 .admins .info {
@@ -358,4 +358,14 @@ html, body {
 
 .select {
   padding-top: 1px;
+}
+
+.float-right {
+  float: right;
+}
+
+
+td div {
+    max-width: 300px;
+    word-wrap: break-word;
 }

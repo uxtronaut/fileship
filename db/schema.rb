@@ -11,13 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620213149) do
+ActiveRecord::Schema.define(:version => 20130729183119) do
 
   create_table "file_logs", :force => true do |t|
-    t.string   "user_name"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "user_file_id"
+    t.integer  "downloads",    :default => 0
+    t.integer  "file_size",    :default => 0
+    t.datetime "deleted_at"
+    t.integer  "user_id"
+  end
+
+  create_table "file_revisions", :force => true do |t|
     t.string   "file_name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "user_file_id"
+    t.integer  "file_log_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "folders", :force => true do |t|

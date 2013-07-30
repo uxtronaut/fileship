@@ -14,6 +14,9 @@ Fileship::Application.routes.draw do
   end
 
 
+  resources :file_logs
+  
+
   resources :folders do
     resources :folders
     resources :user_files
