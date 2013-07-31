@@ -27,6 +27,9 @@ gem 'acts_as_tree'
 
 gem 'seed-fu', '~> 2.2.0'
 
+gem 'will_paginate', '3.0.4'
+
+
 
 group :development, :test do
   gem 'rspec-rails'

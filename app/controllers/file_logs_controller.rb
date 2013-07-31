@@ -11,8 +11,9 @@ class FileLogsController < ApplicationController
 
   # View for seeing file logs
   def index
-    @file_logs = FileLog.includes(:user, :user_file, :file_revisions).order("file_logs.created_at, file_revisions.created_at DESC")
+    @file_logs = FileLog.includes(:user, :user_file, :file_revisions).order("file_logs.created_at DESC, file_revisions.created_at DESC")
     @file_logs = search(params[:search])
+    @file_logs = @file_logs.paginate(:page => params[:page], :per_page => 25)
     @users = User.order(:first_name, :last_name)
     @file_log = FileLog.new
   end
