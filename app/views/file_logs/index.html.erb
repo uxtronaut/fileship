@@ -1,35 +1,34 @@
 <div class="admins">
   <h2> File History </h2>
-  <h3> Lay down the law! </h3>
+  <h3> Does history repeat itself? </h3>
   
   
   
-  <div class="span12 form-horizontal">
+  <div class=" form-horizontal well">
     <%= form_tag(file_logs_path, :method => "get") do %>
-      <div class="control-group span9">
+      <div class="control-group ">
         <div class="control-label">
-          <%= label_tag "File name" %>
+          <%= label_tag "File" %>
         </div>
         <div class="controls">
-          <%= text_field_tag "search[name]", @name, :placeholder => "File name" %>
+          <%= text_field_tag "search[name]", @name, :placeholder => "Name" %>
         </div>
       </div>
         
         
         
-      <div class="control-group span9">
+      <div class="control-group ">
         <div class="control-label">
-          <%= label_tag "Uploaded by" %>
+          <%= label_tag "Uploader" %>
         </div>
         <div class="controls">
-          <%= collection_select(:search, :user, @users, :id, :name, 
-              {:include_blank => "Uploaded by", :selected => @user}) %>
+          <%= text_field_tag "search[user]", @user, :placeholder => "Name" %>
         </div>
       </div>
       
     
     
-      <div class="form-actions span9">
+      <div class="form-actions ">
         <%= submit_tag "Search", :class => "btn btn-primary" %>
         <%= link_to "Clear", file_logs_path, :class => "btn" %>
       </div>
@@ -37,30 +36,27 @@
   </div>
 
   
-  <div class="span12">
+  <div class="">
     <table class="table table-striped">
       <thead>
         <tr>
           <th>
-            File name history
+            File 
           </th>
           <th>
-            FIle name updated at
-          </th>
-          <th>
-            File Size
+            Size
           </th>
           <th>
             Downloads
           </th>
           <th>
-            Uploaded by
+            Uploader
           </th>
           <th>
-            Created at
+            Uploaded
           </th>
           <th>
-            Deleted at
+            Deleted
           </th>
         </tr>
       </thead>
@@ -69,19 +65,33 @@
           <tr>
             <td>
               <% file_log.file_revisions.each do |revision| %>
-                <div>
-                  <%= revision.file_name %>
-                  <br/>
-                  <br/>
-                </div>
-              <% end %>
-            </td>
-            <td>
-              <% file_log.file_revisions.each do |revision| %>
-                <div>
-                  <%= l(revision.created_at) %>
-                  <br/>
-                  <br/>
+                <div class="<%= "grey" unless revision == file_log.file_revisions.first %>">
+                  <div class="black">
+                    <% if revision == file_log.file_revisions.last %>
+                      <span class="icon-blank"></span>
+                    <% else %>
+                      <span class="tooltip_trigger">
+                        <i class="icon-time"></i>
+                      </span>
+                      <div class="tooltip">
+                        <%= "Name changed " + l(revision.created_at) %>
+                      </div>
+                    <% end %>
+                    
+                    &nbsp;
+                    <% if revision.file_name.length > 30 %>
+                      <div class="tooltip_trigger">
+                        <%= revision.file_name.truncate(30) %> 
+                      </div>
+                      <div class="tooltip">
+                        <%= revision.file_name %>
+                      </div>
+                    <% else %>
+                      <%= revision.file_name %>
+                    <% end %>
+                    &nbsp;
+                    
+                  </div>
                 </div>
               <% end %>
             </td>
