@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UserFile do
   before do
-    Setting.create(:name => "Days until purge", :value => 1)
+    Setting.create(:name => "Days until file purge", :value => 1)
     @user = FactoryGirl.create(:user)
     @folder = FactoryGirl.create(:folder, :user => @user)
     User.stubs(:find_or_import).returns(@user)

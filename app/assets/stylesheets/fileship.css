@@ -365,7 +365,44 @@ html, body {
 }
 
 
-td div {
+.admins td div {
     max-width: 300px;
     word-wrap: break-word;
+}
+
+
+.tooltip {
+  display: none;
+}
+
+.tooltip_trigger{
+  min-width: 10px;
+  cursor: help;
+  display: inline;
+}
+
+.icon-blank {
+  padding-right: 17px;
+}
+
+.admins select {
+  padding-top: 2px;
+}
+
+.grey {
+  color: #777;
+  text-decoration: line-through;
+}
+
+.black {
+ color: #000; 
+ text-decoration: none;
+}
+
+.well {
+  margin-bottom: 30px;
+}
+
+.form-horizontal .control-label {
+  width: 150px;
 }

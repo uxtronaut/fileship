@@ -37,7 +37,7 @@ class UserFile < ActiveRecord::Base
 
   # Records the file's time of deletion in the file log
   def deleted
-    self.file_log.update_attributes(:deleted_at => Time.now)
+    self.file_log.update_attributes(:deleted_at => Time.now) unless self.file_log.blank?
   end
 
 
@@ -104,7 +104,7 @@ class UserFile < ActiveRecord::Base
   
   # Returns the days_until_purge set in application settings
   def self.days_until_purge
-    return Setting.find_by_name("Days until purge").value.to_f
+    return Setting.find_by_name("Days until file purge").value.to_f
     
   end
   
