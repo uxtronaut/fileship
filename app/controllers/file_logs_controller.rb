@@ -42,7 +42,7 @@ class FileLogsController < ApplicationController
       
       search_string = ""
       search_array = ["true"]
-      search_array << "users.first_name LIKE '%#{@user}%' OR users.last_name LIKE '%#{@user}%'" unless @user.blank?
+      search_array << "users.id = #{@user} " unless @user.blank?
       search_array << "file_logs.downloads >= #{@downloads.to_f}" unless @downloads.blank? 
       search_array << "file_logs.size >= #{@size.to_f.kilobyte}" unless @size.blank? 
       search_string = search_array.join(" AND ")
