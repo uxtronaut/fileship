@@ -6,7 +6,7 @@
   
   <div class="span12 form-horizontal">
     <%= form_tag(file_logs_path, :method => "get") do %>
-      <div class="control-group">
+      <div class="control-group span9">
         <div class="control-label">
           <%= label_tag "File name" %>
         </div>
@@ -17,19 +17,13 @@
         
         
         
-      <div class="control-group">
+      <div class="control-group span9">
         <div class="control-label">
           <%= label_tag "Uploaded by" %>
         </div>
         <div class="controls">
           <%= collection_select(:search, :user, @users, :id, :name, 
               {:include_blank => "Uploaded by", :selected => @user}) %>
-          <div class="span5 info">
-            <i class="icon-info-sign  pull-left"></i>
-            <p class="help-block">
-              hint
-            </p>
-          </div>
         </div>
       </div>
       
