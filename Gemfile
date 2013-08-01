@@ -30,6 +30,10 @@ gem 'seed-fu', '~> 2.2.0'
 gem 'will_paginate', '3.0.4'
 
 
+# REMOVE BEFORE OPEN SOURCING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+gem "cws_logger", :git => "git@gitlab.cws.oregonstate.edu:cws_logger.git"
+
+
 
 group :development, :test do
   gem 'rspec-rails'
