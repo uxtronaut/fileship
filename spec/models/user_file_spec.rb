@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe UserFile do
   before do
-    Setting.create(:name => "Days until file purge", :value => 1)
     @user = FactoryGirl.create(:user)
     @folder = FactoryGirl.create(:folder, :user => @user)
     User.stubs(:find_or_import).returns(@user)
@@ -60,8 +59,7 @@ describe UserFile do
   
   describe "#purge_date" do
     it "should return a predefined number of days before today" do
-      Fileship::Application.config.fileship_config['days_until_purge'] = 1
-      UserFile.purge_date.should eq Date.today.to_time_in_current_zone - 1.days
+      UserFile.purge_date.should eq Date.today.to_time_in_current_zone - 30.days
     end
   end
 end

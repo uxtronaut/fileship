@@ -1,3 +1,11 @@
+GIT
+  remote: git@gitlab.cws.oregonstate.edu:cws_logger.git
+  revision: 188c3ac48d043583999c5761aff1c2b4d59da9d6
+  specs:
+    cws_logger (0.0.1)
+      gelf
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -56,6 +64,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.2.0)
       i18n (~> 0.5)
+    gelf (1.4.0)
+      json
     haml (4.0.3)
       tilt
     hike (1.2.3)
@@ -164,6 +174,7 @@ DEPENDENCIES
   bootstrap-sass
   carrierwave
   coffee-rails (~> 3.2.1)
+  cws_logger!
   factory_girl_rails (~> 4.2.1)
   faker
   haml
