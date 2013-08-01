@@ -14,6 +14,7 @@ class FileRevision < ActiveRecord::Base
 
   # Creates a revision entry for the file
   def self.create_revision(user_file)
+    return if user_file.file_log.blank?
     FileRevision.create(:user_file_id => user_file.id, :file_name => user_file.name, :file_log_id => user_file.file_log.id)
   end
 end
