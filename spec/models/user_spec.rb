@@ -32,7 +32,6 @@ describe User do
 
   describe '#home_folder' do
     it "returns the user's home folder" do
-      FactoryGirl.create(:root_folder)
       user = FactoryGirl.create(:user)
       user.home_folder.should_not be_nil
       user.home_folder.name.should eq(user.uid)

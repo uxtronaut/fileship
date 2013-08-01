@@ -54,7 +54,7 @@ class UserFile < ActiveRecord::Base
 
   # Creates a revision entry if the file's name has been changed
   def name_changed
-    FileRevision.create_revision(self) if self.file_log && self.changed.index("name") && self.name 
+    FileRevision.create_revision(self) if self.changed.index("name") && self.name 
   end
   
 

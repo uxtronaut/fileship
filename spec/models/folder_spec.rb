@@ -9,14 +9,14 @@ describe Folder do
     end
 
     it 'allows one folder without a parent (root)' do
-      root = FactoryGirl.build(:root_folder)
+      root = Folder.root
       root.parent.should be_nil
       root.name.should eq('Root folder')
       root.should be_valid
     end
 
     it 'requires a parent for non-root folders' do
-      root = FactoryGirl.create(:root_folder)
+      root = Folder.root
       folder = FactoryGirl.build(:folder, :parent => nil)
       folder.should_not be_valid
       folder.should have(1).error_on(:parent_id)
@@ -33,7 +33,7 @@ describe Folder do
 
   describe '#is_root?' do
     before do
-      @root = FactoryGirl.create(:root_folder)
+      @root = Folder.root
     end
 
     it 'returns true for the root folder' do
@@ -48,7 +48,8 @@ describe Folder do
 
   describe '.root' do
     it 'returns the root folder' do
-      root = FactoryGirl.create(:root_folder)
+      root = Folder.root
+      root.should_not eq nil
       Folder.root.should eq root
     end
   end
