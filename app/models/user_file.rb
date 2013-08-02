@@ -9,15 +9,17 @@ class UserFile < ActiveRecord::Base
 
 
   belongs_to :folder
+  belongs_to :user
   has_one :file_log
   has_many :file_revisions
 
-  attr_accessible :name, :attachment, :folder_id, :password, :password_confirmation
+  attr_accessible :name, :attachment, :folder_id, :password, :password_confirmation, :user_id
 
   attr_accessor :share_emails, :share_message
   attr_accessor :password_confirmation
 
   validates_presence_of :attachment
+  validates_presence_of :user_id
   validates_presence_of :folder_id
   validates_presence_of :name, :on => :update
   validates_confirmation_of :password, :allow_blank => true

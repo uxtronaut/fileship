@@ -14,10 +14,13 @@ class FileLog < ActiveRecord::Base
   
   validates_presence_of :user_id, :user_file_id
 
+  delegate :name, :to => :user, :allow_nil => true, :prefix => true
+
+
 
   # Creates a new file log
   def self.create_log(user_file)
-    FileLog.create(:user_id => user_file.folder.user.id, :user_file_id => user_file.id, :file_size => user_file.attachment.file.size)
+    FileLog.create(:user_id => user_file.user_id, :user_file_id => user_file.id, :file_size => user_file.attachment.file.size)
   end
   
   
