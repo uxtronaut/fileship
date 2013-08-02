@@ -1,6 +1,6 @@
 <div class="admins">
-  <h2> File History </h2>
-  <h3> Does history repeat itself? </h3>
+  <h2> Captain's Log </h2>
+  <h3> <%= "Stardate #{l(@file_logs.first.created_at.to_date)} to #{l(@file_logs.last.created_at.to_date)}" %></h3>
   
   
   

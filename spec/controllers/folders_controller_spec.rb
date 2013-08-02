@@ -317,11 +317,7 @@ describe FoldersController do
           response.status.should eq 302
         end
 
-        it 'renders the folder  template' do
-          puts @user.uid
-          puts @home_folder.id
-          puts @folder.parent_id
-          puts @home_folder.user.uid
+        it 'renders the foldertemplate' do
           response.should redirect_to folder_path(@home_folder.id)
         end
       end
