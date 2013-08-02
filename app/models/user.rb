@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name
 
   has_many :folders, :dependent => :destroy, :order => 'lower(name)'
-
+  has_many :user_files, :dependent => :destroy
 
   validates_presence_of :email, :uid, :first_name, :last_name
   validates_uniqueness_of :email, :uid

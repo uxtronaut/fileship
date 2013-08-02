@@ -51,7 +51,7 @@ class UserFilesController < ApplicationController
   def create
     respond_to do |format|
       format.html do
-        @user_file = @folder.user_files.build(params[:user_file])
+        @user_file = @folder.user_files.build(params[:user_file].merge!({:user_id => @current_user.id}))
         if @user_file.save
           redirect_to folder_url(@folder), :notice => "Uploaded #{@user_file.name}"
           return
@@ -63,7 +63,7 @@ class UserFilesController < ApplicationController
 
       format.json do
         @user_file = @folder.user_files.create({
-          :attachment => @new_file
+          :attachment => @new_file, :user_id => @current_user.id
         })
         @new_file.close
 
