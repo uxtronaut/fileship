@@ -306,19 +306,23 @@ describe FoldersController do
       
       context 'via html' do
         before do
-          @folder = FactoryGirl.create(:folder, :user => @user)
+          @folder = FactoryGirl.create(:folder, :user => @user, :parent_id => @home_folder.id)
           post :update, {
             :id => @folder.id,
             :folder => {:name => 'testo'}
           }
         end
 
-        it 'responds successfully' do
+        it 'responds with redirect' do
           response.status.should eq 302
         end
 
-        it 'renders the folder template' do
-          response.should redirect_to folder_path(@home_folder)
+        it 'renders the folder  template' do
+          puts @user.uid
+          puts @home_folder.id
+          puts @folder.parent_id
+          puts @home_folder.user.uid
+          response.should redirect_to folder_path(@home_folder.id)
         end
       end
 
