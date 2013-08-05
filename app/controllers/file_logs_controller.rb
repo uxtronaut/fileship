@@ -48,7 +48,7 @@ class FileLogsController < ApplicationController
       search_array << "file_logs.size >= #{@size.to_f.kilobyte}" unless @size.blank? 
       search_string = search_array.join(" AND ")
       @file_logs = @file_logs.where(search_string)
-      @file_logs = @file_logs.where("file_logs.id IN (?)", log_ids) unless log_ids.blank? 
+      @file_logs = @file_logs.where("file_logs.id IN (?)", log_ids) unless @name.blank?
       
       return @file_logs
     end
