@@ -286,6 +286,26 @@ describe FoldersController do
             response.should render_template('folders/_rename_form')
           end
         end
+        
+        
+        context 'for users home folder' do
+          before do
+            @folder = @user.home_folder
+            post :update, {
+              :id => @folder.id,
+              :folder => {:name => 'another name'},
+              :format => :js
+            }
+          end
+          
+          it 'responds with bad request error' do
+            response.status.should eq 400
+          end
+          
+          it 'renders the rename form' do
+            response.should render_template('folders/_rename_form')
+          end
+        end
 
 
         context 'for another users folder' do
@@ -322,6 +342,43 @@ describe FoldersController do
         end
       end
 
+    end
+  end
+  
+  
+  
+  
+  describe '#destroy' do
+    context 'as a user' do
+      before do
+        @user = FactoryGirl.create(:user)
+        @home_folder = @user.home_folder
+        @home_folder.update_attribute(:user, @user)
+        User.stubs(:find_or_import).returns(@user)
+        RubyCAS::Filter.fake(@user.uid)
+        @folder = FactoryGirl.create(:folder, :user => @user, :parent_id => @home_folder.id)
+      end
+
+
+      context 'via json' do
+        context 'for a permitted folder' do
+          before do
+            delete :destroy, {
+              :id => @folder.id,
+              :folder_id => @user.home_folder.id,
+              :format => :js
+            }
+          end
+
+          it 'responds with success' do
+             response.status.should eq 200
+           end
+          
+          it 'renders the home folder' do
+            response.should render_template(@home_folder)
+          end
+        end
+      end
     end
   end
 end
