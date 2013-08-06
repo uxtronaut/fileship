@@ -26,6 +26,10 @@ def app_prompt_user_for_inputs():
 def app_setup():
     return
 
+# Does application specific deployment of what ever is not covered by the generic fabric script.
+def app_deploy():
+
+  return
 
 # Sets unique environmental variables. This can be done with:
 # env.my_variable_name = value
@@ -58,7 +62,7 @@ def app_set_required_environment_vars():
         ["system", "public/uploads"],
         ["config/logger.yml"]
     ]
-    
+
     env.project_type = 'rails'
 
     env.run_seed_fu_task = True
