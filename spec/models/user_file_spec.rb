@@ -1,6 +1,15 @@
 require 'spec_helper'
 
 describe UserFile do
+  before do
+    @user = FactoryGirl.create(:user)
+    @folder = FactoryGirl.create(:folder, :user => @user)
+    User.stubs(:find_or_import).returns(@user)
+    RubyCAS::Filter.fake(@user.uid)
+  end
+  
+  
+  
   describe "validations" do
     it "should require a folder_id" do
       user_file = FactoryGirl.build(:user_file, :folder => nil)
@@ -18,7 +27,7 @@ describe UserFile do
 
   describe "#extension" do
     it "returns the file's extension" do
-      user_file = FactoryGirl.create(:user_file)
+      user_file = FactoryGirl.create(:user_file, :folder => @folder)
       user_file.extension.should == 'png'
     end
   end
@@ -26,9 +35,8 @@ describe UserFile do
 
   describe "#purge_old_files" do
     it "should remove all files older than the pre-defined number of days" do
-      Fileship::Application.config.fileship_config['days_until_purge'] = 1
       # creates user_file one day before the purge date. Should be purged
-      user_file = FactoryGirl.create(:user_file, :created_at => (Date.today.to_time_in_current_zone - (UserFile.days_until_purge + 1).days) )
+      user_file = FactoryGirl.create(:user_file, :created_at => (Date.today.to_time_in_current_zone - (UserFile.days_until_purge + 1).days), :folder => @folder )
       UserFile.all.should_not be_empty
       UserFile.where("created_at < ?", UserFile.purge_date).should_not be_empty
       UserFile.purge_old_files
@@ -37,9 +45,9 @@ describe UserFile do
     
     it "should not remove files that aren't older than the pre-defined number of days" do
       # creates user_file right now. Should not be purged.
-      user_file = FactoryGirl.create(:user_file)
+      user_file = FactoryGirl.create(:user_file, :folder => @folder)
       # creates user_file on the purge date. Should not be purged.
-      user_file_2 = FactoryGirl.create(:user_file, :created_at => (Date.today.to_time_in_current_zone - UserFile.days_until_purge.days) )
+      user_file_2 = FactoryGirl.create(:user_file, :created_at => (Date.today.to_time_in_current_zone - UserFile.days_until_purge.days), :folder => @folder )
       UserFile.all.should_not be_empty
       UserFile.where("created_at < ?", UserFile.purge_date).should be_empty
       UserFile.purge_old_files
@@ -51,8 +59,7 @@ describe UserFile do
   
   describe "#purge_date" do
     it "should return a predefined number of days before today" do
-      Fileship::Application.config.fileship_config['days_until_purge'] = 1
-      UserFile.purge_date.should eq Date.today.to_time_in_current_zone - 1.days
+      UserFile.purge_date.should eq Date.today.to_time_in_current_zone - 30.days
     end
   end
 end

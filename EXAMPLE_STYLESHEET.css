@@ -1,0 +1,93 @@
+/**
+ This stylesheet contains a list of css attributes you can change to match your organization's
+ color scheme. The values listed are defaults.
+ 
+ If you decide to change any of these settings, save and upload this file somewhere on the internet. Copy the url to the file and place it into the appropriate setting in app.yml
+ 
+ NOTE:  If you change values other than those listed here, it may mess up the application's layout or compromise accessibility. 
+*/
+
+
+
+/**
+ Links, headers
+*/
+h2 {
+  color: #C9542B;
+}
+
+a {
+  color: #C9542B;
+}
+a:hover {
+  color: #8A3A1E;
+  text-decoration: underline;
+}
+
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+  color: #8A3A1E;
+}
+
+.dropdown-menu li > a, .dropdown-menu .active > a, .dropdown-menu .active > a {
+  background-color: #FFF;
+  color: #C9542B;
+}
+
+.dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
+  background-color: #C9542B;
+  color: #FFF;
+}
+
+
+
+/**
+ Buttons
+*/
+.breadcrumb {
+  color: #333;
+}
+
+.btn, .btn-large {
+  color: #333;
+  background: #F5F5F5;
+}
+
+.btn:hover, .btn-large:hover, .qq-upload-button-hover .btn-large{
+  color: #333;
+  background: #E6E6E6;
+}
+
+.btn-primary, .btn-primary:hover {
+  color: white;
+  /* If you want to use a gradient, be sure to use a gradient generator. */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2UxODE0NSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjOTU0MmIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top, #e18145 0%, #c9542b 100%); 
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e18145), color-stop(100%,#c9542b)); 
+  background: -webkit-linear-gradient(top, #e18145 0%,#c9542b 100%); 
+  background: -o-linear-gradient(top, #e18145 0%,#c9542b 100%); 
+  background: -ms-linear-gradient(top, #e18145 0%,#c9542b 100%); 
+  background: linear-gradient(to bottom, #e18145 0%,#c9542b 100%); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e18145', endColorstr='#c9542b',GradientType=0 ); 
+}
+
+
+
+/**
+ Page top hat
+*/
+.navbar-inner {
+  /* If you want to use a gradient, be sure to use a gradient generator. */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzMzMzMzMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyMjIyMjIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top,  #333333 0%, #222222 100%); 
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(100%,#222222)); 
+  background: -webkit-linear-gradient(top,  #333333 0%,#222222 100%); 
+  background: -o-linear-gradient(top,  #333333 0%,#222222 100%); 
+  background: -ms-linear-gradient(top,  #333333 0%,#222222 100%); 
+  background: linear-gradient(to bottom,  #333333 0%,#222222 100%); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#222222',GradientType=0 ); 
+}
+
+.navbar .nav li span, .navbar .nav li a {
+  color: #999999;
+}
+

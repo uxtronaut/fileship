@@ -1,32 +1,53 @@
-development:
-  cas: &cas_settings
-    cas_base_url: ''
+cas: &cas_settings
+  cas_base_url: 
 
-  osu_ldap: &ldap_settings
-    host: ''
-    base: ''
-    port: ''
-    bind_dn: ''
-    password: ''
 
-  force_ssl: false
 
-  days_until_purge:
+ldap: &ldap_settings
+  host: 
+  base: 
+  port: 
+  
+  # If your ldap stores names in the format "First Middle Last" then set first_name_position to 0
+  # and last_name_position to 2. If it stores "Last, First Middle" set first_name_position to 1 and
+  # last_name_position to 0, and so on.
+  first_name_position: 
+  last_name_position: 
+  
+  # If the :dn attribute has an additional identifier, fill this in. An example of an 
+  # additional identifier is :dn => ["number=7,ou=people,o=example.com"] where "number" is the field
+  ldap_identifier: 
+  
+  # Keep as :simple_tls unless your ldap requires another encryption method.
+  encryption: :simple_tls
 
-test:
-  cas: *cas_settings
 
-  osu_ldap: *ldap_settings
 
-  force_ssl: false
+feedback: &feedback_settings
+  # Both integers and strings work. "/projects/fileship" <--- 'fileship' as string 
+  # "/projects/3" <--- or 3 as integer. Choose whichever is appropriate for your project.
+  project_id: 
+  
+  # Integer which determines what feedback will be filed as (task, defect, custom field, etc.)
+  tracker_id: 
+  
+  # Follow format 'https://rest_api_key:X@example.com/create/' 
+  # where rest_api_key is from a person on the project.
+  site: 
+  
+  proxy: ''
+  
+  # If you want to prepend the feedback subject line with specific text, do so here. 
+  # Otherwise, leave it blank. Example: "[Feedback] "
+  prepend_subject:
 
-  days_until_purge:
 
-production:
-  cas: *cas_settings
 
-  osu_ldap: *ldap_settings
+# If Fileship is running from one or more subdirectories on your server, put their names here.
+# For example, if fileship was running at "example.com:80/awesomeapps/fileship" then below you would
+# put 'awesomeapps/fileship'
+subdirectory: ''
 
-  force_ssl: true
 
-  days_until_purge:
+
+force_ssl: false

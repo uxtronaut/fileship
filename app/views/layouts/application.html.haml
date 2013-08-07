@@ -6,6 +6,8 @@
     %meta{:'http-equiv' => 'X-UA-Compatible', :content => 'IE=edge'}
     = javascript_include_tag 'application'
     = stylesheet_link_tag 'application'
+    = stylesheet_link_tag 'fileship'
+    = stylesheet_link_tag @stylesheet_path unless @stylesheet_path.blank?
     = csrf_meta_tag
 
     <!--[if lt IE 9]>
@@ -30,11 +32,23 @@
                     = link_to "#{content_tag :i, '', :class => 'icon-question-sign icon-large'} Help".html_safe, help_path
                   %li{:class => (controller_name == 'feedback' ? 'active' : nil)}
                     = link_to "#{content_tag :i, '', :class => 'icon-comment icon-large'} Feedback".html_safe, new_feedback_path
+                  -if @current_user.is_admin
+                    %li{:class => (controller_name == 'users' ? 'active' : nil)}
+                      = link_to "#{content_tag :i, '', :class => 'icon-user icon-large'} Officers".html_safe, users_path
+                    %li{:class => (controller_name == 'file_logs' ? 'active' : nil)}
+                      = link_to "#{content_tag :i, '', :class => 'icon-book icon-large'} Captain's Log".html_safe, file_logs_path
+                    %li{:class => (controller_name == 'settings' ? 'active' : nil)}
+                      = link_to "#{content_tag :i, '', :class => 'icon-cog icon-large'} Settings".html_safe, settings_path
+                    
 
       .container
         %section#main
+          - unless flash[:notice].blank?
+            #notices.ui-notify
+              .alert.alert-success.ui-notify-message.ui-notify-message-style
+                %strong= flash[:notice]
           = render 'alerts'
-              
+
           = yield
 
       .footer-push

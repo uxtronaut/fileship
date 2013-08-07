@@ -1,7 +1,7 @@
 .navbar
   .navbar-inner
     .container
-      = tophat_tag
+      = tophat_tag(@logo_image_path, @logo_url)
 
       -if signed_in? && show_links
         %ul.nav.pull-right

@@ -15,6 +15,7 @@ describe FoldersController do
       end
     end
 
+
     context 'as an admin' do
       before do
         @user = FactoryGirl.create(:admin)
@@ -28,10 +29,11 @@ describe FoldersController do
       end
     end
 
+
     context 'as a guest' do
       it 'redirects to the login path' do
         get :index
-        response.should redirect_to RubyCAS::Filter.login_url(controller)
+        response.status.should eq 302
       end
     end
   end
@@ -43,6 +45,7 @@ describe FoldersController do
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
       end
+
 
       context 'for a permitted folder' do
         before do
@@ -63,6 +66,7 @@ describe FoldersController do
         end
       end
 
+
       context 'for an unpermitted folder' do
         before do
           @folder = FactoryGirl.create(:folder, :user => FactoryGirl.create(:user))
@@ -74,6 +78,7 @@ describe FoldersController do
         end
       end
 
+
       context 'for the root folder' do
         it 'responds 403' do
           root = Folder.root
@@ -83,12 +88,14 @@ describe FoldersController do
       end
     end
 
+
     context 'as an admin' do
       before do
         @user = FactoryGirl.create(:admin)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
       end
+
 
       context "for the admin's folder" do
         it 'responds successfully' do
@@ -98,6 +105,7 @@ describe FoldersController do
         end
       end
 
+
       context "for another user's folder" do
         it 'responds successfully' do
           @folder = FactoryGirl.create(:folder, :user => FactoryGirl.create(:user))
@@ -105,6 +113,7 @@ describe FoldersController do
           response.status.should eq 200
         end
       end
+
 
       context "for the root folder" do
         it 'should render the root folder' do
@@ -115,14 +124,18 @@ describe FoldersController do
       end
     end
 
+
     context 'as a guest' do
       it 'redirects to the login path' do
         @folder = FactoryGirl.create(:folder)
         get :show, :id => @folder.id
-        response.should redirect_to RubyCAS::Filter.login_url(controller)
+        response.status.should eq 302
       end
     end
   end
+
+
+
 
   describe '#create' do
     context 'as a user' do
@@ -133,6 +146,7 @@ describe FoldersController do
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
       end
+
 
       context 'via json' do
         context 'for a permitted parent folder' do
@@ -156,7 +170,28 @@ describe FoldersController do
             response.should render_template('folders/_folder')
           end
         end
-
+        
+        
+        context 'for a permitted folder without a name' do
+          before do
+            @folder = FactoryGirl.create(:folder, :user => @user)
+            post :create, {
+              :folder_id => @user.home_folder.id,
+              :folder => {:name => ''},
+              :format => :js
+            }
+          end
+          
+          it 'responds with bad request error' do
+            response.status.should eq 400
+          end
+          
+          it 'renders the rename form' do
+            response.should render_template('folders/_new_form')
+          end
+        end
+        
+        
         context 'for an unpermitted parent folder' do
           it 'responds 403' do
             post :create, {
@@ -186,6 +221,164 @@ describe FoldersController do
         end
       end
 
+    end
+  end
+  
+  
+  
+  
+  
+  describe '#update' do
+    context 'as a user' do
+      before do
+        @user = FactoryGirl.create(:user)
+        @home_folder = @user.home_folder
+        @home_folder.update_attribute(:user, @user)
+        User.stubs(:find_or_import).returns(@user)
+        RubyCAS::Filter.fake(@user.uid)
+        
+        @other_user = FactoryGirl.create(:user)
+        @other_home_folder = @other_user.home_folder
+        @other_home_folder.update_attribute(:user, @other_user)
+      end
+
+
+      context 'via json' do
+        context 'for a permitted folder' do
+          before do
+            @folder = FactoryGirl.create(:folder, :user => @user)
+            post :update, {
+              :id => @folder.id,
+              :folder => {:name => 'testo'},
+              :format => :js
+            }
+          end
+
+          it 'responds successfully' do
+            response.status.should eq 200
+          end
+
+          it 'sets the folder name' do
+            assigns(:folder).name.should eq 'testo'
+          end
+
+          it 'renders the folder partial' do
+            response.should render_template('folders/_folder')
+          end
+        end
+        
+        
+        context 'for a permitted folder without a name' do
+          before do
+            @folder = FactoryGirl.create(:folder, :user => @user)
+            post :update, {
+              :id => @folder.id,
+              :folder => {:name => ''},
+              :format => :js
+            }
+          end
+          
+          it 'responds with bad request error' do
+            response.status.should eq 400
+          end
+          
+          it 'renders the rename form' do
+            response.should render_template('folders/_rename_form')
+          end
+        end
+        
+        
+        context 'for users home folder' do
+          before do
+            @folder = @user.home_folder
+            post :update, {
+              :id => @folder.id,
+              :folder => {:name => 'another name'},
+              :format => :js
+            }
+          end
+          
+          it 'responds with bad request error' do
+            response.status.should eq 400
+          end
+          
+          it 'renders the rename form' do
+            response.should render_template('folders/_rename_form')
+          end
+        end
+
+
+        context 'for another users folder' do
+          before do
+            @folder = FactoryGirl.create(:folder, :user => @other_user)
+          end
+          it 'responds 403' do
+            post :update, {
+              :id => @folder,
+              :folder => {:name => 'testo'},
+              :format => :json
+            }
+            response.status.should eq 403
+          end
+        end
+      end
+      
+      
+      context 'via html' do
+        before do
+          @folder = FactoryGirl.create(:folder, :user => @user, :parent_id => @home_folder.id)
+          post :update, {
+            :id => @folder.id,
+            :folder => {:name => 'testo'}
+          }
+        end
+
+        it 'responds with redirect' do
+          response.status.should eq 302
+        end
+
+        it 'renders the foldertemplate' do
+          response.should redirect_to folder_path(@home_folder.id)
+        end
+      end
+
+    end
+  end
+  
+  
+  
+  
+  describe '#destroy' do
+    context 'as a user' do
+      before do
+        @user = FactoryGirl.create(:user)
+        @home_folder = @user.home_folder
+        @home_folder.update_attribute(:user, @user)
+        User.stubs(:find_or_import).returns(@user)
+        RubyCAS::Filter.fake(@user.uid)
+        @folder = FactoryGirl.create(:folder, :user => @user, :parent_id => @home_folder.id)
+      end
+
+
+      context 'via json' do
+        context 'for a permitted folder' do
+          before do
+            delete :destroy, {
+              :id => @folder.id,
+              :folder_id => @user.home_folder.id,
+              :format => :js
+            }
+          end
+
+          it 'responds with success' do
+             response.status.should eq 200
+           end
+          
+          it 'renders the home folder' do
+            response.should render_template(@home_folder)
+          end
+        end
+      end
     end
   end
 end

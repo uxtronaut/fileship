@@ -1,32 +1,49 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'mysql'
+gem 'mysql2'
 
-gem 'json'
+gem 'json', '1.7.6'
 
 gem 'haml'
 gem 'simple_form'
 gem 'bootstrap-sass'
 
-gem 'carrierwave', :git => 'https://github.com/jnicklas/carrierwave.git'
+
+gem 'carrierwave'
 
 gem 'rubycas-client', '~> 2.2.1'
-gem 'rubycas-client-rails', :git => 'git@gitlab.cws.oregonstate.edu:rubycas-client-rails-osu.git'
-gem 'osu-ldap', :git => 'git@gitlab.cws.oregonstate.edu:osu-ldap.git'
+gem 'rubycas-client-rails'
+
+gem 'net-ldap'
 
 gem 'jquery-rails'
 gem 'acts_as_tree'
 
-gem 'rspec-rails'
-gem 'mocha'
-gem 'factory_girl_rails', '~> 1.4.0'
-gem 'faker'
+gem 'seed-fu', '~> 2.2.0'
+
+gem 'will_paginate', '3.0.4'
+
+
+# REMOVE BEFORE OPEN SOURCING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+gem "cws_logger", :git => "git@gitlab.cws.oregonstate.edu:cws_logger.git"
+
+
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'mocha', :require => nil
+  gem 'factory_girl_rails', '~> 4.2.1'
+  gem 'faker'
+  gem "simplecov"
+  gem "simplecov-rcov"
+end 
+
 
 # Gems used only for assets and not required
 # in production environments by default.
