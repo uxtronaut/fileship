@@ -3,4 +3,4 @@
 # obliterated when this script is run. 
 
 UserFile.purge_old_files
-UserFile.purge_old_logs
+FileLog.purge_old_logs
