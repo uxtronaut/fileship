@@ -27,6 +27,11 @@ def app_setup():
     return
 
 # Does application specific deployment of what ever is not covered by the generic fabric script.
+def app_pre_deploy():
+
+  return
+
+# Does application specific deployment of what ever is not covered by the generic fabric script.
 def app_deploy():
 
   return
