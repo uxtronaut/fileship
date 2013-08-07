@@ -1,13 +1,12 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 module ApplicationHelper
 
-  def tophat_tag
-    link_to (image_tag 'http://oregonstate.edu/osuhomepage/regions/top-hat/1.2/images/osu-tag.gif', {
-      :alt => 'Oregon State University',
-      :class => 'tag'
-    }), 'http://oregonstate.edu/', {
-      :title => 'Oregon State University',
-      :class => 'brand'
-    }
+  def tophat_tag(image, url)
+    link_to (image_tag image, {:class => 'tag'}), url, {:class => 'brand'} unless image.blank?
   end
 
   def flash_messages
@@ -54,6 +53,8 @@ module ApplicationHelper
       :data => {:success_message => opts[:success_message]}
     }
   end
+  
+  
 
   def confirmation_modal_tag(options = {}, &block)
     opts = {

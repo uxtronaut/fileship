@@ -1,18 +1,8 @@
 #welcome.row
-  %div{:class => ['span6', 'offset5', 'message']}
-    %h1 OSU FileShip
+  %div{:class => ['span5', 'offset5', 'message']}
+    %h1  FileShip
     = image_tag 'rocket-animated.gif', :alt => 'Rocket', :class => 'rocket'
     %h3 Share large files securely
-    %p
-      Use our onsite hosted file sharing application for sharing your large or sensitive files with anyone in the world.
-
-    %h3 Collaborate with your peers
-    %p
-      Create shared folders that your colleagues or classmates can access.
-
-    %h3 Sign in to get started
-    %p
-      Sign in to FileShip with your ONID credentials using the link below...
 
     %p
       = link_to 'Sign In', folders_path, :class => ['btn', 'btn-primary', 'sign-in']

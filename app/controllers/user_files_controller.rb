@@ -1,10 +1,15 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 class UserFilesController < ApplicationController
 
   prepend_before_filter RubyCAS::Filter, :except => [:show, :enter_password, :check_password]
   #prepend_before_filter RubyCAS::GatewayFilter, :only => [:show, :enter_password, :check_password]
 
-  before_filter :get_user_file, :except => [:show, :create, :new]
-  before_filter :get_folder, :except => :show
+  before_filter :get_user_file, :except => [:show, :create, :new, :purge_test_uploads]
+  before_filter :get_folder, :except => [:show, :purge_test_uploads]
 
   before_filter :get_upload, :only => :create
 
@@ -19,8 +24,12 @@ class UserFilesController < ApplicationController
     send_user_file
   end
 
+
+
   def enter_password
   end
+
+
 
   def check_password
     if params[:user_file][:password] == @user_file.password
@@ -31,14 +40,18 @@ class UserFilesController < ApplicationController
     render :enter_password, :alert => 'Password did not match...'
   end
 
+
+
   def new
     @user_file = UserFile.new
   end
 
+
+
   def create
     respond_to do |format|
       format.html do
-        @user_file = @folder.user_files.build(params[:user_file])
+        @user_file = @folder.user_files.build(params[:user_file].merge!({:user_id => @current_user.id}))
         if @user_file.save
           redirect_to folder_url(@folder), :notice => "Uploaded #{@user_file.name}"
           return
@@ -49,10 +62,10 @@ class UserFilesController < ApplicationController
       end
 
       format.json do
-        @new_file.close
-        @user_file = @folder.user_files.build({
-          :attachment => @new_file
+        @user_file = @folder.user_files.create({
+          :attachment => @new_file, :user_id => @current_user.id
         })
+        @new_file.close
 
         if @user_file.save
           render :json => {:success => true}, :content_type => 'text/plain'
@@ -65,8 +78,12 @@ class UserFilesController < ApplicationController
     end
   end
 
+
+
   def edit
   end
+
+
 
   def update
     if @user_file.update_attributes(params[:user_file])
@@ -88,6 +105,8 @@ class UserFilesController < ApplicationController
     end
   end
 
+
+
   def destroy
     if @user_file.destroy
       respond_to do |format|
@@ -96,20 +115,37 @@ class UserFilesController < ApplicationController
     end
   end
 
+
+
   def email
     respond_to do |format|
       format.js { render @folder, :formats => [:html] }
     end
   end
 
+
+
   def share
   end
 
-  private
 
+
+  # Removes uploads left behind by FactoryGirl during testing
+  def purge_test_uploads
+    FileUtils.rm_rf('public/uploads/tmp')
+    FileUtils.mkdir('public/uploads/tmp')
+    redirect_to welcome_path
+  end
+  
+
+
+  private
+  
     def get_user_file
       @user_file = UserFile.find(params[:id])
     end
+
+
 
     def get_folder
       if params[:folder_id]
@@ -119,6 +155,8 @@ class UserFilesController < ApplicationController
       end
     end
 
+
+
     def get_upload
       if params[:qqfile]
         file_name = params[:qqfile].respond_to?(:original_filename) ? params[:qqfile].original_filename : params[:qqfile]
@@ -127,8 +165,11 @@ class UserFilesController < ApplicationController
       end
     end
 
+
+
     def send_user_file
       send_file @user_file.attachment.file.path, :filename => @user_file.name
+      @user_file.downloaded
     end
 
 end

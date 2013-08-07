@@ -13,37 +13,42 @@
         %td.file-icon= image_tag 'fileicons/folder.png'
         %td.file-name= link_to child_folder.name, child_folder
         %td.muted= number_to_human_size(child_folder.size).to_s.downcase
-        %td.muted= l(folder.updated_at)
+        %td.muted= l(child_folder.updated_at)
         %td
         %td.file-actions
-          .btn-group
-            = dropdown_menu_toggle
-            %ul.dropdown-menu
-              %li= rename_folder_menu_item child_folder
-              %li= delete_folder_menu_item child_folder
-          = render 'folders/modals/rename_modal', :folder => child_folder
-          = render 'folders/modals/delete_modal', :folder => child_folder
+          - if @current_user == child_folder.user || child_folder.user.blank?
+            .btn-group
+              = dropdown_menu_toggle
+              %ul.dropdown-menu
+                %li= rename_folder_menu_item child_folder
+                %li= delete_folder_menu_item child_folder
+            = render 'folders/modals/rename_modal', :folder => child_folder
+            = render 'folders/modals/delete_modal', :folder => child_folder
     - folder.user_files.each do |file|
       %tr
         %td.file-icon= image_tag(file_icon(file.extension))
-        %td.file-name= link_to file.name, file
+        - if @current_user == @folder.user || @folder.user.blank?
+          %td.file-name= link_to file.name, file
+        -else
+          %td.file-name= file.name
         %td.muted= number_to_human_size(file.attachment.file.size).to_s.downcase
         %td.muted= l(file.updated_at)
         %td.muted= content_tag :i, '', :class => 'icon-lock' if file.password
         %td.file-actions
-          .btn-group
-            = dropdown_menu_toggle
-            %ul.dropdown-menu
-              %li= file_menu_item 'Share', 'icon-share', file.id
-              -#%li= file_menu_item 'Email', 'icon-envelope', file.id
-              %li= file_menu_item 'Password', 'icon-lock', file.id
-              %li= file_menu_item 'Rename', 'icon-edit', file.id
-              %li= file_menu_item 'Delete', 'icon-trash', file.id
-          = render 'user_files/modals/share_modal', :user_file => file
-          -#= render 'user_files/modals/email_modal', :user_file => file
-          = render 'user_files/modals/password_modal', :user_file => file
-          = render 'user_files/modals/rename_modal', :user_file => file
-          = render 'user_files/modals/delete_modal', :user_file => file
+          - if @current_user == @folder.user || @folder.user.blank?
+            .btn-group
+              = dropdown_menu_toggle
+              %ul.dropdown-menu
+                %li= file_menu_item 'Share', 'icon-share', file.id
+                -#%li= file_menu_item 'Email', 'icon-envelope', file.id
+                %li= file_menu_item 'Password', 'icon-lock', file.id
+                %li= file_menu_item 'Rename', 'icon-edit', file.id
+                %li= file_menu_item 'Delete', 'icon-trash', file.id
+            = render 'user_files/modals/share_modal', :user_file => file
+            -#= render 'user_files/modals/email_modal', :user_file => file
+            = render 'user_files/modals/password_modal', :user_file => file
+            = render 'user_files/modals/rename_modal', :user_file => file
+            = render 'user_files/modals/delete_modal', :user_file => file
 
     - if folder.children.empty? && folder.user_files.empty?
       %tr

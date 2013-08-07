@@ -1,3 +1,8 @@
+# Fileship
+# Copyright (C) 2012 Oregon State University
+#
+#
+
 class Folder < ActiveRecord::Base
 
   ROOT_NAME = 'Root folder'
@@ -11,7 +16,14 @@ class Folder < ActiveRecord::Base
 
   validates_uniqueness_of :name, :scope => :parent_id
   validates_presence_of :name
-  validates_presence_of :parent_id, :unless => lambda { Folder.all.empty? }
+  validate :parent_id_unless_root
+
+  # Only allows root folder to not have parent id
+  def parent_id_unless_root
+    if self.parent_id.blank?
+      errors.add(:parent_id, "cannot be blank") unless Folder.all.blank? || Folder.first == self
+    end
+  end
 
   def size
     size = 0

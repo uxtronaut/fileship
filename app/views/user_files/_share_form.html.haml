@@ -4,4 +4,4 @@
       Copy and paste the URL below to share this file.
     = form.input :link_token, :wrapper => :prepend, :label => false, :hint => false do
       = content_tag :span, 'Share URL', :class => 'add-on'
-      = form.input_field :link_token, :class => 'span5', :value => link_url(user_file)
+      = form.input_field :link_token, :class => 'span5', :value => UserFile.share_url(link_url(user_file))

@@ -1,0 +1,37 @@
+<div class="settings">
+  <h2> Settings </h2>
+  <h3> Change how Fileship looks and operates. </h3>
+  
+  
+  <%= form_for "settings", :url => {:action => :update_settings} do |f| %>
+  
+    <% if @error %>
+      <div class="alert form-alert-error">
+        <h4> Danger! Danger! </h4>
+        <span> Some problems were detected with your transmission, please try again... </span>
+      </div>
+    <% end %>
+  
+    <div class="form-horizontal">
+      <% @settings.each_with_index do |setting, index| %>
+        <%= f.simple_fields_for "setting" + index.to_s, setting do |form| %>
+          <div class="span6">
+            <%= form.input :value, label: setting.name %>
+            <%= form.hidden_field :id, :value => setting.id %>
+            <%= form.hidden_field :name, :value => setting.name %>
+          </div>
+          <div class="span5 info">
+            <i class="icon-info-sign  pull-left"></i>
+            <%= form.hint setting.description %>
+          </div>
+        <% end %>
+      <% end %>
+      
+      <div class="form-actions span9">
+        <%= f.submit  "Update Settings", :class => "btn btn-primary" %>
+      </div>
+    </div>
+    
+  <% end %>
+  
+</div>

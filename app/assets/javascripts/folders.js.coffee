@@ -3,6 +3,7 @@ $ ->
 
   window.alerts = $('#alerts').notify()
 
+
   $('#new-folder-button').click ->
     $('#new-folder-modal').modal 'show'
     return false
