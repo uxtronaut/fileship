@@ -31,7 +31,7 @@ gem 'will_paginate', '3.0.4'
 
 
 # REMOVE BEFORE OPEN SOURCING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-gem "cws_logger", :git => "git@gitlab.cws.oregonstate.edu:cws_logger.git"
+gem "cws_logger", :git => "git@gitlab.cws.oregonstate.edu:gems/cws_logger.git"
 
 
 
