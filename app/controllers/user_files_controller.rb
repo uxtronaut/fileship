@@ -16,7 +16,7 @@ class UserFilesController < ApplicationController
   def show
     @user_file = UserFile.find_by_link_token(params[:link_token]) || UserFile.find(params[:id])
 
-    if @user_file.password && (@user_file.folder.user != @current_user)
+    if @user_file.password && (@user_file.user != @current_user)
       redirect_to enter_password_user_file_path(@user_file), :notice => "Enter the password for #{@user_file.name}"
       return
     end
@@ -65,7 +65,7 @@ class UserFilesController < ApplicationController
         @user_file = @folder.user_files.create({
           :attachment => @new_file, :user_id => @current_user.id
         })
-        @new_file.close
+        @new_file.close unless @new_file.blank?
 
         if @user_file.save
           render :json => {:success => true}, :content_type => 'text/plain'

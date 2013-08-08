@@ -7,6 +7,7 @@ describe UsersController do
         @user = FactoryGirl.create(:user)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
         get :index
       end
 
@@ -28,6 +29,7 @@ describe UsersController do
         @user = FactoryGirl.create(:admin)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
         get :index
       end
     
@@ -59,6 +61,7 @@ describe UsersController do
         @user_to_add = FactoryGirl.create(:user)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
         post :add_admin, {
           :user => {:id => @user_to_add}
         }
@@ -83,6 +86,7 @@ describe UsersController do
         @user_to_add = FactoryGirl.create(:user)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
         post :add_admin, {
           :user => {:id => @user_to_add}
         }
