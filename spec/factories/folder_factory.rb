@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :folder do
-    parent { Folder.all.shuffle.first }
+    parent { Folder.root }
     sequence(:name) {|n| "#{Faker::Lorem.words}#{n}" }
   end
 

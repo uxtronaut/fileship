@@ -5,7 +5,7 @@
 
 class SettingsController < ApplicationController
   
-  prepend_before_filter RubyCAS::Filter::GatewayFilter
+  prepend_before_filter RubyCAS::Filter
   before_filter :check_permission
   skip_before_filter :load_settings
 

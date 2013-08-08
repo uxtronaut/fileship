@@ -5,7 +5,7 @@
 
 class UsersController < ApplicationController
   
-  prepend_before_filter RubyCAS::Filter::GatewayFilter
+  prepend_before_filter RubyCAS::Filter
   before_filter :check_permission
   
 
