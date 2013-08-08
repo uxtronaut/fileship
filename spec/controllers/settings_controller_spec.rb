@@ -13,7 +13,8 @@ describe SettingsController do
       before do
         @user = FactoryGirl.create(:user)
         User.stubs(:find_or_import).returns(@user)
-        RubyCAS::Filter.fake(@user.uid)        
+        RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid  
       end
 
       it "redirects to the user's home folder" do        
@@ -25,8 +26,9 @@ describe SettingsController do
     context 'as an admin' do
       before do
         @user = FactoryGirl.create(:admin)        
-        User.stubs(:find_or_import).returns(@user)        
-        RubyCAS::Filter.fake(@user.uid)        
+        User.stubs(:find_or_import).returns(@user)
+        RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid      
       end
 
       it 'lets admins view app settings' do
@@ -49,7 +51,7 @@ describe SettingsController do
       before do
         @user = FactoryGirl.create(:user)
         User.stubs(:find_or_import).returns(@user)
-        RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid      
       end
 
       it 'responds 403' do
@@ -64,7 +66,8 @@ describe SettingsController do
       before do
         @user = FactoryGirl.create(:admin)        
         User.stubs(:find_or_import).returns(@user)        
-        RubyCAS::Filter.fake(@user.uid)        
+        RubyCAS::Filter.fake(@user.uid)    
+        session[:cas_user] = @user.uid          
       end
       
       it 'updates and redirects to index' do
@@ -72,6 +75,14 @@ describe SettingsController do
           "settings"=> @setting_hash
         }
         response.should redirect_to settings_path
+      end
+      
+      
+      it 'renders index if there is an error' do
+        post :update_settings, {
+          "settings"=> {"setting0"=>{"value"=>"-1", "id"=>"1", "name"=>"Days until file purge"}}
+        }
+        response.should render_template("settings/index")
       end
     end
   end
