@@ -170,8 +170,8 @@ describe UserFilesController do
 
       context 'via json' do
         context 'for a valid file' do
-          it 'responds successfully' do
-            post :create, {
+          it 'responds succ+essfully' do
+            xhr :post, :create, {
               :folder_id => @user.home_folder.id,
               :qqfile => Rack::Test::UploadedFile.new(File.join(Rails.root, "spec/files/test.png"),'image/png'),
               :format => :json
