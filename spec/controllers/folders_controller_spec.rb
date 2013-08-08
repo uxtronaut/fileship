@@ -7,6 +7,7 @@ describe FoldersController do
         @user = FactoryGirl.create(:user)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
       end
 
       it "redirects to the user's home folder" do
@@ -21,6 +22,7 @@ describe FoldersController do
         @user = FactoryGirl.create(:admin)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
       end
 
       it 'redirects to the root folder' do
@@ -44,6 +46,7 @@ describe FoldersController do
         @user = FactoryGirl.create(:user)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
       end
 
 
@@ -94,6 +97,7 @@ describe FoldersController do
         @user = FactoryGirl.create(:admin)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
       end
 
 
@@ -145,6 +149,7 @@ describe FoldersController do
         @home_folder.update_attribute(:user, @user)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
       end
 
 
@@ -236,6 +241,7 @@ describe FoldersController do
         @home_folder.update_attribute(:user, @user)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
         
         @other_user = FactoryGirl.create(:user)
         @other_home_folder = @other_user.home_folder
@@ -348,6 +354,7 @@ describe FoldersController do
   
   
   
+  
   describe '#destroy' do
     context 'as a user' do
       before do
@@ -356,6 +363,7 @@ describe FoldersController do
         @home_folder.update_attribute(:user, @user)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
         @folder = FactoryGirl.create(:folder, :user => @user, :parent_id => @home_folder.id)
       end
 
