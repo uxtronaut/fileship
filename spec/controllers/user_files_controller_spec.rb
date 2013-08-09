@@ -229,19 +229,200 @@ describe UserFilesController do
   
   
   
-  
-  describe '#purge_test_uploads' do
-    context 'as an admin' do
+  describe '#update' do
+    context 'as a user' do
       before do
-        @user = FactoryGirl.create(:admin)
+        @user = FactoryGirl.create(:user)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
         session[:cas_user] = @user.uid
+        @other_user = FactoryGirl.create(:user)
       end
 
-      it 'redirects to welcome page' do
-        get :purge_test_uploads
-        response.should redirect_to welcome_path
+
+      context 'via json' do
+        context 'for a permitted file' do
+          before do
+            @file = FactoryGirl.create(:user_file, :user => @user)
+            post :update, {
+              :id => @file.id,
+              :user_file => {:name => 'testo'},
+              :format => :js
+            }
+          end
+
+          it 'responds successfully' do
+            response.status.should eq 200
+          end
+
+          it 'sets the file name' do
+            assigns(:user_file).name.should eq 'testo'
+          end
+
+          it 'renders the file partial' do
+            response.should render_template(@file.folder)
+          end
+        end
+        
+        
+        context 'for a permitted file without a name' do
+          before do
+            @file = FactoryGirl.create(:user_file, :user => @user)
+            post :update, {
+              :id => @file.id,
+              :user_file => {:name => ''},
+              :format => :js
+            }
+          end
+          
+          it 'responds with bad request error' do
+            response.status.should eq 400
+          end
+          
+          it 'renders the rename form' do
+            response.should render_template('user_files/_rename_form')
+          end
+        end
+
+
+        context 'for another users file' do
+          before do
+            @file = FactoryGirl.create(:user_file, :user => @other_user)
+          end
+          it 'responds 403' do
+            post :update, {
+              :id => @file,
+              :user_file => {:name => 'testo'},
+              :format => :json
+            }
+            response.status.should eq 403
+          end
+        end
+      end
+    end
+  end
+  
+  
+  
+  
+  
+  describe '#update' do
+    context 'as a user' do
+      before do
+        @user = FactoryGirl.create(:user)
+        User.stubs(:find_or_import).returns(@user)
+        RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
+        @other_user = FactoryGirl.create(:user)
+      end
+  
+  
+      context 'via json' do
+        context 'for a permitted file' do
+          before do
+            @file = FactoryGirl.create(:user_file, :user => @user)
+            post :update, {
+              :id => @file.id,
+              :user_file => {:name => 'testo'},
+              :format => :js
+            }
+          end
+  
+          it 'responds successfully' do
+            response.status.should eq 200
+          end
+  
+          it 'sets the file name' do
+            assigns(:user_file).name.should eq 'testo'
+          end
+  
+          it 'renders the file partial' do
+            response.should render_template(@file.folder)
+          end
+        end
+  
+  
+        context 'for a permitted file without a name' do
+          before do
+            @file = FactoryGirl.create(:user_file, :user => @user)
+            post :update, {
+              :id => @file.id,
+              :user_file => {:name => ''},
+              :format => :js
+            }
+          end
+  
+          it 'responds with bad request error' do
+            response.status.should eq 400
+          end
+  
+          it 'renders the rename form' do
+            response.should render_template('user_files/_rename_form')
+          end
+        end
+  
+  
+        context 'for another users file' do
+          before do
+            @file = FactoryGirl.create(:user_file, :user => @other_user)
+          end
+          it 'responds 403' do
+            post :update, {
+              :id => @file,
+              :user_file => {:name => 'testo'},
+              :format => :json
+            }
+            response.status.should eq 403
+          end
+        end
+      end
+    end
+  end
+  
+  
+  
+  
+  
+  describe '#destroy' do
+    context 'as a user' do
+      before do
+        @user = FactoryGirl.create(:user)
+        User.stubs(:find_or_import).returns(@user)
+        RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
+        @other_user = FactoryGirl.create(:user)
+      end
+  
+  
+      context 'via json' do
+ #       context 'for a permitted file' do
+ #         before do
+ #           @file = FactoryGirl.create(:user_file, :user => @user)
+ #           @folder = @file.folder
+ #           delete :destroy, {
+ #             :id => @file.id,
+ #             :format => :json
+ #           }
+ #         end
+ # 
+ #         it 'deletes file and redirects to folder' do
+ #           response.should redirect_to(@folder)
+ #         end
+ #       end
+  
+  
+        context 'for another users file' do
+          before do
+            @file = FactoryGirl.create(:user_file, :user => @other_user)
+          end
+          it 'responds 403' do
+            delete :destroy, {
+              :id => @file,
+              :format => :json
+            }
+            response.status.should eq 403
+          end
+        end
       end
     end
   end

@@ -30,6 +30,16 @@ RSpec.configure do |config|
   config.before(:suite) do
     SeedFu.seed
   end
+  
+  
+  config.after(:all) do
+     # Get rid of the linked images
+     if Rails.env.test? || Rails.env.cucumber?
+       FileUtils.rm_rf('public/uploads/tmp')
+       FileUtils.mkdir('public/uploads/tmp')
+     end
+   end
+   
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
