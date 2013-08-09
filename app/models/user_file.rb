@@ -45,7 +45,7 @@ class UserFile < ActiveRecord::Base
 
   # Increments the number of times the file has been downloaded
   def downloaded
-    self.file_log.increment(:downloads, 1).save
+    self.file_log.increment(:downloads, 1).save unless self.file_log.blank?
   end
 
 
@@ -69,6 +69,7 @@ class UserFile < ActiveRecord::Base
 
   # Removes the useless directory left behind when a user_file is deleted
   def remove_id_directory
+    return true if Rails.env.test?
     FileUtils.remove_dir("#{Rails.root}/public/uploads/user_file/attachment/#{self.id}", 
                           :force => true)
   end
