@@ -41,6 +41,21 @@ describe UserFilesController do
             response.status.should eq 200
           end
         end
+        
+        
+        
+        context 'for file without file log' do
+          before do
+            @file = FactoryGirl.create(:user_file, :user => @user)
+            @file.file_log.destroy
+            get :show, :id => @file.id
+          end
+        
+        
+          it 'should send the file' do
+            response.status.should eq 200
+          end
+        end
       end
       
       
@@ -283,6 +298,32 @@ describe UserFilesController do
             response.should render_template('user_files/_rename_form')
           end
         end
+
+
+
+         context 'for file without file log' do
+           before do
+             @file = FactoryGirl.create(:user_file, :user => @user)
+             @file.file_log.destroy
+             post :update, {
+               :id => @file.id,
+               :user_file => {:name => 'testo'},
+               :format => :js
+             }
+           end
+           
+           it 'responds successfully' do
+             response.status.should eq 200
+           end
+           
+           it 'sets the file name' do
+             assigns(:user_file).name.should eq 'testo'
+           end
+           
+           it 'renders the file partial' do
+             response.should render_template(@file.folder)
+           end
+         end
 
 
         context 'for another users file' do
