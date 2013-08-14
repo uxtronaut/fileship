@@ -12,6 +12,8 @@ class UserFilesController < ApplicationController
   before_filter :get_folder, :except => [:show, :purge_test_uploads]
 
   before_filter :get_upload, :only => :create
+  before_filter :check_permission, :only => [:update, :destroy]
+  
 
   def show
     @user_file = UserFile.find_by_link_token(params[:link_token]) || UserFile.find(params[:id])
@@ -130,16 +132,14 @@ class UserFilesController < ApplicationController
 
 
 
-  # Removes uploads left behind by FactoryGirl during testing
-  def purge_test_uploads
-    FileUtils.rm_rf('public/uploads/tmp')
-    FileUtils.mkdir('public/uploads/tmp')
-    redirect_to welcome_path
-  end
-  
-
-
   private
+  
+    # Makes sure that the current user has permission to update or delete the file
+    def check_permission
+      render_403 unless @user_file.user == @current_user || @user_file.folder.user == @current_user
+    end
+  
+  
   
     def get_user_file
       @user_file = UserFile.find(params[:id])

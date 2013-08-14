@@ -38,15 +38,6 @@ describe UsersController do
         response.status.should eq 200
       end
     end
-    
-    
-    
-    context 'as a guest' do
-      it 'redirects to the login path' do
-        get :index
-        response.status.should eq 302
-      end
-    end
   end
 
 
