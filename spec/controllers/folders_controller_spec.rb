@@ -30,14 +30,6 @@ describe FoldersController do
         response.should redirect_to Folder.root
       end
     end
-
-
-    context 'as a guest' do
-      it 'redirects to the login path' do
-        get :index
-        response.status.should eq 302
-      end
-    end
   end
 
   describe '#show' do
@@ -125,15 +117,6 @@ describe FoldersController do
           get :show, :id => root.id
           response.status.should eq 200
         end
-      end
-    end
-
-
-    context 'as a guest' do
-      it 'redirects to the login path' do
-        @folder = FactoryGirl.create(:folder)
-        get :show, :id => @folder.id
-        response.status.should eq 302
       end
     end
   end
