@@ -78,6 +78,7 @@ module Fileship
     # Configure CAS
     config.rubycas.cas_base_url = config.fileship_config['cas']['cas_base_url']
     config.rubycas.logger = Rails.logger
+    config.rubycas.cas_destination_logout_param_name = 'url'
     #config.rubycas.use_gatewaying = true
 
     if config.fileship_config['force_ssl'].equal?(true) || config.fileship_config['force_ssl'].equal?(false)
