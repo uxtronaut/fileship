@@ -12,7 +12,7 @@ class FileLog < ActiveRecord::Base
   
   has_many :file_revisions, :dependent => :destroy
   
-  validates_presence_of :user_id, :user_file_id
+  validates_presence_of :user_file_id
 
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
 
