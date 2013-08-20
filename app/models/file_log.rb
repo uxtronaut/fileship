@@ -25,7 +25,7 @@ class FileLog < ActiveRecord::Base
     else
       user_id = user_file.folder.user_id
     end
-    FileLog.create(:user_id => uuser_id, :user_file_id => user_file.id, :file_size => user_file.attachment.file.size)
+    FileLog.create(:user_id => user_id, :user_file_id => user_file.id, :file_size => user_file.attachment.file.size)
   end
 
   
