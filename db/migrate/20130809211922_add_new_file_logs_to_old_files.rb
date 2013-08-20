@@ -6,6 +6,11 @@ class AddNewFileLogsToOldFiles < ActiveRecord::Migration
     
     
     UserFile.all.each do |user_file|
+      if user_file.folder.user_id.blank?
+        user_file.destroy
+        next
+      end
+      user_file.update_attributes(:user_id => user_file.folder.user_id)
       FileLog.create_log(user_file)
       file_log = user_file.file_log
       file_log.created_at = user_file.created_at
