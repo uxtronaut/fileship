@@ -18,8 +18,8 @@ class AddNewFileLogsToOldFiles < ActiveRecord::Migration
           user_file.update_attributes(:folder_id => folder.id, :user_id => admin.id)
         else
           user_file.destroy
+          next
         end
-        next
       end
       user_file.update_attributes(:user_id => user_file.folder.user_id)
       FileLog.create_log(user_file)
