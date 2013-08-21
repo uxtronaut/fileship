@@ -5,7 +5,7 @@ class AddNewFileLogsToOldFiles < ActiveRecord::Migration
     end
     
     admin = User.where(:is_admin => true).first
-    folder = Folder.find_by_name("rescue_" + admin.uid)
+    folder = Folder.find_by_name("rescue_" + admin.uid) unless admin.blank?
     unless admin.blank? || folder
       folder = Folder.create(:name => "rescue_" + admin.uid, :user_id => admin.id)
       folder.parent = Folder.root
