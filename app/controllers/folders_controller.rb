@@ -12,9 +12,13 @@ class FoldersController < ApplicationController
   before_filter :check_permission, :except => :index
   before_filter :can_not_rename_home_folder, :only => :update
 
+
+
   def index
     redirect_to @current_user.is_admin? ? Folder.root : @current_user.home_folder
   end
+
+
 
   def show
     respond_to do |format|
@@ -25,9 +29,13 @@ class FoldersController < ApplicationController
     end
   end
 
+
+
   def new
     @folder = @parent_folder.children.build
   end
+
+
 
   def create
     @folder = @parent_folder.children.build(params[:folder])
@@ -57,8 +65,12 @@ class FoldersController < ApplicationController
     end
   end
 
+
+
   def edit
   end
+
+
 
   def update
     if @allowed_rename && @folder.update_attributes(params[:folder])
@@ -81,15 +93,27 @@ class FoldersController < ApplicationController
     end
   end
 
+
+
   def destroy
     parent_folder = @folder.parent
-
+    if @folder == @current_user.home_folder
+      flash[:notice] = "Cannot delete home folder"
+      respond_to do |format|
+        format.js { render parent_folder, :formats => [:html]}
+      end
+      return
+    end
+    
     if @folder.destroy
       respond_to do |format|
         format.js { render parent_folder, :formats => [:html]}
       end
     end
   end
+
+
+
 
   private
     def get_folder
@@ -100,6 +124,8 @@ class FoldersController < ApplicationController
       end
     end
 
+
+
     def get_parent_folder
       if params[:folder_id]
         @parent_folder = Folder.find(params[:folder_id])
@@ -108,11 +134,15 @@ class FoldersController < ApplicationController
       end
     end
 
+
+
     def check_permission
       unless @current_user.is_admin? || @folder.user == @current_user || @parent_folder.user == @current_user
         render_403
       end
     end
+
+
 
     def can_not_rename_home_folder
       @allowed_rename = true

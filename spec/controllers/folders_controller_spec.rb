@@ -129,7 +129,6 @@ describe FoldersController do
       before do
         @user = FactoryGirl.create(:user)
         @home_folder = @user.home_folder
-        @home_folder.update_attribute(:user, @user)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
         session[:cas_user] = @user.uid
@@ -221,14 +220,12 @@ describe FoldersController do
       before do
         @user = FactoryGirl.create(:user)
         @home_folder = @user.home_folder
-        @home_folder.update_attribute(:user, @user)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
         session[:cas_user] = @user.uid
         
         @other_user = FactoryGirl.create(:user)
         @other_home_folder = @other_user.home_folder
-        @other_home_folder.update_attribute(:user, @other_user)
       end
 
 
@@ -343,7 +340,6 @@ describe FoldersController do
       before do
         @user = FactoryGirl.create(:user)
         @home_folder = @user.home_folder
-        @home_folder.update_attribute(:user, @user)
         User.stubs(:find_or_import).returns(@user)
         RubyCAS::Filter.fake(@user.uid)
         session[:cas_user] = @user.uid
@@ -361,8 +357,27 @@ describe FoldersController do
             }
           end
 
-          it 'responds with success' do
-             response.status.should eq 200
+          it 'deletes folder' do
+             Folder.all.length.should eq 2
+           end
+          
+          it 'renders the home folder' do
+            response.should render_template(@home_folder)
+          end
+        end
+        
+        
+        context 'for a permitted folder' do
+          before do
+            delete :destroy, {
+              :id => @home_folder.id,
+              :folder_id => Folder.root.id,
+              :format => :js
+            }
+          end
+
+          it 'does not delete folder' do
+             Folder.all.length.should eq 3
            end
           
           it 'renders the home folder' do
