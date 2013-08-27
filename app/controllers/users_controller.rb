@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   # View for seeing existing admins and adding new ones
   def index
     @user = User.new
-    @admins = User.where(:is_admin => true).order(:first_name, :last_name)
+    @admins = User.admins
     @users = User.order(:first_name, :last_name) - @admins
   end
 
