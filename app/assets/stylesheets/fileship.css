@@ -395,3 +395,10 @@ html, body {
   text-decoration: none;
 }
 
+#officer-image {
+  background-image: url("officer.png");
+  background-repeat: no-repeat;
+  width: 220px;
+  height: 220px;
+}
+
