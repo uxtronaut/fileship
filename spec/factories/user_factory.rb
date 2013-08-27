@@ -6,7 +6,7 @@ FactoryGirl.define do
     uid { Faker::Internet.user_name }
     email {|u| "#{u}@#{Faker::Internet.domain_name}.#{Faker::Internet.domain_suffix}" }
     after(:create) do |u|
-      FactoryGirl.create(:home_folder, :name => u.uid)
+      FactoryGirl.create(:home_folder, :name => u.uid, :user => u)
     end
   end
 

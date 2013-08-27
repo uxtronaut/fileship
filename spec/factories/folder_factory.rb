@@ -2,6 +2,7 @@ FactoryGirl.define do
 
   factory :folder do
     parent { Folder.root }
+    user { FactoryGirl.create(:user) }
     sequence(:name) {|n| "#{Faker::Lorem.words}#{n}" }
   end
 
