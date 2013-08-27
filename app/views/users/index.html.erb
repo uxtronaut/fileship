@@ -9,6 +9,13 @@
           <td>
             <%= admin.name %>
           </td>
+          <td>
+            <% if admin != @current_user %>
+              <%= link_to "Retire", remove_admin_users_path + "?user=#{ admin.id }", 
+                  :method => :post, :confirm => "Are you sure this officer is ready to retire?", 
+                  :class => "btn btn-danger" %>  
+            <% end %>        
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -26,7 +33,8 @@
       
       <div class="form-horizontal">
         <div class="span6">
-          <%= form.input :id, label: "Candidates", collection: @users, prompt: "Choose a new officer" %>
+          <%= form.input :id, label: "Candidates", collection: @users, 
+              prompt: "Choose a new officer" %>
         </div>
         
         <div class="span5 info">
@@ -35,7 +43,8 @@
         </div>
         
         <div class="form-actions span9">
-          <%= form.submit  "Promote", :class => "btn btn-primary hidden", :confirm => "Are you sure?", :id => "promote" %>
+          <%= form.submit  "Promote", :class => "btn btn-primary hidden", 
+              :confirm => "With power comes responsibility. Are you sure?", :id => "promote" %>
         </div>
       </div>
     <% end %>  
