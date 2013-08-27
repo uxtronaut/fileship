@@ -74,6 +74,11 @@ class User < ActiveRecord::Base
   end
 
 
+  def self.admins
+    User.where(:is_admin => true).order(:first_name, :last_name)
+  end
+
+
   # Returns the user's home folder
   def home_folder
     folder = Folder.where(:name => uid, :parent_id => Folder.root.id).first
