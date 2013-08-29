@@ -1,14 +1,16 @@
 $(document).ready(function(){  
   var user_select = $('#user_id');
   var promote = $('#promote');
-  promote.hide();
+    
+  user_select.change(function() {validate_selection() });
+  user_select.keyup(function() {validate_selection()} );
   
-  user_select.on("change", function() {
-    if(user_select.val() == "") {
-      promote.hide();
+  function validate_selection() {
+    if (user_select.val() == "") {
+      promote.prop("disabled", "true");
     }
     else {
-      promote.show();
+      promote.removeProp("disabled");
     }
-  });
+  }
 });

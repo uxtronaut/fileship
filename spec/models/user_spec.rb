@@ -30,14 +30,25 @@ describe User do
   end
 
 
+
   describe '#home_folder' do
-    it "returns the user's home folder" do
+    it "returns the user's home folder if it exists" do
       user = FactoryGirl.create(:user)
       user.home_folder.should_not be_nil
       user.home_folder.name.should eq(user.uid)
       user.home_folder.parent.should eq(Folder.root)
     end
+    
+    it "creates a new home folder if one doesn't exist" do
+      user = FactoryGirl.create(:user)
+      user.home_folder.destroy
+      user.home_folder.should_not be_nil
+      user.home_folder.name.should eq(user.uid)
+      user.home_folder.parent.should eq(Folder.root)
+    end
   end
+
+
 
   describe '#name' do
     it "returns the user's full name" do
@@ -45,4 +56,26 @@ describe User do
       user.name.should eq("#{user.first_name} #{user.last_name}")
     end
   end
+  
+  
+  
+  describe '#find_or_import' do
+    context 'for an existing user' do
+      before do 
+        @user = FactoryGirl.create(:user)
+      end
+      
+      it 'returns the user' do
+        User.find_or_import(@user.uid).should eq @user
+      end
+    end
+    
+    
+    #context 'for a new user' do
+    #  
+    #end
+  end
+  
+  
+  
 end
