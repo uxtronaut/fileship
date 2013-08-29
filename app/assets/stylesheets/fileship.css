@@ -169,6 +169,12 @@ a:hover {
     border-color: #C9542B #C9542B #8A3A1E;
 }
 
+.btn-primary[disabled], .btn-primary[disabled]:hover {
+    background: -moz-linear-gradient(center top , #E18145, #C9542B) repeat-x scroll 0 0 #D76F3A;
+    border-color: #C9542B #C9542B #8A3A1E;
+    opacity: 0.65;
+}
+
 .btn-primary, .btn-primary:hover, .btn-warning, .btn-warning:hover, .btn-danger, .btn-danger:hover, .btn-success, .btn-success:hover, .btn-info, .btn-info:hover, .btn-inverse, .btn-inverse:hover {
     color: #FFFFFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);

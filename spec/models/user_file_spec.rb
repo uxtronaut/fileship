@@ -33,6 +33,30 @@ describe UserFile do
   end
 
 
+  describe "#share_url" do
+    before do 
+      @file = FactoryGirl.create(:user_file, :user => @user, :folder => @folder)
+      @subdirectory = Fileship::Application.config.fileship_config['subdirectory']
+    end
+    
+    it "should generate correct url without subdirectory" do
+      unless @subdirectory.blank?
+        assert true
+      else
+        UserFile.share_url("www.example.com/fileship").should eq "www.example.com/fileship"
+      end
+    end
+    
+    it "should generate correct url with subdirectory" do
+      unless @subdirectory.blank?
+        UserFile.share_url("www.example.com/fileship").should eq "www.example.com/#{@subdirectory}/fileship"
+      else
+        assert true
+      end
+    end
+  end
+
+
   describe "#purge_old_files" do
     it "should remove all files older than the pre-defined number of days" do
       # creates user_file one day before the purge date. Should be purged

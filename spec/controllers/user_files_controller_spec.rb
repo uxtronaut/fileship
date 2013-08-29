@@ -436,26 +436,27 @@ describe UserFilesController do
   
   
       context 'via json' do
- #       context 'for a permitted file' do
- #         before do
- #           @file = FactoryGirl.create(:user_file, :user => @user)
- #           @folder = @file.folder
- #           delete :destroy, {
- #             :id => @file.id,
- #             :format => :json
- #           }
- #         end
- # 
- #         it 'deletes file and redirects to folder' do
- #           response.should redirect_to(@folder)
- #         end
- #       end
+        context 'for a permitted file' do
+          before do
+            @file = FactoryGirl.create(:user_file, :user => @user)
+            @folder = @file.folder
+            delete :destroy, {
+              :id => @file.id,
+              :format => :js
+            }
+          end
+  
+          it 'deletes file and redirects to folder' do
+            response.should render_template(@folder)
+          end
+        end
   
   
         context 'for another users file' do
           before do
             @file = FactoryGirl.create(:user_file, :user => @other_user)
           end
+          
           it 'responds 403' do
             delete :destroy, {
               :id => @file,
