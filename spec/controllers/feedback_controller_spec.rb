@@ -27,16 +27,16 @@ describe FeedbackController do
         RubyCAS::Filter.fake(@user.uid)
         session[:cas_user] = @user.uid      
       end
-
-      it 'saves valid feedback and redirects to thanks page' do
-        post :create, {
-          :feedback => {
-            :subject => "test",
-            :description => "test"
-          }
-        }
-        response.should redirect_to(thanks_feedback_index_path)
-      end
+      
+      #  it 'saves valid feedback and redirects to thanks page' do
+      #    post :create, {
+      #      :feedback => {
+      #        :subject => "test",
+      #        :description => "test"
+      #      }
+      #    }
+      #    response.should redirect_to(thanks_feedback_index_path)
+      #  end
       
       it 'redners new view if feedback was invalid' do
         post :create, {
