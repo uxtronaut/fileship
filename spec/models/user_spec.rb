@@ -59,7 +59,7 @@ describe User do
   
   
   
-  describe '#find_or_import' do
+  describe '#find_or_import' do    
     context 'for an existing user' do
       before do 
         @user = FactoryGirl.create(:user)
@@ -67,13 +67,23 @@ describe User do
       
       it 'returns the user' do
         User.find_or_import(@user.uid).should eq @user
+        User.all.length.should eq 1
       end
     end
     
     
-    #context 'for a new user' do
-    #  
-    #end
+    context 'for a new user' do
+      before do
+        @test_uid = Fileship::Application.config.ldap['test_uid']
+      end
+      
+      it 'imports the user form ldap' do
+        unless @test_uid.blank?
+          User.find_or_import(@test_uid).should eq User.last
+          User.all.length.should eq 1
+        end
+      end
+    end
   end
   
   
