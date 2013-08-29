@@ -14,7 +14,6 @@ module ApplicationHelper
 
     notice_message = ""
     if flash[:notice]
-      notice_message << link_to('&times;'.html_safe, nil, :class => 'close', :data => {:dismiss => 'alert'})
       notice_message << content_tag(:h4, flash[:notice], :class => 'alert-heading')
       messages << content_tag(:div, notice_message.html_safe, {
         :class => 'alert alert-success',
@@ -25,7 +24,6 @@ module ApplicationHelper
 
     alert_message = ""
     if flash[:alert]
-      alert_message << link_to('&times;'.html_safe, nil, :class => 'close', :data => {:dismiss => 'alert'})
       alert_message << content_tag(:h4, flash[:alert], :class => 'alert-heading')
       messages << content_tag(:div, alert_message.html_safe, {
         :class => 'alert alert-error',
