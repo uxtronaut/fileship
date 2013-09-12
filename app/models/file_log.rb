@@ -12,7 +12,7 @@ class FileLog < ActiveRecord::Base
   
   has_many :file_revisions, :dependent => :destroy
   
-  validates_presence_of :user_file_id
+  validates_presence_of :user_file_id, :user_id
 
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
 
@@ -20,9 +20,14 @@ class FileLog < ActiveRecord::Base
 
   # Creates a new file log
   def self.create_log(user_file)
-    FileLog.create(:user_id => user_file.folder.user_id, :user_file_id => user_file.id, :file_size => user_file.attachment.file.size)
+    if user_file.user_id
+      user_id = user_file.user_id
+    else
+      user_id = user_file.folder.user_id
+    end
+    FileLog.create(:user_id => user_id, :user_file_id => user_file.id, :file_size => user_file.attachment.file.size)
   end
-  
+
   
   # Purges all logs that are older than the number of days set in application settings.
   def self.purge_old_logs

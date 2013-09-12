@@ -5,7 +5,7 @@
 
 class PagesController < ApplicationController
 
-  prepend_before_filter RubyCAS::Filter::GatewayFilter
+  prepend_before_filter RubyCAS::GatewayFilter
 
   def welcome
     if signed_in?
