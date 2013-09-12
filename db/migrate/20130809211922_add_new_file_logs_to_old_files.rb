@@ -4,8 +4,24 @@ class AddNewFileLogsToOldFiles < ActiveRecord::Migration
       file_log.destroy
     end
     
+    admin = User.where(:is_admin => true).first
+    folder = Folder.find_by_name("rescue_" + admin.uid) unless admin.blank?
+    unless admin.blank? || folder
+      folder = Folder.create(:name => "rescue_" + admin.uid, :user_id => admin.id)
+      folder.parent = Folder.root
+      folder.save
+    end
     
     UserFile.all.each do |user_file|
+      if user_file.folder.user_id.blank?
+        if admin
+          user_file.update_attributes(:folder_id => folder.id, :user_id => admin.id)
+        else
+          user_file.destroy
+          next
+        end
+      end
+      user_file.update_attributes(:user_id => user_file.folder.user_id)
       FileLog.create_log(user_file)
       file_log = user_file.file_log
       file_log.created_at = user_file.created_at

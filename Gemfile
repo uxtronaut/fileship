@@ -17,8 +17,8 @@ gem 'bootstrap-sass'
 
 gem 'carrierwave'
 
-gem 'rubycas-client', '~> 2.2.1'
-gem 'rubycas-client-rails'
+gem 'rubycas-client'
+gem 'rubycas-client-rails', :git => "https://github.com/rubycas/rubycas-client-rails.git"
 
 gem 'net-ldap'
 
