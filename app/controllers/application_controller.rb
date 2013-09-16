@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
       # Ensure the user was successfully retrieved from ldap. If no information for them is
       # available, the app is unusable, so we need to let them try to log in again
       unless @current_user
-        Rails.logger.error "Valid CAS session, but no LDAP record for " + uid
+        Rails.logger.error "User " + uid + " could not be imported due to missing information on the requested LDAP server."
         RubyCAS::Filter.logout(self, welcome_url)
         return
       end

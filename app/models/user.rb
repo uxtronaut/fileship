@@ -68,8 +68,9 @@ class User < ActiveRecord::Base
     
     # If user is first one in application, makes them an administrator
     new_user.is_admin = true if User.all.blank?
-    new_user.save!
-    return new_user
+    new_user.save
+    return new_user unless new_user.blank?
+    return nil
   end
 
 
