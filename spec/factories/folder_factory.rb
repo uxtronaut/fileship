@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: folders
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  user_id    :integer
+#  parent_id  :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 FactoryGirl.define do
 
   factory :folder do

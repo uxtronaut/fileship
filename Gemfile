@@ -29,6 +29,8 @@ gem 'seed-fu', '~> 2.2.0'
 
 gem 'will_paginate', '3.0.4'
 
+gem 'annotate', ">=2.5.0"
+
 
 # REMOVE BEFORE OPEN SOURCING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 gem "cws_logger", :git => "git@gitlab.cws.oregonstate.edu:gems/cws_logger.git"
