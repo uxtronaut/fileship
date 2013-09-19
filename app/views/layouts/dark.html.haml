@@ -14,9 +14,10 @@
   %body.dark{:class => action_name}
     .wrapper
 
-      = render 'tophat', :show_links => false
-
       - unless action_name == 'welcome'
+
+        = render 'tophat', :show_links => false
+
         .container
           %header
             %h1= link_to 'FileShip', root_path
