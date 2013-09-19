@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: file_logs
+#
+#  id           :integer          not null, primary key
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_file_id :integer
+#  downloads    :integer          default(0)
+#  file_size    :integer          default(0)
+#  deleted_at   :datetime
+#  user_id      :integer
+#
+
 # Fileship
 # Copyright (C) 2012 Oregon State University
 #

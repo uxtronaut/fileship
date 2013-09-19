@@ -7,7 +7,7 @@ GIT
       json
 
 GIT
-  remote: https://github.com/rubycas/rubycas-client-rails.git
+  remote: https://github.com/oregonstateuniv/rubycas-client-rails.git
   revision: b97de6edc7871bc43ca1c9572f4d9188a210b341
   specs:
     rubycas-client-rails (0.1.1)
@@ -46,6 +46,8 @@ GEM
       multi_json (~> 1.0)
     acts_as_tree (1.4.0)
       activerecord (>= 3.0.0)
+    annotate (2.5.0)
+      rake
     arel (3.0.2)
     bootstrap-sass (2.3.2.1)
       sass (~> 3.2)
@@ -176,6 +178,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_tree
+  annotate (>= 2.5.0)
   bootstrap-sass
   carrierwave
   coffee-rails (~> 3.2.1)

@@ -11,12 +11,12 @@
     - folder.children.each do |child_folder|
       %tr
         %td.file-icon= image_tag 'fileicons/folder.png'
-        %td.file-name= link_to child_folder.name, child_folder
+        %td.file-name.home-ocon= link_to child_folder.name, child_folder
         %td.muted= number_to_human_size(child_folder.size).to_s.downcase
         %td.muted= l(child_folder.updated_at)
         %td
         %td.file-actions
-          - if @current_user == child_folder.user || child_folder.user.blank?
+          - if @current_user == child_folder.user && child_folder != @current_user.home_folder
             .btn-group
               = dropdown_menu_toggle
               %ul.dropdown-menu
