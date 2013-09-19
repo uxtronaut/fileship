@@ -10,6 +10,7 @@ Fileship::Application.routes.draw do
   resources :users do
     collection do
       post :add_admin
+      post :remove_admin
     end
   end
 

@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: file_revisions
+#
+#  id           :integer          not null, primary key
+#  file_name    :string(255)
+#  user_file_id :integer
+#  file_log_id  :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 # Fileship
 # Copyright (C) 2012 Oregon State University
 #

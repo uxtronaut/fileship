@@ -20,6 +20,10 @@ ldap: &ldap_settings
   
   # Keep as :simple_tls unless your ldap requires another encryption method.
   encryption: :simple_tls
+  
+  # Add a valid, existing uid from your ldap server here to test the above configurations during 
+  # regular tests. This setting is optional.
+  test_uid: ''
 
 
 

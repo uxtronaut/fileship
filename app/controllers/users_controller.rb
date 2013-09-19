@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   # View for seeing existing admins and adding new ones
   def index
     @user = User.new
-    @admins = User.where(:is_admin => true).order(:first_name, :last_name)
+    @admins = User.admins
     @users = User.order(:first_name, :last_name) - @admins
   end
 
@@ -28,6 +28,19 @@ class UsersController < ApplicationController
     end
     redirect_to users_path
   end
+  
+  
+  
+  # Removes admin privilages from an existing admin
+   def remove_admin
+     unless params[:user].blank?
+       admin = User.find(params[:user])
+       admin.is_admin = false
+       admin.save
+       flash[:notice] = "Officer #{admin.name} is retiring after serving valiantly. Please join us on the starboard lounge for cake."
+     end
+     redirect_to users_path
+   end
 
 
 

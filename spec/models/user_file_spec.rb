@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: user_files
+#
+#  id         :integer          not null, primary key
+#  attachment :string(255)
+#  name       :string(255)
+#  link_token :string(255)
+#  password   :string(255)
+#  folder_id  :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer
+#
+
 require 'spec_helper'
 
 describe UserFile do
@@ -29,6 +44,30 @@ describe UserFile do
     it "returns the file's extension" do
       user_file = FactoryGirl.create(:user_file, :folder => @folder)
       user_file.extension.should == 'png'
+    end
+  end
+
+
+  describe "#share_url" do
+    before do 
+      @file = FactoryGirl.create(:user_file, :user => @user, :folder => @folder)
+      @subdirectory = Fileship::Application.config.fileship_config['subdirectory']
+    end
+    
+    it "should generate correct url without subdirectory" do
+      unless @subdirectory.blank?
+        assert true
+      else
+        UserFile.share_url("www.example.com/fileship").should eq "www.example.com/fileship"
+      end
+    end
+    
+    it "should generate correct url with subdirectory" do
+      unless @subdirectory.blank?
+        UserFile.share_url("www.example.com/fileship").should eq "www.example.com/#{@subdirectory}/fileship"
+      else
+        assert true
+      end
     end
   end
 
