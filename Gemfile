@@ -18,7 +18,7 @@ gem 'bootstrap-sass'
 gem 'carrierwave'
 
 gem 'rubycas-client'
-gem 'rubycas-client-rails', :git => "https://github.com/rubycas/rubycas-client-rails.git"
+gem 'rubycas-client-rails', :git => "https://github.com/oregonstateuniv/rubycas-client-rails.git"
 
 gem 'net-ldap'
 
@@ -28,6 +28,8 @@ gem 'acts_as_tree'
 gem 'seed-fu', '~> 2.2.0'
 
 gem 'will_paginate', '3.0.4'
+
+gem 'annotate', ">=2.5.0"
 
 
 # REMOVE BEFORE OPEN SOURCING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

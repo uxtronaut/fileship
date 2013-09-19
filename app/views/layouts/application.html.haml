@@ -6,7 +6,6 @@
     %meta{:'http-equiv' => 'X-UA-Compatible', :content => 'IE=edge'}
     = javascript_include_tag 'application'
     = stylesheet_link_tag 'application'
-    = stylesheet_link_tag 'fileship'
     = stylesheet_link_tag @stylesheet_path unless @stylesheet_path.blank?
     = csrf_meta_tag
 
@@ -17,12 +16,13 @@
   %body{:class => [action_name, controller_name]}
     .wrapper
 
-      = render 'tophat', :show_links => true
+      - unless action_name == 'welcome'
 
-      .header-wrapper
-        .container
-          %header
-            - unless action_name == 'welcome'
+        = render 'tophat', :show_links => true
+
+        .header-wrapper
+          .container
+            %header
               %h1= link_to 'FileShip', root_path
               %nav.tabbable
                 %ul.nav.nav-tabs.pull-right

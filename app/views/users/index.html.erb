@@ -9,38 +9,45 @@
           <td>
             <%= admin.name %>
           </td>
+          <td>
+            <% if admin != @current_user %>
+              <%= link_to "Retire", remove_admin_users_path + "?user=#{ admin.id }", 
+                  :method => :post, :confirm => "Are you sure this officer is ready to retire?", 
+                  :class => "btn btn-danger" %>  
+            <% end %>        
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
   
-  <h3> Not enough officers on your ship? Add more here! </h3>
-  
-  
-  <%= simple_form_for @user, :url => {:action => :add_admin} do |form| %>
-  
-    <% if @error %>
-      <div class="alert form-alert-error">
-        <h4> Danger! Danger! </h4>
-        <span> Some problems were detected with your transmission, please try again... </span>
-      </div>
-    <% end %>
-    
-    <div class="form-horizontal">
-      <div class="span6">
-        <%= form.input :id, label: "Candidates", collection: @users, prompt: "Choose a new officer" %>
-      </div>
+  <% unless @users.blank? %>
+    <h3> Not enough officers on your ship? Add more here! </h3>
+    <%= simple_form_for @user, :url => {:action => :add_admin} do |form| %>
+      <% if @error %>
+        <div class="alert form-alert-error">
+          <h4> Danger! Danger! </h4>
+          <span> Some problems were detected with your transmission, please try again... </span>
+        </div>
+      <% end %>
       
-      <div class="span5 info">
-        <i class="icon-info-sign  pull-left"></i>
-        <%= form.hint "Officers can see the names of all users' files and change Fileship's settings." %>
+      <div class="form-horizontal">
+        <div class="span6">
+          <%= form.input :id, label: "Candidates", collection: @users, 
+              prompt: "Choose a new officer" %>
+        </div>
+        
+        <div class="span5 info">
+          <i class="icon-info-sign  pull-left"></i>
+          <%= form.hint "Officers can see the names of all users' files and change Fileship's settings." %>
+        </div>
+        
+        <div class="form-actions span9">
+          <%= form.submit  "Promote", :class => "btn btn-primary", 
+              :confirm => "With power comes responsibility. Are you sure?", :id => "promote", :disabled => "true" %>
+        </div>
       </div>
-      
-      <div class="form-actions span9">
-        <%= form.submit  "Promote", :class => "btn btn-primary", :confirm => "Are you sure?" %>
-      </div>
-    </div>
-    
-  <% end %>  
+    <% end %>  
+  <% end %>
   
 </div>

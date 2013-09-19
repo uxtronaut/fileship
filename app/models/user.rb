@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  email           :string(255)
+#  is_admin        :boolean
+#  uid             :string(255)
+#  first_name      :string(255)
+#  last_name       :string(255)
+#  ldap_identifier :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 # Fileship
 # Copyright (C) 2012 Oregon State University
 #
@@ -53,8 +68,9 @@ class User < ActiveRecord::Base
     
     # If user is first one in application, makes them an administrator
     new_user.is_admin = true if User.all.blank?
-    new_user.save!
-    return new_user
+    new_user.save
+    return new_user unless new_user.blank?
+    return nil
   end
 
 
@@ -71,6 +87,11 @@ class User < ActiveRecord::Base
     return nil if user_information.blank?
     user_information = user_information[0]
     return user_information
+  end
+
+
+  def self.admins
+    User.where(:is_admin => true).order(:first_name, :last_name)
   end
 
 
