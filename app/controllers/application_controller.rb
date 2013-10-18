@@ -40,6 +40,7 @@ class ApplicationController < ActionController::Base
         return
       end
     end
+    @home_folder = @current_user.home_folder unless @current_user.blank?
   end
 
 

@@ -31,6 +31,8 @@ gem 'will_paginate', '3.0.4'
 
 gem 'annotate', ">=2.5.0"
 
+gem "font-awesome-rails", "3.2.1.3"
+
 
 # REMOVE BEFORE OPEN SOURCING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 gem "cws_logger", :git => "git@gitlab.cws.oregonstate.edu:gems/cws_logger.git"
