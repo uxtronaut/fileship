@@ -239,6 +239,15 @@ body.dark .btn-primary {
     line-height: 150%;
 }
 
+
+#password-entry .btn-primary{
+  font-size: 100%;
+}
+
+#password-entry{
+  color: #fff;
+}
+
 .navbar .brand {
   max-width: 110px;
 }
