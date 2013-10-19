@@ -146,6 +146,26 @@ describe UserFilesController do
         response.should render_template('user_files/enter_password')
       end
     end
+    
+    
+    
+    context 'as a guest' do
+      before do
+        @file = FactoryGirl.create(:user_file, :password => 'test')
+      end
+      
+      
+      it 'should send file if password is correct' do
+        get :check_password, :id => @file.id, :user_file => {:password => 'test'}
+        response.status.should eq 200
+      end
+      
+      
+      it 'should render password form if password is incorrect' do
+        get :check_password, :id => @file.id, :user_file => {:password => 'testo'}
+        response.should render_template('user_files/enter_password')
+      end
+    end
   end
   
   
