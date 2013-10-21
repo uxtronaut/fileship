@@ -193,6 +193,42 @@ describe UserFilesController do
   
   
   
+  describe '#enter password' do
+    context 'as a user' do
+      before do
+        @user = FactoryGirl.create(:user)
+        @file = FactoryGirl.create(:user_file, :password => 'test')
+        User.stubs(:find_or_import).returns(@user)
+        RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
+      end
+      
+      
+      it 'should get page' do
+        get :enter_password, :id => @file
+        response.status.should eq 200
+      end
+    end
+    
+    
+    
+    context 'as a guest' do
+      before do
+        @file = FactoryGirl.create(:user_file, :password => 'test')
+      end
+      
+      
+      it 'should get page' do
+        get :enter_password, :id => @file
+        response.status.should eq 200
+      end
+    end
+  end
+  
+  
+  
+  
+  
   describe '#create' do
     context 'as a user' do
       before do

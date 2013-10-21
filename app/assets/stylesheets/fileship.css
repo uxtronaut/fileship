@@ -246,6 +246,8 @@ body.dark .btn-primary {
 
 #password-entry{
   color: #fff;
+  margin-left: -20px;
+  margin-top: 40px;
 }
 
 .navbar .brand {
@@ -417,3 +419,6 @@ html, body {
   height: 220px;
 }
 
+.hidden {
+  display: none;
+}
