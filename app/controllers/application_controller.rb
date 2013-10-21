@@ -40,6 +40,7 @@ class ApplicationController < ActionController::Base
         return
       end
     end
+    @home_folder = @current_user.home_folder unless @current_user.blank?
   end
 
 
@@ -71,13 +72,13 @@ class ApplicationController < ActionController::Base
 
 # Error handling
 
- ## Rescues internal server error with 500
- #rescue_from Exception do |exception|
- #  respond_to do |format|
- #    format.html { render "pages/500.html.erb", :status => :internal_server_error, :layout => 'dark' }
- #    format.json { render :json => {:error => 'Error 500, error...'}, :status => :rejected, :content_type => 'text/plain' }
- #  end
- #end
+ # Rescues internal server error with 500
+ rescue_from Exception do |exception|
+   respond_to do |format|
+     format.html { render "pages/500.html.erb", :status => :internal_server_error, :layout => 'dark' }
+     format.json { render :json => {:error => 'Error 500, error...'}, :status => :rejected, :content_type => 'text/plain' }
+   end
+ end
   
   
   # Rescues from invalid record with 404
@@ -96,8 +97,8 @@ class ApplicationController < ActionController::Base
       format.json { render :json => {:error => 'Error 404, not found...'}, :status => :not_found, :content_type => 'text/plain' }
     end
   end
- 
- 
+  
+  
   # Renders permission denied page
   def render_403
     respond_to do |format|
@@ -106,7 +107,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
- 
+  
   # Rescues unprocessible entity with 422
   rescue_from ActiveResource::ClientError do |exception|
     respond_to do |format|

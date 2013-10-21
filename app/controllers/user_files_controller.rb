@@ -29,6 +29,7 @@ class UserFilesController < ApplicationController
 
 
   def enter_password
+    render :layout => 'dark'
   end
 
 
@@ -39,7 +40,7 @@ class UserFilesController < ApplicationController
       return
     end
     @user_file.errors.add :password, "Password didn't match"
-    render :enter_password, :alert => 'Password did not match...'
+    render :enter_password, :alert => 'Password did not match...', :layout => 'dark'
   end
 
 

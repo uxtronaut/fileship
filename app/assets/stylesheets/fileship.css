@@ -239,6 +239,17 @@ body.dark .btn-primary {
     line-height: 150%;
 }
 
+
+#password-entry .btn-primary{
+  font-size: 100%;
+}
+
+#password-entry{
+  color: #fff;
+  margin-left: -20px;
+  margin-top: 40px;
+}
+
 .navbar .brand {
   max-width: 110px;
 }
@@ -408,3 +419,6 @@ html, body {
   height: 220px;
 }
 
+.hidden {
+  display: none;
+}
