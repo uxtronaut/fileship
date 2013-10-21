@@ -146,6 +146,26 @@ describe UserFilesController do
         response.should render_template('user_files/enter_password')
       end
     end
+    
+    
+    
+    context 'as a guest' do
+      before do
+        @file = FactoryGirl.create(:user_file, :password => 'test')
+      end
+      
+      
+      it 'should send file if password is correct' do
+        get :check_password, :id => @file.id, :user_file => {:password => 'test'}
+        response.status.should eq 200
+      end
+      
+      
+      it 'should render password form if password is incorrect' do
+        get :check_password, :id => @file.id, :user_file => {:password => 'testo'}
+        response.should render_template('user_files/enter_password')
+      end
+    end
   end
   
   
@@ -164,6 +184,42 @@ describe UserFilesController do
       
       it 'should get page' do
         get :new, :folder_id => @user.home_folder.id
+        response.status.should eq 200
+      end
+    end
+  end
+  
+  
+  
+  
+  
+  describe '#enter password' do
+    context 'as a user' do
+      before do
+        @user = FactoryGirl.create(:user)
+        @file = FactoryGirl.create(:user_file, :password => 'test')
+        User.stubs(:find_or_import).returns(@user)
+        RubyCAS::Filter.fake(@user.uid)
+        session[:cas_user] = @user.uid
+      end
+      
+      
+      it 'should get page' do
+        get :enter_password, :id => @file
+        response.status.should eq 200
+      end
+    end
+    
+    
+    
+    context 'as a guest' do
+      before do
+        @file = FactoryGirl.create(:user_file, :password => 'test')
+      end
+      
+      
+      it 'should get page' do
+        get :enter_password, :id => @file
         response.status.should eq 200
       end
     end

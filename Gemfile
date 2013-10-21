@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -30,6 +30,8 @@ gem 'seed-fu', '~> 2.2.0'
 gem 'will_paginate', '3.0.4'
 
 gem 'annotate', ">=2.5.0"
+
+gem "font-awesome-rails", "3.2.1.3"
 
 
 # REMOVE BEFORE OPEN SOURCING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
