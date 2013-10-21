@@ -26,10 +26,10 @@
               %h1= link_to 'FileShip', root_path
               %nav.tabbable
                 %ul.nav.nav-tabs.pull-right
-                  %li{:class => (request.fullpath.include?(folder_path(@home_folder)) ? 'active' : nil)}
+                  %li{:class => ((@folder && @folder.user_id == @current_user.id) ? 'active' : nil)}
                     = link_to "#{content_tag :i, '', :class => 'icon-file icon-large'} My Files".html_safe, folder_path(@home_folder)
                   -if @current_user.is_admin
-                    %li{:class => ((['folders', 'user_files'].include?(controller_name) && !request.fullpath.include?(folder_path(@home_folder))) ? 'active' : nil)}
+                    %li{:class => ((['folders', 'user_files'].include?(controller_name) && @folder && @folder.user_id != @current_user.id) ? 'active' : nil)}
                       = link_to "#{content_tag :i, '', :class => 'icon-check icon-large'} File Auditing".html_safe, folders_path
                   %li{:class => (action_name == 'help' ? 'active' : nil)}
                     = link_to "#{content_tag :i, '', :class => 'icon-question-sign icon-large'} Help".html_safe, help_path
