@@ -34,7 +34,6 @@ Fileship's configurations are in 'config' -> 'app.yml'.
 * Ruby 1.9.3
 * Rails 3.2.13
 * Uploaded files are stored in 'public' -> 'uploads'
-* Works best on javascript enabled
 
 
 ## License:
